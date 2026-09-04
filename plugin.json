@@ -3,7 +3,7 @@
   "version": "2.3.0",
   "description": "Harness-native EGC plugin for Gemini CLI & Antigravity - 72 agents, 288 skills, 96 commands, multimodal vision UI debugging, 2M mega-context whole-repo analysis, lifecycle hooks, rules, and MCP configurations.",
   "author": {
-    "name": "stephenpaul2509c-ship-it",
+    "name": "Stephen Paul",
     "url": "https://github.com/stephenpaul2509c-ship-it"
   },
   "homepage": "https://github.com/stephenpaul2509c-ship-it/everything-gemini-code",

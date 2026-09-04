@@ -158,9 +158,9 @@ python scripts/verify-plugin.py
 
 ---
 
-## 🤝 License & Community
+## 🤝 License & Attribution
 
-Built for the Google Gemini and Antigravity ecosystem. Inspired by open-source agent harness architecture frameworks.
+Attribution: Everything Gemini Code (EGC) is adapted from Everything Claude Code (ECC) by Affaan Mustafa. ECC is licensed under the MIT License.
 
-Licensed under the [MIT License](./LICENSE).
+Built for the Google Gemini and Antigravity ecosystem. Licensed under the [MIT License](./LICENSE).
 
