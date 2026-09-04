@@ -6,7 +6,7 @@ const path = require('path');
 const { readInstallState } = require('../install-state');
 const { assertWithinTrustedRoot } = require('../path-safety');
 
-const CLAUDE_TARGETS = new Set(['claude', 'claude-project']);
+const GEMINI_TARGETS = new Set(['claude', 'claude-project']);
 
 function pathExists(filePath) {
   try {
@@ -72,7 +72,7 @@ function assertSafeSkillPath(targetPath, targetRoot, action) {
     }
     if (stats.isSymbolicLink()) {
       throw new Error(
-        `Refusing to ${action} through symlinked Claude skill path: '${currentPath}'.`
+        `Refusing to ${action} through symlinked Gemini skill path: '${currentPath}'.`
       );
     }
   }
@@ -114,7 +114,7 @@ function describeClaudeSkillOperation(targetRoot, operation) {
 
 function assertSafeClaudeSkillOperation(plan, operation) {
   const target = plan && plan.adapter && plan.adapter.target;
-  if (!CLAUDE_TARGETS.has(target)) {
+  if (!GEMINI_TARGETS.has(target)) {
     return;
   }
   const descriptor = describeClaudeSkillOperation(plan.targetRoot, operation);
@@ -124,7 +124,7 @@ function assertSafeClaudeSkillOperation(plan, operation) {
   assertSafeSkillPath(
     operation.destinationPath,
     plan.targetRoot,
-    'install Claude skill'
+    'install Gemini skill'
   );
 }
 
@@ -160,7 +160,7 @@ function groupCurrentSkillOperations(plan) {
     assertSafeSkillPath(
       operation.destinationPath,
       plan.targetRoot,
-      'install Claude skill'
+      'install Gemini skill'
     );
 
     const current = groups.get(descriptor.flatSkillRoot) || [];
@@ -188,7 +188,7 @@ function classifyPreviousOperations(plan, previousState) {
       assertSafeSkillPath(
         operation.destinationPath,
         plan.targetRoot,
-        'inspect managed Claude skill'
+        'inspect managed Gemini skill'
       );
       flatByDestination.set(comparablePath(operation.destinationPath), operation);
       continue;
@@ -201,7 +201,7 @@ function classifyPreviousOperations(plan, previousState) {
     assertSafeSkillPath(
       operation.destinationPath,
       plan.targetRoot,
-      'migrate managed Claude skill'
+      'migrate managed Gemini skill'
     );
     legacyBySource.set(descriptor.sourceKey, operation);
     const current = legacyBySkillRoot.get(descriptor.legacySkillRoot) || [];
@@ -220,14 +220,14 @@ function createConflictWarning(skillName, flatSkillRoot, retainsLegacy) {
   const legacySuffix = retainsLegacy
     ? ' The existing ECC-managed nested copy was retained and remains tracked for uninstall.'
     : '';
-  return `Skipped Claude skill '${skillName}' at ${flatSkillRoot}: the flat skill directory is user-owned because it is not recorded in ECC install-state.${legacySuffix}`;
+  return `Skipped Gemini skill '${skillName}' at ${flatSkillRoot}: the flat skill directory is user-owned because it is not recorded in ECC install-state.${legacySuffix}`;
 }
 
 function createFileConflictWarning(destinationPath, retainsLegacy) {
   const legacySuffix = retainsLegacy
     ? ' The matching ECC-managed nested file was retained and remains tracked for uninstall.'
     : '';
-  return `Skipped user-owned Claude skill file ${destinationPath}: the existing file is not recorded in ECC install-state.${legacySuffix}`;
+  return `Skipped user-owned Gemini skill file ${destinationPath}: the existing file is not recorded in ECC install-state.${legacySuffix}`;
 }
 
 function createDisabledMigration(plan, previousState) {
@@ -359,7 +359,7 @@ function prepareClaudeSkillMigration(plan) {
     ? readInstallState(plan.installStatePath)
     : null;
   const target = plan && plan.adapter && plan.adapter.target;
-  if (!CLAUDE_TARGETS.has(target)) {
+  if (!GEMINI_TARGETS.has(target)) {
     return createDisabledMigration(plan, previousState);
   }
   const currentGroups = groupCurrentSkillOperations(plan);
@@ -389,7 +389,7 @@ function cleanupEmptyLegacyParents(filePath, targetRoot) {
   let currentPath = path.dirname(filePath);
 
   while (!samePath(currentPath, skillsRoot)) {
-    assertSafeSkillPath(currentPath, targetRoot, 'clean Claude skill migration');
+    assertSafeSkillPath(currentPath, targetRoot, 'clean Gemini skill migration');
     if (!pathExists(currentPath) || fs.readdirSync(currentPath).length > 0) {
       return;
     }
@@ -403,7 +403,7 @@ function removeLegacyClaudeSkillFiles(migration, targetRoot) {
     assertSafeSkillPath(
       operation.destinationPath,
       targetRoot,
-      'migrate managed Claude skill'
+      'migrate managed Gemini skill'
     );
     fs.rmSync(operation.destinationPath, { force: true });
     cleanupEmptyLegacyParents(operation.destinationPath, targetRoot);

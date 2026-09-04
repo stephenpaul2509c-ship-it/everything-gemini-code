@@ -45,7 +45,7 @@ First verify the log exists (use `node`, not `sqlite3` — the tracker writes
 JSONL, and `node` is cross-platform):
 
 ```bash
-node -e 'const fs=require("fs"),os=require("os"),p=require("path");const f=p.join(os.homedir(),".claude","metrics","costs.jsonl");console.log(fs.existsSync(f)?"cost log found":"cost log not found: "+f)'
+node -e 'const fs=require("fs"),os=require("os"),p=require("path");const f=p.join(os.homedir(),'.gemini',"metrics","costs.jsonl");console.log(fs.existsSync(f)?"cost log found":"cost log not found: "+f)'
 ```
 
 If the log is missing, do not fabricate usage data. Tell the user that cost
@@ -57,7 +57,7 @@ hook enabled.
 ```bash
 node -e '
 const fs=require("fs"),os=require("os"),path=require("path");
-const f=path.join(os.homedir(),".claude","metrics","costs.jsonl");
+const f=path.join(os.homedir(),'.gemini',"metrics","costs.jsonl");
 if(!fs.existsSync(f)){console.log("cost log not found: "+f);process.exit(0);}
 const rows=fs.readFileSync(f,"utf8").split(/\r?\n/).filter(Boolean).map(l=>{try{return JSON.parse(l)}catch{return null}}).filter(Boolean);
 const bySession=new Map();

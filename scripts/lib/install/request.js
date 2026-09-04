@@ -108,7 +108,7 @@ function normalizeInstallRequest(options = {}) {
     );
   }
   if (locale && target !== 'claude' && target !== 'claude-project') {
-    throw new Error('--locale can only be used with --target claude or --target claude-project');
+    throw new Error('--locale can only be used with --target gemini or --target gemini-project');
   }
   const requestedIncludeComponentIds = dedupeStrings([
     ...(config?.includeComponentIds || []),

@@ -9,7 +9,7 @@ description: >
   product returns, reverse logistics, refund decisions, return fraud
   detection, or warranty claims.
 license: Apache-2.0
-homepage: https://github.com/affaan-m/everything-claude-code
+homepage: https://github.com/affaan-m/everything-gemini-code
 metadata:
   version: 1.0.0
   origin: EGC

@@ -513,7 +513,7 @@ function normalizeClaudeHistorySession(session, sourceTarget) {
 
   return validateCanonicalSnapshot({
     schemaVersion: SESSION_SCHEMA_VERSION,
-    adapterId: 'claude-history',
+    adapterId: 'gemini-history',
     session: {
       id: workerId,
       kind: 'history',

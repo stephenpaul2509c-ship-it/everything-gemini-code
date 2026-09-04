@@ -94,7 +94,7 @@ Use Gemini CLI / Antigravity's scheduled tasks to create recurring agent operati
 mcp__scheduled-tasks__create_scheduled_task({
   name: "daily-pr-review",
   schedule: "0 9 * * 1-5",  # 9 AM weekdays
-  prompt: "Review all open PRs in affaan-m/everything-claude-code. For each: check CI status, review changes, flag issues. Post summary to memory.",
+  prompt: "Review all open PRs in affaan-m/everything-gemini-code. For each: check CI status, review changes, flag issues. Post summary to memory.",
   project_dir: "/path/to/repo"
 })
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * NanoClaw v2 — Barebones Agent REPL for Everything Claude Code
+ * NanoClaw v2 — Barebones Agent REPL for Everything Gemini CLI / Antigravity
  *
  * Zero external dependencies. Session-aware REPL around `claude -p`.
  */
@@ -22,7 +22,7 @@ function isValidSessionName(name) {
 }
 
 function getClawDir() {
-  return path.join(os.homedir(), '.claude', 'claw');
+  return path.join(os.homedir(), '.gemini', 'claw');
 }
 
 function getSessionPath(name) {

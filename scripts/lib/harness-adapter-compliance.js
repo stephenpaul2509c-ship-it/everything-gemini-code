@@ -41,11 +41,11 @@ function freezeRecord(record) {
 
 const ADAPTER_RECORDS = Object.freeze([
   {
-    id: 'claude-code',
-    harness: 'Claude Code',
+    id: 'gemini-cli',
+    harness: 'Gemini CLI / Antigravity',
     state: 'Native',
     supported_assets: [
-      'Claude plugin assets',
+      'Gemini plugin assets',
       'skills',
       'commands',
       'hooks',
@@ -53,10 +53,10 @@ const ADAPTER_RECORDS = Object.freeze([
       'local rules',
       'statusline-oriented workflows',
     ],
-    unsupported_surfaces: ['Claude-native hooks do not imply parity in other harnesses'],
+    unsupported_surfaces: ['Gemini-native hooks do not imply parity in other harnesses'],
     install_or_onramp: [
-      '`./install.sh --profile minimal --target claude`',
-      'Claude plugin install',
+      '`./install.sh --profile minimal --target gemini`',
+      'Gemini plugin install',
     ],
     verification_commands: [
       '`npm run harness:audit -- --format json`',
@@ -66,9 +66,9 @@ const ADAPTER_RECORDS = Object.freeze([
     last_verified_at: '2026-05-12',
     owner: 'ECC maintainers',
     source_docs: [
-      '.claude-plugin/plugin.json',
+      '.gemini-plugin/plugin.json',
       'docs/architecture/cross-harness.md',
-      'scripts/lib/install-targets/claude-home.js',
+      'scripts/lib/install-targets/gemini-home.js',
     ],
   },
   {
@@ -82,7 +82,7 @@ const ADAPTER_RECORDS = Object.freeze([
       'MCP reference config',
       'command patterns',
     ],
-    unsupported_surfaces: ['Native hook enforcement and Claude slash-command semantics are not equivalent'],
+    unsupported_surfaces: ['Native hook enforcement and Gemini slash-command semantics are not equivalent'],
     install_or_onramp: [
       '`./install.sh --profile minimal --target codex`',
       'repo-local `AGENTS.md` review',
@@ -107,7 +107,7 @@ const ADAPTER_RECORDS = Object.freeze([
       'MCP config',
       'event adapter patterns',
     ],
-    unsupported_surfaces: ['Event names, plugin packaging, and command dispatch differ from Claude Code'],
+    unsupported_surfaces: ['Event names, plugin packaging, and command dispatch differ from Gemini CLI / Antigravity'],
     install_or_onramp: ['OpenCode package or plugin surface from this repo'],
     verification_commands: [
       '`node tests/scripts/build-opencode.test.js`',
@@ -166,7 +166,7 @@ const ADAPTER_RECORDS = Object.freeze([
       'hook adapter',
       'shared scripts',
     ],
-    unsupported_surfaces: ['Cursor hook events and rule loading differ from Claude Code'],
+    unsupported_surfaces: ['Cursor hook events and rule loading differ from Gemini CLI / Antigravity'],
     install_or_onramp: ['`./install.sh --profile minimal --target cursor`'],
     verification_commands: [
       '`node tests/lib/install-targets.test.js`',
@@ -214,7 +214,7 @@ const ADAPTER_RECORDS = Object.freeze([
       'commands',
       'agents',
     ],
-    unsupported_surfaces: ['Zed external agents and native Agent Panel permissions are not Claude hooks'],
+    unsupported_surfaces: ['Zed external agents and native Agent Panel permissions are not Gemini hooks'],
     install_or_onramp: ['`./install.sh --profile minimal --target zed`'],
     verification_commands: [
       '`node tests/lib/install-targets.test.js`',

@@ -1,13 +1,13 @@
 /**
- * Session Aliases Library for Claude Code
- * Manages session aliases stored in $ECC_AGENT_DATA_HOME/session-aliases.json (default ~/.claude).
+ * Session Aliases Library for Gemini CLI / Antigravity
+ * Manages session aliases stored in $ECC_AGENT_DATA_HOME/session-aliases.json (default ~/.gemini).
  */
 
 const fs = require('fs');
 const path = require('path');
 
 const {
-  getClaudeDir,
+  getGeminiDir,
   ensureDir,
   readFile,
   log
@@ -15,7 +15,7 @@ const {
 
 // Aliases file path
 function getAliasesPath() {
-  return path.join(getClaudeDir(), 'session-aliases.json');
+  return path.join(getGeminiDir(), 'session-aliases.json');
 }
 
 // Current alias storage format version

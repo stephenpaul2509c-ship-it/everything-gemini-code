@@ -5,7 +5,7 @@
  * Displays: model | task | $cost Nt Nf Nm | dir ██░░ N%
  *
  * Registered in settings.json under "statusLine", not in hooks.json.
- * Reads bridge file from ecc-metrics-bridge.js and stdin from Claude Code runtime.
+ * Reads bridge file from ecc-metrics-bridge.js and stdin from Gemini CLI / Antigravity runtime.
  */
 
 'use strict';
@@ -37,7 +37,7 @@ function formatDuration(isoTimestamp) {
 
 /**
  * Build context progress bar with ANSI colors.
- * @param {number} remaining - Raw remaining percentage from Claude Code
+ * @param {number} remaining - Raw remaining percentage from Gemini CLI / Antigravity
  * @returns {string} Colored bar string
  */
 function buildContextBar(remaining) {
@@ -65,8 +65,8 @@ function readCurrentTask(sessionId) {
     const safeSessionId = sanitizeSessionId(sessionId);
     if (!safeSessionId) return '';
 
-    const claudeDir = process.env.CLAUDE_CONFIG_DIR || path.join(os.homedir(), '.claude');
-    const todosDir = path.join(claudeDir, 'todos');
+    const geminiDir = process.env.GEMINI_CONFIG_DIR || path.join(os.homedir(), '.gemini');
+    const todosDir = path.join(geminiDir, 'todos');
     if (!fs.existsSync(todosDir)) return '';
 
     const files = fs
@@ -98,7 +98,7 @@ function runStatusline() {
     clearTimeout(stdinTimeout);
     try {
       const data = JSON.parse(input);
-      const model = data.model?.display_name || 'Claude';
+      const model = data.model?.display_name || 'Gemini';
       const dir = data.workspace?.current_dir || process.cwd();
       const session = data.session_id || '';
       const remaining = data.context_window?.remaining_percentage;

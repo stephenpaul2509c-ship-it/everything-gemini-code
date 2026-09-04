@@ -21,8 +21,8 @@ const AGENTS_PATH = path.join(ROOT, 'AGENTS.md');
 const README_ZH_CN_PATH = path.join(ROOT, 'README.zh-CN.md');
 const DOCS_ZH_CN_README_PATH = path.join(ROOT, 'docs', 'zh-CN', 'README.md');
 const DOCS_ZH_CN_AGENTS_PATH = path.join(ROOT, 'docs', 'zh-CN', 'AGENTS.md');
-const PLUGIN_JSON_PATH = path.join(ROOT, '.claude-plugin', 'plugin.json');
-const MARKETPLACE_JSON_PATH = path.join(ROOT, '.claude-plugin', 'marketplace.json');
+const PLUGIN_JSON_PATH = path.join(ROOT, '.gemini-plugin', 'plugin.json');
+const MARKETPLACE_JSON_PATH = path.join(ROOT, '.gemini-plugin', 'marketplace.json');
 const WRITE_MODE = process.argv.includes('--write');
 
 const OUTPUT_MODE = process.argv.includes('--md')
@@ -600,13 +600,13 @@ function createDocumentSpecs(paths = {}) {
       filePath: pluginJsonPath,
       parseExpectations: content => parseCatalogDescriptionExpectations(
         content,
-        '.claude-plugin/plugin.json description',
+        '.gemini-plugin/plugin.json description',
         parsed => parsed.description
       ),
       syncContent: (content, catalog) => syncCatalogDescription(
         content,
         catalog,
-        '.claude-plugin/plugin.json description',
+        '.gemini-plugin/plugin.json description',
         parsed => parsed.description,
         (parsed, description) => { parsed.description = description; }
       ),
@@ -615,13 +615,13 @@ function createDocumentSpecs(paths = {}) {
       filePath: marketplaceJsonPath,
       parseExpectations: content => parseCatalogDescriptionExpectations(
         content,
-        '.claude-plugin/marketplace.json plugin description',
+        '.gemini-plugin/marketplace.json plugin description',
         parsed => parsed.plugins?.[0]?.description
       ),
       syncContent: (content, catalog) => syncCatalogDescription(
         content,
         catalog,
-        '.claude-plugin/marketplace.json plugin description',
+        '.gemini-plugin/marketplace.json plugin description',
         parsed => parsed.plugins?.[0]?.description,
         (parsed, description) => { parsed.plugins[0].description = description; }
       ),
@@ -636,8 +636,8 @@ function createDocumentSpecsForRoot(root) {
     zhRootReadmePath: path.join(root, 'README.zh-CN.md'),
     zhDocsReadmePath: path.join(root, 'docs', 'zh-CN', 'README.md'),
     zhDocsAgentsPath: path.join(root, 'docs', 'zh-CN', 'AGENTS.md'),
-    pluginJsonPath: path.join(root, '.claude-plugin', 'plugin.json'),
-    marketplaceJsonPath: path.join(root, '.claude-plugin', 'marketplace.json'),
+    pluginJsonPath: path.join(root, '.gemini-plugin', 'plugin.json'),
+    marketplaceJsonPath: path.join(root, '.gemini-plugin', 'marketplace.json'),
   });
 }
 

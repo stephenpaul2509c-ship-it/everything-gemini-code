@@ -61,9 +61,9 @@ function splitTopLevelToolList(value) {
 }
 
 /**
- * Normalize Claude agent frontmatter tools to the array shape used internally.
+ * Normalize Gemini agent frontmatter tools to the array shape used internally.
  *
- * Claude Code expects tools to be a comma-separated scalar. Flow sequences are
+ * Gemini CLI / Antigravity expects tools to be a comma-separated scalar. Flow sequences are
  * still accepted here so ECC can read legacy or harness-adapted agent files.
  */
 function normalizeAgentTools(value) {

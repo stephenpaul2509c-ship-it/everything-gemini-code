@@ -9,7 +9,7 @@ const { createSafeItoInvocationEnvironment, getInvocationCommand } = require('./
 const COMMANDS = {
   setup: {
     script: 'setup.js',
-    description: 'Install or update the Claude plugin with guided scope and hook choices',
+    description: 'Install or update the Gemini plugin with guided scope and hook choices',
   },
   welcome: {
     script: 'welcome.js',
@@ -45,7 +45,7 @@ const COMMANDS = {
   },
   memory: {
     script: 'memory.js',
-    description: 'Share durable context across Claude, Codex, Hermes, and other harnesses',
+    description: 'Share durable context across Gemini, Codex, Hermes, and other harnesses',
   },
   'install-plan': {
     script: 'install-plan.js',
@@ -93,11 +93,11 @@ const COMMANDS = {
   },
   'session-inspect': {
     script: 'session-inspect.js',
-    description: 'Emit canonical ECC session snapshots from dmux or Claude history targets',
+    description: 'Emit canonical ECC session snapshots from dmux or Gemini history targets',
   },
   'loop-status': {
     script: 'loop-status.js',
-    description: 'Inspect Claude transcripts for stale loop wakeups and pending tool results',
+    description: 'Inspect Gemini transcripts for stale loop wakeups and pending tool results',
   },
   uninstall: {
     script: 'uninstall.js',
@@ -156,12 +156,12 @@ Compute:
 
 Examples:
   ecc setup
-  ecc setup --mode claude-plugin --scope user --hooks standard --yes
+  ecc setup --mode gemini-plugin --scope user --hooks standard --yes
   ecc welcome
   ecc install --guided
   ecc install --guided --harness claude --harness codex --harness kimi
   ecc typescript
-  ecc install --profile developer --target claude
+  ecc install --profile developer --target gemini
   ecc plan --profile core --target cursor
   ecc catalog profiles
   ecc catalog components --family language
@@ -178,7 +178,7 @@ Examples:
   ecc nasiko install --version v0.1.0 --yes --json
   ecc ito evals --cluster clu_prod_example --live-sixtytwo --nodes gpu-01,gpu-02 --config-dir /absolute/path/to/qualification-config
   ecc memory init
-  ecc memory handoff --from codex --target claude --title "Continue migration" --stdin
+  ecc memory handoff --from codex --target gemini --title "Continue migration" --stdin
   ecc memory search "migration blockers" --target-harness hermes
   ecc list-installed --json
   ecc doctor --target cursor

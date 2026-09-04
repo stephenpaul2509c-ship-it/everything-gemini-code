@@ -711,7 +711,7 @@ function buildRequirements(rootDir, platformReport) {
     'Decision Register',
     'GitHub prerelease',
     'npm `next` publish',
-    'Claude plugin tag',
+    'Gemini plugin tag',
     'Video upload',
     'Final URL Fill-In',
     'Do Not Approve If',
@@ -821,18 +821,18 @@ function buildRequirements(rootDir, platformReport) {
     ),
     buildRequirement(
       'naming-and-plugin-publication',
-      'Prepare name-change, Claude plugin, and Codex plugin paths',
+      'Prepare name-change, Gemini plugin, and Codex plugin paths',
       'naming-and-publication-matrix plus release-name-plugin-publication checklist plus publication-readiness',
-      includesAll(namingMatrix, ['Claude plugin', 'Codex plugin', 'npm package', 'Publication Paths'])
+      includesAll(namingMatrix, ['Gemini plugin', 'Codex plugin', 'npm package', 'Publication Paths'])
         && includesAll(releasePublicationChecklist, [
           'Ship `v2.0.0-rc.1` as **ECC**',
           'affaan-m/ECC',
           'ecc-universal',
-          'claude plugin tag .claude-plugin --dry-run',
+          'claude plugin tag .gemini-plugin --dry-run',
           'codex plugin marketplace add',
           'Do not rename the npm package until rc.1 is published'
         ])
-        && includesAll(publicationReadiness, ['Claude plugin', 'Codex plugin'])
+        && includesAll(publicationReadiness, ['Gemini plugin', 'Codex plugin'])
         ? 'in_progress'
         : 'not_complete',
       'naming matrix, release publication checklist, and plugin readiness gates exist',

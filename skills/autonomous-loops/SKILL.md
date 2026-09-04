@@ -32,7 +32,7 @@ From simplest to most sophisticated:
 | [Sequential Pipeline](#1-sequential-pipeline-claude--p) | Low | Daily dev steps, scripted workflows |
 | [NanoClaw REPL](#2-nanoclaw-repl) | Low | Interactive persistent sessions |
 | [Infinite Agentic Loop](#3-infinite-agentic-loop) | Medium | Parallel content generation, spec-driven work |
-| [Continuous Gemini PR Loop](#4-continuous-claude-pr-loop) | Medium | Multi-day iterative projects with CI gates |
+| [Continuous Gemini PR Loop](#4-continuous-gemini-pr-loop) | Medium | Multi-day iterative projects with CI gates |
 | [De-Sloppify Pattern](#5-the-de-sloppify-pattern) | Add-on | Quality cleanup after any Implementer step |
 | [Ralphinho / RFC-Driven DAG](#6-ralphinho--rfc-driven-dag-orchestration) | High | Large features, multi-unit parallel work with merge queue |
 
@@ -219,7 +219,7 @@ Don't rely on agents to self-differentiate. The orchestrator **assigns** each ag
 ┌─────────────────────────────────────────────────────┐
 │  CONTINUOUS CLAUDE ITERATION                        │
 │                                                     │
-│  1. Create branch (continuous-claude/iteration-N)   │
+│  1. Create branch (continuous-gemini/iteration-N)   │
 │  2. Run claude -p with enhanced prompt              │
 │  3. (Optional) Reviewer pass — separate claude -p   │
 │  4. Commit changes (claude generates message)       │
@@ -236,29 +236,29 @@ Don't rely on agents to self-differentiate. The orchestrator **assigns** each ag
 
 ### Installation
 
-> **Warning:** Install continuous-claude from its repository after reviewing the code. Do not pipe external scripts directly to bash.
+> **Warning:** Install continuous-gemini from its repository after reviewing the code. Do not pipe external scripts directly to bash.
 
 ### Usage
 
 ```bash
 # Basic: 10 iterations
-continuous-claude --prompt "Add unit tests for all untested functions" --max-runs 10
+continuous-gemini --prompt "Add unit tests for all untested functions" --max-runs 10
 
 # Cost-limited
-continuous-claude --prompt "Fix all linter errors" --max-cost 5.00
+continuous-gemini --prompt "Fix all linter errors" --max-cost 5.00
 
 # Time-boxed
-continuous-claude --prompt "Improve test coverage" --max-duration 8h
+continuous-gemini --prompt "Improve test coverage" --max-duration 8h
 
 # With code review pass
-continuous-claude \
+continuous-gemini \
   --prompt "Add authentication feature" \
   --max-runs 10 \
   --review-prompt "Run npm test && npm run lint, fix any failures"
 
 # Parallel via worktrees
-continuous-claude --prompt "Add tests" --max-runs 5 --worktree tests-worker &
-continuous-claude --prompt "Refactor code" --max-runs 5 --worktree refactor-worker &
+continuous-gemini --prompt "Add tests" --max-runs 5 --worktree tests-worker &
+continuous-gemini --prompt "Refactor code" --max-runs 5 --worktree refactor-worker &
 wait
 ```
 
@@ -292,9 +292,9 @@ When PR checks fail, Continuous Gemini automatically:
 Gemini can signal "I'm done" by outputting a magic phrase:
 
 ```bash
-continuous-claude \
+continuous-gemini \
   --prompt "Fix all bugs in the issue tracker" \
-  --completion-signal "CONTINUOUS_CLAUDE_PROJECT_COMPLETE" \
+  --completion-signal "CONTINUOUS_GEMINI_PROJECT_COMPLETE" \
   --completion-threshold 3  # Stops after 3 consecutive signals
 ```
 
@@ -539,7 +539,7 @@ Pipeline stages for the same unit **share** a worktree, preserving state (contex
 | Need parallel implementation | Yes | No |
 | Merge conflicts likely | Yes | No (sequential is fine) |
 | Single-file change | No | Yes (sequential pipeline) |
-| Multi-day project | Yes | Maybe (continuous-claude) |
+| Multi-day project | Yes | Maybe (continuous-gemini) |
 | Spec/RFC already written | Yes | Maybe |
 | Quick iteration on one thing | No | Yes (NanoClaw or pipeline) |
 

@@ -72,7 +72,7 @@ const PM_EXEC_PARTS = PM_EXEC.split(/\s+/); // ["pnpm", "dlx"] or ["npx"] or ["b
  *
  * Codex's [mcp_servers.*] TOML schema is stdio-only (command/args) —
  * never emit a `url` key here. The http/url form is valid only for
- * Claude Code's .mcp.json (#2224).
+ * Gemini CLI / Antigravity's .mcp.json (#2224).
  */
 function dlxServer(name, pkg, extraFields, extraToml) {
   const args = [...PM_EXEC_PARTS.slice(1), pkg];

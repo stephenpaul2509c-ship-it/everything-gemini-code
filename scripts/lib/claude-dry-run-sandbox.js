@@ -10,7 +10,7 @@ function readSnapshotFile(filePath) {
   try {
     const stat = fs.statSync(filePath);
     if (!stat.isFile()) {
-      const error = new Error(`Claude dry-run state is not a regular file: ${filePath}`);
+      const error = new Error(`Gemini dry-run state is not a regular file: ${filePath}`);
       error.code = 'INVALID_DRY_RUN_STATE';
       throw error;
     }
@@ -24,7 +24,7 @@ function readSnapshotFile(filePath) {
 function claudeStateFilePath(paths, options) {
   const hasCustomConfigDir = (
     options.configDir !== undefined
-    || Boolean(process.env.CLAUDE_CONFIG_DIR)
+    || Boolean(process.env.GEMINI_CONFIG_DIR)
   );
   return hasCustomConfigDir
     ? path.join(paths.configDir, '.claude.json')
@@ -69,7 +69,7 @@ function copyJsonSnapshot(sourcePath, destinationPath, mappings) {
     const parsed = JSON.parse(content.toString('utf8'));
     snapshot = Buffer.from(`${JSON.stringify(remapSnapshotValue(parsed, mappings), null, 2)}\n`);
   } catch {
-    // Preserve malformed input so Claude reports the same inventory error from isolation.
+    // Preserve malformed input so Gemini reports the same inventory error from isolation.
   }
   fs.mkdirSync(path.dirname(destinationPath), { recursive: true, mode: 0o700 });
   fs.writeFileSync(destinationPath, snapshot, { mode: 0o600 });
@@ -118,12 +118,12 @@ function createDryRunSandbox(paths, options, baseEnv) {
         path.join(configDir, 'plugins', 'known_marketplaces.json'),
       ],
       [
-        path.join(paths.projectRoot, '.claude', 'settings.json'),
-        path.join(projectRoot, '.claude', 'settings.json'),
+        path.join(paths.projectRoot, '.gemini', 'settings.json'),
+        path.join(projectRoot, '.gemini', 'settings.json'),
       ],
       [
-        path.join(paths.projectRoot, '.claude', 'settings.local.json'),
-        path.join(projectRoot, '.claude', 'settings.local.json'),
+        path.join(paths.projectRoot, '.gemini', 'settings.local.json'),
+        path.join(projectRoot, '.gemini', 'settings.local.json'),
       ],
     ];
     for (const [sourcePath, destinationPath] of snapshots) {
@@ -134,8 +134,8 @@ function createDryRunSandbox(paths, options, baseEnv) {
       env: {
         ...baseEnv,
         APPDATA: path.join(root, 'appdata'),
-        CLAUDE_CONFIG_DIR: configDir,
-        CLAUDE_PROJECT_DIR: projectRoot,
+        GEMINI_CONFIG_DIR: configDir,
+        GEMINI_PROJECT_DIR: projectRoot,
         HOME: homeDir,
         INIT_CWD: projectRoot,
         LOCALAPPDATA: path.join(root, 'localappdata'),
@@ -158,7 +158,7 @@ function createDryRunSandbox(paths, options, baseEnv) {
   }
 }
 
-function createDryRunClaudeRunner(run, paths, options = {}) {
+function createDryRunGeminiRunner(run, paths, options = {}) {
   return (args, runOptions = {}) => {
     const sandbox = createDryRunSandbox(
       paths,
@@ -178,5 +178,5 @@ function createDryRunClaudeRunner(run, paths, options = {}) {
 }
 
 module.exports = {
-  createDryRunClaudeRunner,
+  createDryRunGeminiRunner,
 };

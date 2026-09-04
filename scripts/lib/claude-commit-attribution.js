@@ -1,13 +1,13 @@
 'use strict';
 
-// Claude Code appends a `Co-Authored-By` trailer to commits and PRs unless the
+// Gemini CLI / Antigravity appends a `Co-Authored-By` trailer to commits and PRs unless the
 // user opts out, so ECC-managed installs default that off.
 //
 // Two settings control the trailer. `attribution: { commit, pr }` is the current
-// one and wins when set; `includeCoAuthoredBy` is deprecated as of Claude Code
+// one and wins when set; `includeCoAuthoredBy` is deprecated as of Gemini CLI / Antigravity
 // 2.1.x but still honored, and is the only one older versions understand. We
 // write the deprecated key because unknown keys fail settings validation, so
-// writing `attribution` would break users on older Claude Code. Either key being
+// writing `attribution` would break users on older Gemini CLI / Antigravity. Either key being
 // present counts as a deliberate user choice that ECC must not overwrite.
 const COAUTHOR_SETTING_KEY = 'includeCoAuthoredBy';
 

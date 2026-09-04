@@ -66,7 +66,7 @@ For web search, use at most three targeted queries such as:
 ```text
 "Gemini CLI / Antigravity skill" keyword
 "SKILL.md" keyword
-"everything-claude-code" keyword
+"everything-gemini-code" keyword
 ```
 
 ### Step 4 - Vet External Matches

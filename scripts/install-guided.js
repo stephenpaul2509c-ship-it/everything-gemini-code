@@ -9,8 +9,8 @@ const {
   normalizeHarnessSelection,
 } = require('./lib/harness-capabilities');
 const {
-  VALID_CLAUDE_HOOKS,
-  VALID_CLAUDE_SCOPES,
+  VALID_GEMINI_HOOKS,
+  VALID_GEMINI_SCOPES,
   VALID_PROFILES,
   applyMultiHarnessPlan,
   createMultiHarnessPlan,
@@ -32,12 +32,12 @@ Usage:
   ecc install --guided --harness claude --harness codex --harness kimi [options]
 
 Guided harnesses:
-  claude  Native Claude Code plugin; choose user, project, or local scope and an ECC hook profile.
+  claude  Native Gemini CLI / Antigravity plugin; choose user, project, or local scope and an ECC hook profile.
   codex   Native Codex plugin and Codex-owned hook review/trust.
   kimi    Managed project install under ./.kimi-code; ECC hooks are not configured.
 
 Options:
-  --harness <id[,id...]>  Repeatable; accepts Claude, Codex, Kimi, or all
+  --harness <id[,id...]>  Repeatable; accepts Gemini, Codex, Kimi, or all
   --all-harnesses         Select all three guided harnesses
   --claude-scope <user|project|local>
   --claude-hooks <off|minimal|standard|strict>
@@ -58,8 +58,8 @@ This command configures ECC. It does not install or authenticate provider CLIs.
 function parseArgs(argv) {
   let options = {
     allHarnesses: false,
-    claudeHooks: undefined,
-    claudeScope: undefined,
+    geminiHooks: undefined,
+    geminiScope: undefined,
     dryRun: false,
     harnesses: [],
     help: false,
@@ -69,8 +69,8 @@ function parseArgs(argv) {
   };
   const valueFlags = new Map([
     ['--harness', 'harnesses'],
-    ['--claude-scope', 'claudeScope'],
-    ['--claude-hooks', 'claudeHooks'],
+    ['--claude-scope', 'geminiScope'],
+    ['--claude-hooks', 'geminiHooks'],
     ['--profile', 'profile'],
   ]);
 
@@ -140,13 +140,13 @@ async function askHarnesses(terminal, output) {
   while (true) {
     const answer = await terminal.question('Choose one or more (for example 1,3 or all): ');
     if (answer.length > 1024) {
-      output.write('Please choose Claude, Codex, Kimi, or all.\n');
+      output.write('Please choose Gemini, Codex, Kimi, or all.\n');
       continue;
     }
     try {
       return normalizeHarnessSelection(answer);
     } catch (_error) {
-      output.write('Please choose Claude, Codex, Kimi, or all.\n');
+      output.write('Please choose Gemini, Codex, Kimi, or all.\n');
     }
   }
 }
@@ -157,22 +157,22 @@ async function collectInteractiveOptions(options, dependencies = {}) {
   let harnesses = options.allHarnesses ? ['all'] : options.harnesses;
   if (harnesses.length === 0) harnesses = await askHarnesses(terminal, output);
   const normalizedHarnesses = normalizeHarnessSelection(harnesses);
-  const includesClaude = normalizedHarnesses.includes('claude');
+  const includesGemini = normalizedHarnesses.includes('claude');
   const includesKimi = normalizedHarnesses.includes('kimi');
-  const claudeScope = includesClaude && !options.claudeScope
-    ? await askChoice(terminal, output, 'Where should Claude enable ecc@ecc?', [...VALID_CLAUDE_SCOPES], 'user')
-    : options.claudeScope;
-  const claudeHooks = includesClaude && !options.claudeHooks
-    ? await askChoice(terminal, output, 'How should ECC hooks run in Claude?', [...VALID_CLAUDE_HOOKS], 'standard')
-    : options.claudeHooks;
+  const geminiScope = includesGemini && !options.geminiScope
+    ? await askChoice(terminal, output, 'Where should Gemini enable ecc@ecc?', [...VALID_GEMINI_SCOPES], 'user')
+    : options.geminiScope;
+  const geminiHooks = includesGemini && !options.geminiHooks
+    ? await askChoice(terminal, output, 'How should ECC hooks run in Gemini?', [...VALID_GEMINI_HOOKS], 'standard')
+    : options.geminiHooks;
   const profile = includesKimi && !options.profile
     ? await askChoice(terminal, output, 'Which ECC content profile should Kimi receive?', [...VALID_PROFILES], 'core')
     : options.profile;
   return {
     ...options,
     harnesses: normalizedHarnesses,
-    claudeScope,
-    claudeHooks,
+    geminiScope,
+    geminiHooks,
     profile,
   };
 }
@@ -189,8 +189,8 @@ function validateExecutionMode(options, interactive) {
     throw new Error('Non-interactive guided install requires at least one --harness.');
   }
   const requiresExplicit = !interactive || options.json;
-  if (requiresExplicit && harnesses.includes('claude') && (!options.claudeScope || !options.claudeHooks)) {
-    throw new Error('Claude requires explicit --claude-scope and --claude-hooks choices in this mode.');
+  if (requiresExplicit && harnesses.includes('claude') && (!options.geminiScope || !options.geminiHooks)) {
+    throw new Error('Gemini requires explicit --claude-scope and --claude-hooks choices in this mode.');
   }
   if (requiresExplicit && harnesses.includes('kimi') && !options.profile) {
     throw new Error('Kimi requires an explicit --profile choice in this mode.');
@@ -210,9 +210,9 @@ function printPlan(plan, output) {
   if (plan.request.harnesses.includes('kimi')) {
     output.write('\nKimi note: ECC hooks are not configured; model, provider, and authentication settings are unchanged.\n');
   }
-  if (plan.request.harnesses.includes('claude') && plan.request.claudeHooks && plan.request.claudeHooks !== 'off') {
+  if (plan.request.harnesses.includes('claude') && plan.request.geminiHooks && plan.request.geminiHooks !== 'off') {
     output.write(
-      `\nClaude hook profile '${plan.request.claudeHooks}' enables automation that can:\n`
+      `\nClaude hook profile '${plan.request.geminiHooks}' enables automation that can:\n`
       + `${formatHookCapabilityDisclosure()}\n`
       + "Choose '--claude-hooks off' to install without automatic hook behavior.\n"
     );
@@ -233,7 +233,7 @@ function buildRetryArguments(plan, retryHarnesses) {
   const harnesses = [...retryHarnesses];
   const harnessArguments = harnesses.flatMap(id => ['--harness', id]);
   const claudeArguments = harnesses.includes('claude')
-    ? ['--claude-scope', plan.request.claudeScope, '--claude-hooks', plan.request.claudeHooks]
+    ? ['--claude-scope', plan.request.geminiScope, '--claude-hooks', plan.request.geminiHooks]
     : [];
   const kimiArguments = harnesses.includes('kimi')
     ? ['--profile', plan.request.profile]
@@ -262,7 +262,7 @@ async function main(argv = process.argv.slice(2), injected = {}) {
     }
     validateExecutionMode(options, interactive);
     const needsChoices = selectedHarnessIds(options).length === 0
-      || (selectedHarnessIds(options).includes('claude') && (!options.claudeScope || !options.claudeHooks))
+      || (selectedHarnessIds(options).includes('claude') && (!options.geminiScope || !options.geminiHooks))
       || (selectedHarnessIds(options).includes('kimi') && !options.profile);
     if (interactive && needsChoices) {
       if (!terminal) {

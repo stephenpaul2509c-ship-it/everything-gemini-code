@@ -2,7 +2,7 @@
 /**
  * Validate selective-install manifests and profile/module relationships.
  * Module paths are curated repo paths only. Generated/imported skill roots
- * (~/.claude/skills/learned, etc.) are never in manifests.
+ * (~/.gemini/skills/learned, etc.) are never in manifests.
  */
 
 const fs = require('fs');

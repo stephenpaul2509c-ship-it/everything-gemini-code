@@ -122,7 +122,7 @@ function detectFormatter(projectRoot) {
 
 /**
  * Resolve the runner binary and prefix args for the configured package
- * manager (respects CLAUDE_PACKAGE_MANAGER env and project config).
+ * manager (respects GEMINI_PACKAGE_MANAGER env and project config).
  *
  * @param {string} projectRoot - Absolute path to the project root
  * @returns {{ bin: string, prefix: string[] }}

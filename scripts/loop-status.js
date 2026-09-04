@@ -33,7 +33,7 @@ function usage() {
     '',
     'Examples:',
     '  node scripts/loop-status.js --json',
-    '  node scripts/loop-status.js --transcript ~/.claude/projects/-repo/session.jsonl'
+    '  node scripts/loop-status.js --transcript ~/.gemini/projects/-repo/session.jsonl'
   ].join('\n'));
 }
 
@@ -208,7 +208,7 @@ function findTranscriptPaths(options = {}) {
   }
 
   const homeDir = getHomeDir(normalizedOptions);
-  const transcriptRoot = path.join(homeDir, '.claude', 'projects');
+  const transcriptRoot = path.join(homeDir, '.gemini', 'projects');
   const walkResult = walkJsonlFiles(transcriptRoot);
   const errors = [...walkResult.errors];
   const transcriptEntries = [];
@@ -566,7 +566,7 @@ function buildStatus(options = {}) {
       homeDir,
       limit: normalizedOptions.limit,
       transcriptCount: transcriptPaths.length,
-      transcriptRoot: path.join(homeDir, '.claude', 'projects'),
+      transcriptRoot: path.join(homeDir, '.gemini', 'projects'),
       wakeGraceMultiplier: normalizedOptions.wakeGraceMultiplier,
     },
   };
@@ -586,8 +586,8 @@ function formatText(payload) {
     const lines = [
       `ECC loop status (${payload.generatedAt})`,
       skippedLines.length > 0
-        ? 'No readable Claude transcript JSONL files were found.'
-        : `No Claude transcript JSONL files found under ${payload.source.transcriptRoot}.`,
+        ? 'No readable Gemini transcript JSONL files were found.'
+        : `No Gemini transcript JSONL files found under ${payload.source.transcriptRoot}.`,
     ];
     if (skippedLines.length > 0) {
       lines.push('Skipped transcript errors:');

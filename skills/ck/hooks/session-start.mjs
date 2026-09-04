@@ -19,10 +19,10 @@ import { resolve } from 'path';
 import { homedir } from 'os';
 import { spawnSync } from 'child_process';
 
-const CK_HOME         = resolve(homedir(), '.claude', 'ck');
+const CK_HOME         = resolve(homedir(), '.gemini', 'ck');
 const PROJECTS_FILE   = resolve(CK_HOME, 'projects.json');
 const CURRENT_SESSION = resolve(CK_HOME, 'current-session.json');
-const SKILL_FILE      = resolve(homedir(), '.claude', 'skills', 'ck', 'SKILL.md');
+const SKILL_FILE      = resolve(homedir(), '.gemini', 'skills', 'ck', 'SKILL.md');
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -153,7 +153,7 @@ function main() {
         summaryLines.join('\n'),
       ].join('\n'));
 
-      // Instruct Claude to display compact briefing at session start
+      // Instruct Gemini to display compact briefing at session start
       parts.push([
         `---`,
         `## ck: SESSION START`,

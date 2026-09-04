@@ -146,15 +146,15 @@ This checklist is enforced by a `PostToolUse` hook that blocks completion until 
 ## Example Invocations
 
 ```bash
-claude /mail                    # Email-only triage
-claude /slack                   # Slack-only triage
-claude /today                   # All channels + calendar + todo
-claude /schedule-reply "Reply to Sarah about the board meeting"
+gemini /mail                    # Email-only triage
+gemini /slack                   # Slack-only triage
+gemini /today                   # All channels + calendar + todo
+gemini /schedule-reply "Reply to Sarah about the board meeting"
 ```
 
 ## Prerequisites
 
-- [Gemini CLI / Antigravity](https://docs.anthropic.com/en/docs/claude-code)
+- [Gemini CLI / Antigravity](https://docs.anthropic.com/en/docs/gemini-cli)
 - Gmail CLI (e.g., gog by @pterm)
 - Node.js 18+ (for calendar-suggest.js)
 - Optional: Slack MCP server, Matrix bridge (LINE), Chrome + Playwright (Messenger)

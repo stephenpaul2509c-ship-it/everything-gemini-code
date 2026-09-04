@@ -238,7 +238,7 @@ function replacePluginRootPlaceholders(value, pluginRoot) {
   }
 
   if (typeof value === 'string') {
-    return value.split('${CLAUDE_PLUGIN_ROOT}').join(pluginRoot);
+    return value.split('${GEMINI_PLUGIN_ROOT}').join(pluginRoot);
   }
 
   if (Array.isArray(value)) {
@@ -368,7 +368,7 @@ function applyInstallPlan(plan, dependencies = {}) {
     ...plan,
     operations: migration.appliedOperations,
   };
-  const resolvedClaudeHooksPlan = buildResolvedClaudeHooks(appliedPlan);
+  const resolvedGeminiHooksPlan = buildResolvedClaudeHooks(appliedPlan);
   const disabledServers = parseDisabledMcpServers(process.env.ECC_DISABLED_MCPS);
   const linkIndex = buildLinkIndexForPlan(appliedPlan);
   const hasLegacyMigration = migration.legacyOperationsToRemove.length > 0;
@@ -452,16 +452,16 @@ function applyInstallPlan(plan, dependencies = {}) {
       fs.copyFileSync(operation.sourcePath, operation.destinationPath);
     }
 
-    if (resolvedClaudeHooksPlan) {
-      assertSafeInstallOperation(appliedPlan, resolvedClaudeHooksPlan.hooksOperation);
-      fs.mkdirSync(path.dirname(resolvedClaudeHooksPlan.hooksDestinationPath), { recursive: true });
-      assertSafeInstallOperation(appliedPlan, resolvedClaudeHooksPlan.hooksOperation);
+    if (resolvedGeminiHooksPlan) {
+      assertSafeInstallOperation(appliedPlan, resolvedGeminiHooksPlan.hooksOperation);
+      fs.mkdirSync(path.dirname(resolvedGeminiHooksPlan.hooksDestinationPath), { recursive: true });
+      assertSafeInstallOperation(appliedPlan, resolvedGeminiHooksPlan.hooksOperation);
       if (typeof beforeOperationWrite === 'function') {
-        beforeOperationWrite({ plan: appliedPlan, operation: resolvedClaudeHooksPlan.hooksOperation });
+        beforeOperationWrite({ plan: appliedPlan, operation: resolvedGeminiHooksPlan.hooksOperation });
       }
       fs.writeFileSync(
-        resolvedClaudeHooksPlan.hooksDestinationPath,
-        JSON.stringify(resolvedClaudeHooksPlan.resolvedHooksConfig, null, 2) + '\n',
+        resolvedGeminiHooksPlan.hooksDestinationPath,
+        JSON.stringify(resolvedGeminiHooksPlan.resolvedHooksConfig, null, 2) + '\n',
         'utf8'
       );
     }

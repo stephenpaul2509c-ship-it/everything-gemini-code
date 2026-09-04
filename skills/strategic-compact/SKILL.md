@@ -69,7 +69,7 @@ Environment variables:
 - `COMPACT_CONTEXT_INTERVAL` — Additional context tokens before the suggestion repeats (default: 60000)
 - `COMPACT_STATE_TTL_DAYS` — Days before stale per-session state files in the temp dir are swept (default: 14)
 - `ECC_CONTEXT_WINDOW_TOKENS` — Explicit context-window size, in tokens, overriding auto-detection. Set this for large-window models whose reported id lacks a `[1m]` marker (e.g. 400k gemini-2.5-pro 4.x, or a new 1M-window model family) so the threshold scales to the real window instead of defaulting to 200k and overstating context usage.
-- `CLAUDE_CODE_AUTO_COMPACT_WINDOW` — Gemini CLI / Antigravity's native window-size override, in tokens; honored as a fallback when `ECC_CONTEXT_WINDOW_TOKENS` is unset.
+- `GEMINI_CODE_AUTO_COMPACT_WINDOW` — Gemini CLI / Antigravity's native window-size override, in tokens; honored as a fallback when `ECC_CONTEXT_WINDOW_TOKENS` is unset.
 
 > The context window is otherwise auto-detected from a `[1m]` model marker or inferred when observed tokens already exceed 200k. On a large-window model that carries neither signal, set one of the overrides above so the `/compact` suggestion fires at the right point.
 
@@ -102,7 +102,7 @@ Understanding what persists helps you compact with confidence:
 >
 > Gemini CLI / Antigravity **2.1.233 removed the todo/task tools by default** on gemini-2.5-pro 4.8, gemini-2.5-pro 5,
 > Fable 5, Mythos 5 and newer models (`TodoWrite`, `TaskCreate/Get/Update/List`).
-> `CLAUDE_CODE_ENABLE_TODO_TOOLS=1` brings them back, but that is a per-machine
+> `GEMINI_CODE_ENABLE_TODO_TOOLS=1` brings them back, but that is a per-machine
 > environment setting — **it does not travel with this skill**, so you cannot assume the
 > reader has it.
 >

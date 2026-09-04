@@ -12,8 +12,8 @@ TR_AGENTS_MD="docs/tr/AGENTS.md"
 ZH_CN_AGENTS_MD="docs/zh-CN/AGENTS.md"
 AGENT_YAML="agent.yaml"
 VERSION_FILE="VERSION"
-PLUGIN_JSON=".claude-plugin/plugin.json"
-MARKETPLACE_JSON=".claude-plugin/marketplace.json"
+PLUGIN_JSON=".gemini-plugin/plugin.json"
+MARKETPLACE_JSON=".gemini-plugin/marketplace.json"
 CODEX_MARKETPLACE_JSON=".agents/plugins/marketplace.json"
 CODEX_PLUGIN_JSON=".codex-plugin/plugin.json"
 CODEX_MARKETPLACE_PLUGIN_JSON="plugins/ecc/.codex-plugin/plugin.json"
@@ -283,7 +283,7 @@ update_opencode_hook_banner_version() {
     const version = process.argv[2];
     const current = fs.readFileSync(file, "utf8");
     const updated = current.replace(
-      /(## Active Plugin: (?:Everything Claude Code|ECC) v)[0-9]+\.[0-9]+\.[0-9]+(?:-[0-9A-Za-z.-]+)?/,
+      /(## Active Plugin: (?:Everything Gemini CLI / Antigravity|ECC) v)[0-9]+\.[0-9]+\.[0-9]+(?:-[0-9A-Za-z.-]+)?/,
       `$1${version}`
     );
     if (updated === current) {

@@ -1945,7 +1945,7 @@ function repairInstalledStates(options = {}) {
           const removedPath = removeContainedPath(
             operation.destinationPath,
             record.targetRoot,
-            'migrate managed Claude skill',
+            'migrate managed Gemini skill',
             { force: true }
           );
           if (removedPath) {

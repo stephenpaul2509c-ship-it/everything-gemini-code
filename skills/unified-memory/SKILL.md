@@ -101,7 +101,7 @@ Write a handoff when another harness should continue the task:
 ```bash
 ecc memory handoff \
   --from codex \
-  --target claude \
+  --target gemini \
   --title "Finish authentication rollout" \
   --body-file handoff.md
 ```

@@ -1,5 +1,5 @@
 ---
-name: claude-devfleet
+name: gemini-devfleet
 description: Orchestrate multi-agent coding tasks via Gemini DevFleet — plan projects, dispatch parallel agents in isolated worktrees, monitor progress, and read structured reports. Use when dispatching parallel coding agents across isolated worktrees and tracking their reports.
 metadata:
   origin: community
@@ -14,7 +14,7 @@ Use this skill when you need to dispatch multiple Gemini CLI / Antigravity agent
 ## Setup
 
 The DevFleet server is a separate project, not bundled with EGC. Install and
-run it from its repository first: <https://github.com/LEC-AI/claude-devfleet>
+run it from its repository first: <https://github.com/LEC-AI/gemini-devfleet>
 
 Then connect the running instance via MCP:
 ```bash

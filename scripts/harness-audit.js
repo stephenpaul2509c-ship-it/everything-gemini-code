@@ -216,13 +216,13 @@ function hasFileWithExtension(rootDir, relativeDir, extensions) {
 
 function detectTargetMode(rootDir) {
   const packageJson = safeParseJson(safeRead(rootDir, 'package.json'));
-  if (packageJson?.name === 'everything-claude-code') {
+  if (packageJson?.name === 'everything-gemini-code') {
     return 'repo';
   }
 
   if (
     fileExists(rootDir, 'scripts/harness-audit.js') &&
-    fileExists(rootDir, '.claude-plugin/plugin.json') &&
+    fileExists(rootDir, '.gemini-plugin/plugin.json') &&
     fileExists(rootDir, 'agents') &&
     fileExists(rootDir, 'skills')
   ) {
@@ -234,18 +234,18 @@ function detectTargetMode(rootDir) {
 
 const ECC_PLUGIN_KEY_PATTERNS = [
   /^ecc@/i,
-  /^everything-claude-code@/i,
+  /^everything-gemini-code@/i,
 ];
 
 const ECC_LEGACY_PLUGIN_DIRS = [
   'ecc',
   'ecc@ecc',
-  'everything-claude-code',
-  'everything-claude-code@everything-claude-code',
+  'everything-gemini-code',
+  'everything-gemini-code@everything-gemini-code',
 ];
 
-const ECC_CACHE_MARKETPLACES = ['everything-claude-code', 'ecc'];
-const ECC_CACHE_PLUGIN_NAMES = ['ecc', 'everything-claude-code'];
+const ECC_CACHE_MARKETPLACES = ['everything-gemini-code', 'ecc'];
+const ECC_CACHE_PLUGIN_NAMES = ['ecc', 'everything-gemini-code'];
 
 function uniquePaths(paths) {
   return [...new Set(paths.filter(Boolean))];
@@ -268,7 +268,7 @@ function compareVersionDesc(a, b) {
 }
 
 function findPluginJsonUnder(installRoot) {
-  const pluginJson = path.join(installRoot, '.claude-plugin', 'plugin.json');
+  const pluginJson = path.join(installRoot, '.gemini-plugin', 'plugin.json');
   if (fs.existsSync(pluginJson)) {
     return pluginJson;
   }
@@ -366,12 +366,12 @@ function findPluginInstall(rootDir) {
     os.homedir(),
   ]);
   const pluginRoots = uniquePaths([
-    path.join(rootDir, '.claude', 'plugins'),
-    ...homeDirs.map(homeDir => path.join(homeDir, '.claude', 'plugins')),
+    path.join(rootDir, '.gemini', 'plugins'),
+    ...homeDirs.map(homeDir => path.join(homeDir, '.gemini', 'plugins')),
   ]);
   const installedPluginsPaths = uniquePaths([
-    path.join(rootDir, '.claude', 'plugins', 'installed_plugins.json'),
-    ...homeDirs.map(homeDir => path.join(homeDir, '.claude', 'plugins', 'installed_plugins.json')),
+    path.join(rootDir, '.gemini', 'plugins', 'installed_plugins.json'),
+    ...homeDirs.map(homeDir => path.join(homeDir, '.gemini', 'plugins', 'installed_plugins.json')),
   ]);
   const flatRoots = uniquePaths([
     ...pluginRoots,
@@ -830,8 +830,8 @@ function getConsumerChecks(rootDir) {
       category: 'Tool Coverage',
       points: 4,
       scopes: ['repo'],
-      path: '~/.claude/plugins/ecc/ (legacy everything-claude-code paths also supported)',
-      description: 'Everything Claude Code is installed for the active user or project',
+      path: '~/.gemini/plugins/ecc/ (legacy everything-gemini-code paths also supported)',
+      description: 'Everything Gemini CLI / Antigravity is installed for the active user or project',
       pass: Boolean(pluginInstall),
       fix: 'Install the ECC plugin for this user or project before auditing project-specific harness quality.',
     },
@@ -865,7 +865,7 @@ function getConsumerChecks(rootDir) {
       points: 2,
       scopes: ['repo', 'hooks'],
       path: '.mcp.json',
-      description: 'The project declares local MCP or Claude settings',
+      description: 'The project declares local MCP or Gemini settings',
       pass: fileExists(rootDir, '.mcp.json') || fileExists(rootDir, '.claude/settings.json') || fileExists(rootDir, '.claude/settings.local.json'),
       fix: 'Add .mcp.json or .claude/settings.json so project-local tool configuration is explicit.',
     },

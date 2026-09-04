@@ -47,7 +47,7 @@ const DEFAULT_ADVISORY_SOURCES = [
     url: 'https://www.stepsecurity.io/blog/mini-shai-hulud-is-back-a-self-spreading-supply-chain-attack-hits-the-npm-ecosystem',
     sourceType: 'incident-analysis',
     ecosystems: ['npm', 'PyPI', 'AI developer tooling'],
-    signals: ['mini-shai-hulud', 'claude-code-persistence', 'vscode-persistence', 'os-persistence'],
+    signals: ['mini-shai-hulud', 'gemini-cli-persistence', 'vscode-persistence', 'os-persistence'],
   },
   {
     id: 'openai-tanstack-response',
@@ -154,7 +154,7 @@ function validateSources(sources) {
   const requiredSignals = [
     'tanstack',
     'mini-shai-hulud',
-    'claude-code-persistence',
+    'gemini-cli-persistence',
     'vscode-persistence',
     'os-persistence',
     'node-ipc',

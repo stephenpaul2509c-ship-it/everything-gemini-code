@@ -1,7 +1,7 @@
 /**
- * Session Manager Library for Claude Code.
+ * Session Manager Library for Gemini CLI / Antigravity.
  * Provides CRUD operations for session files stored as markdown in
- * ~/.claude/session-data/ with legacy read compatibility for ~/.claude/sessions/.
+ * ~/.gemini/session-data/ with legacy read compatibility for ~/.gemini/sessions/.
  */
 
 /** Parsed metadata from a session filename */

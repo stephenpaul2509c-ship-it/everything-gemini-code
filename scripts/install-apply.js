@@ -29,11 +29,11 @@ Usage: install.sh [--target <${LEGACY_INSTALL_TARGETS.join('|')}>] [--dry-run] [
        install.sh [--target <${SUPPORTED_INSTALL_TARGETS.join('|')}>] [--dry-run] [--json] --profile <name> [--with <component>]... [--without <component>]...
        install.sh [--target <${SUPPORTED_INSTALL_TARGETS.join('|')}>] [--dry-run] [--json] --modules <id,id,...> [--with <component>]... [--without <component>]...
        install.sh [--target <${SUPPORTED_INSTALL_TARGETS.join('|')}>] [--dry-run] [--json] --skills <skill-id[,skill-id...]>
-       install.sh [--target claude|claude-project] [--dry-run] [--json] --locale <locale-code>
+       install.sh [--target gemini|claude-project] [--dry-run] [--json] --locale <locale-code>
        install.sh [--dry-run] [--json] --config <path>
 
 Targets:
-  claude       (default) - Install ECC into ~/.claude/ with managed rules under rules/ecc and flat skills under skills/
+  claude       (default) - Install ECC into ~/.gemini/ with managed rules under rules/ecc and flat skills under skills/
   claude-project - Install ECC into ./.claude/ (per-project) with managed rules under rules/ecc and flat skills under skills/
   cursor       - Install rules, hooks, and bundled Cursor configs to ./.cursor/
   antigravity  - Install rules, workflows, skills, and agents to ./.agents/
@@ -56,7 +56,7 @@ Options:
   --skills <ids>      Install one or more skill directories by ID, e.g. continuous-learning-v2
   --without <component>
                       Exclude a user-facing install component
-  --locale <code>     Install translated docs to ~/.claude/docs/<locale>/ (or ./.claude/docs/<locale>/ for claude-project)
+  --locale <code>     Install translated docs to ~/.gemini/docs/<locale>/ (or ./.claude/docs/<locale>/ for claude-project)
                       (claude or claude-project target only; can be combined with --profile or --with)
   --config <path>     Load install intent from ecc-install.json
   --enable-hooks      Confirm installing the automatic hook runtime (required
@@ -169,7 +169,7 @@ async function main() {
       projectRoot: process.cwd(),
       homeDir: process.env.HOME || os.homedir(),
       env: process.env,
-      claudeRulesDir: process.env.CLAUDE_RULES_DIR || null,
+      geminiRulesDir: process.env.GEMINI_RULES_DIR || null,
     });
 
     if (options.dryRun) {

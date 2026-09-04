@@ -31,15 +31,15 @@ function hooks(mode, eccConfigured, note) {
 const HARNESS_CAPABILITIES = deepFreeze([
   {
     id: 'claude',
-    label: 'Claude Code',
+    label: 'Gemini CLI / Antigravity',
     targetIds: ['claude', 'claude-project'],
     channel: 'native-plugin',
     installMode: 'native-plugin',
     guidedReady: true,
     availability: 'guided',
-    destination: 'Selected Claude plugin scope: ~/.claude or ./.claude',
+    destination: 'Selected Gemini plugin scope: ~/.gemini or ./.claude',
     scopes: [
-      scope('user', 'claude', '~/.claude'),
+      scope('user', 'claude', '~/.gemini'),
       scope('project', 'claude-project', './.claude'),
       scope('local', 'claude-project', './.claude'),
     ],
@@ -48,7 +48,7 @@ const HARNESS_CAPABILITIES = deepFreeze([
       true,
       'ECC hooks are configured through the selected off, minimal, standard, or strict profile.'
     ),
-    aliases: ['claude-code'],
+    aliases: ['gemini-cli'],
   },
   {
     id: 'codex',

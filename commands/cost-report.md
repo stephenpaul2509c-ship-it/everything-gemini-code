@@ -34,7 +34,7 @@ Linux, and Windows.
 ```bash
 node -e '
 const fs=require("fs"),os=require("os"),path=require("path");
-const f=path.join(os.homedir(),".claude","metrics","costs.jsonl");
+const f=path.join(os.homedir(),'.gemini',"metrics","costs.jsonl");
 if(!fs.existsSync(f)){console.log("Cost tracker not set up: "+f+" not found. Enable the stop:cost-tracker hook and finish a session first.");process.exit(0);}
 const rows=fs.readFileSync(f,"utf8").split(/\r?\n/).filter(Boolean).map(l=>{try{return JSON.parse(l)}catch{return null}}).filter(Boolean);
 const bySession=new Map();
@@ -63,7 +63,7 @@ const days=new Map();for(const r of latest){const k=day(r);days.set(k,(days.get(
 ```bash
 node -e '
 const fs=require("fs"),os=require("os"),path=require("path");
-const f=path.join(os.homedir(),".claude","metrics","costs.jsonl");
+const f=path.join(os.homedir(),'.gemini',"metrics","costs.jsonl");
 if(!fs.existsSync(f)){console.error("no data");process.exit(0);}
 const rows=fs.readFileSync(f,"utf8").split(/\r?\n/).filter(Boolean).map(l=>{try{return JSON.parse(l)}catch{return null}}).filter(Boolean).slice(-100);
 console.log("timestamp,session_id,model,input_tokens,output_tokens,cache_write_tokens,cache_read_tokens,estimated_cost_usd");

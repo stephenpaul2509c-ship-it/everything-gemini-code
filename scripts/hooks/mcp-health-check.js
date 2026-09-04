@@ -4,7 +4,7 @@
 /**
  * MCP health-check hook.
  *
- * Compatible with Claude Code's existing hook events:
+ * Compatible with Gemini CLI / Antigravity's existing hook events:
  * - PreToolUse: probe MCP server health before MCP tool execution
  * - PostToolUseFailure: mark unhealthy servers, attempt reconnect, and re-probe
  *
@@ -25,7 +25,7 @@ const DEFAULT_TIMEOUT_MS = 5000;
 const DEFAULT_BACKOFF_MS = 30 * 1000;
 const MAX_BACKOFF_MS = 10 * 60 * 1000;
 // The preflight HTTP probe only checks reachability; it does not have access to
-// Claude Code's stored OAuth bearer token. Treat auth-gated responses as
+// Gemini CLI / Antigravity's stored OAuth bearer token. Treat auth-gated responses as
 // reachable so the real MCP client can attempt the authenticated call. A
 // Streamable HTTP MCP server can also return 406 to a bare GET that omits
 // Accept: text/event-stream; that still proves the endpoint is alive. Some
@@ -51,7 +51,7 @@ function stateFilePath() {
   if (process.env.ECC_MCP_HEALTH_STATE_PATH) {
     return path.resolve(process.env.ECC_MCP_HEALTH_STATE_PATH);
   }
-  return path.join(os.homedir(), '.claude', 'mcp-health-cache.json');
+  return path.join(os.homedir(), '.gemini', 'mcp-health-cache.json');
 }
 
 function configPaths() {
@@ -68,9 +68,9 @@ function configPaths() {
 
   return [
     path.join(cwd, '.claude.json'),
-    path.join(cwd, '.claude', 'settings.json'),
+    path.join(cwd, '.gemini', 'settings.json'),
     path.join(home, '.claude.json'),
-    path.join(home, '.claude', 'settings.json')
+    path.join(home, '.gemini', 'settings.json')
   ];
 }
 
@@ -655,7 +655,7 @@ async function handlePreToolUse(rawInput, input, target, statePathValue, now) {
     ? ` Reconnect attempt: ${reconnect.success ? 'ok' : reconnect.reason}.`
     : '';
   logs.push(
-    `[MCPHealthCheck] ${target.server} is unavailable (${probe.reason}). Blocking ${target.tool || 'tool'} so Claude can fall back to non-MCP tools.${reconnectSuffix}`
+    `[MCPHealthCheck] ${target.server} is unavailable (${probe.reason}). Blocking ${target.tool || 'tool'} so Gemini can fall back to non-MCP tools.${reconnectSuffix}`
   );
 
   return { rawInput, exitCode: shouldFailOpen() ? 0 : 2, logs };
@@ -733,7 +733,7 @@ async function main() {
     return;
   }
 
-  const eventName = process.env.CLAUDE_HOOK_EVENT_NAME || 'PreToolUse';
+  const eventName = process.env.GEMINI_HOOK_EVENT_NAME || 'PreToolUse';
   const now = Date.now();
   const statePathValue = stateFilePath();
 

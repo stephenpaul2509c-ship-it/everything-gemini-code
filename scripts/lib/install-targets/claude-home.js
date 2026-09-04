@@ -7,21 +7,21 @@ const {
   normalizeRelativePath,
 } = require('./helpers');
 
-const CLAUDE_ECC_NAMESPACE = 'ecc';
+const GEMINI_EGC_NAMESPACE = 'ecc';
 
 function getClaudeManagedDestinationPath(adapter, sourceRelativePath, input) {
   const normalizedSourcePath = normalizeRelativePath(sourceRelativePath);
   const targetRoot = adapter.resolveRoot(input);
 
   if (normalizedSourcePath === 'rules') {
-    return path.join(targetRoot, 'rules', CLAUDE_ECC_NAMESPACE);
+    return path.join(targetRoot, 'rules', GEMINI_EGC_NAMESPACE);
   }
 
   if (normalizedSourcePath.startsWith('rules/')) {
     return path.join(
       targetRoot,
       'rules',
-      CLAUDE_ECC_NAMESPACE,
+      GEMINI_EGC_NAMESPACE,
       normalizedSourcePath.slice('rules/'.length)
     );
   }
@@ -46,12 +46,12 @@ function getClaudeManagedDestinationPath(adapter, sourceRelativePath, input) {
 }
 
 module.exports = createInstallTargetAdapter({
-  id: 'claude-home',
+  id: 'gemini-home',
   target: 'claude',
   kind: 'home',
-  rootSegments: ['.claude'],
+  rootSegments: ['.gemini'],
   installStatePathSegments: ['ecc', 'install-state.json'],
-  nativeRootRelativePath: '.claude-plugin',
+  nativeRootRelativePath: '.gemini-plugin',
   planOperations(input, adapter) {
     const modules = Array.isArray(input.modules)
       ? input.modules

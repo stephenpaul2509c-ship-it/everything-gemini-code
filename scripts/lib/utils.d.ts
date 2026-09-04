@@ -1,5 +1,5 @@
 /**
- * Cross-platform utility functions for Claude Code hooks and scripts.
+ * Cross-platform utility functions for Gemini CLI / Antigravity hooks and scripts.
  * Works on Windows, macOS, and Linux.
  */
 
@@ -17,12 +17,12 @@ export function getHomeDir(): string;
 
 /**
  * ECC agent data root for memory persistence and related state.
- * Defaults to ~/.claude; override with ECC_AGENT_DATA_HOME (e.g. ~/.cursor/ecc).
+ * Defaults to ~/.gemini; override with ECC_AGENT_DATA_HOME (e.g. ~/.cursor/ecc).
  */
 export function getAgentDataHome(): string;
 
 /** Get the agent data directory (alias of getAgentDataHome) */
-export function getClaudeDir(): string;
+export function getGeminiDir(): string;
 
 /** Get the canonical ECC sessions directory ($ECC_AGENT_DATA_HOME/session-data) */
 export function getSessionsDir(): string;
@@ -67,7 +67,7 @@ export function getDateTimeString(): string;
 export function sanitizeSessionId(raw: string | null | undefined): string | null;
 
 /**
- * Get short session ID from CLAUDE_SESSION_ID environment variable.
+ * Get short session ID from GEMINI_SESSION_ID environment variable.
  * Returns last 8 characters, falls back to a sanitized project name then the provided fallback.
  */
 export function getSessionIdShort(fallback?: string): string;
@@ -164,10 +164,10 @@ export interface ReadStdinJsonOptions {
  */
 export function readStdinJson(options?: ReadStdinJsonOptions): Promise<Record<string, unknown>>;
 
-/** Log a message to stderr (visible to user in Claude Code terminal) */
+/** Log a message to stderr (visible to user in Gemini CLI / Antigravity terminal) */
 export function log(message: string): void;
 
-/** Output data to stdout (returned to Claude's context) */
+/** Output data to stdout (returned to Gemini's context) */
 export function output(data: string | Record<string, unknown>): void;
 
 // --- System ---

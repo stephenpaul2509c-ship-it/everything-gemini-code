@@ -1,12 +1,12 @@
 'use strict';
 
 const { normalizeServerEntry, buildInventory } = require('./canonical-mcp');
-const { readClaudeCodeMcp } = require('./readers/claude-code');
+const { readClaudeCodeMcp } = require('./readers/gemini-cli');
 const { readCodexMcp } = require('./readers/codex');
 const { readOpencodeMcp } = require('./readers/opencode');
 
 const DEFAULT_READERS = Object.freeze({
-  'claude-code': readClaudeCodeMcp,
+  'gemini-cli': readClaudeCodeMcp,
   codex: readCodexMcp,
   opencode: readOpencodeMcp
 });

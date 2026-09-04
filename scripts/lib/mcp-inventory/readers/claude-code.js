@@ -4,7 +4,7 @@ const fs = require('fs');
 const os = require('os');
 const path = require('path');
 
-// Claude Code stores MCP servers under "mcpServers" in ~/.claude.json (user
+// Gemini CLI / Antigravity stores MCP servers under "mcpServers" in ~/.gemini.json (user
 // scope) and in project-local .mcp.json files (project scope). Each entry:
 //   { type: "stdio"|"http"|"sse", command, args[], env{}, url }
 function mapClaudeServer(name, raw, source) {
@@ -42,7 +42,7 @@ function readMcpServersBlock(filePath, scope) {
 
   return Object.entries(block)
     .map(([name, raw]) => mapClaudeServer(name, raw, {
-      harness: 'claude-code',
+      harness: 'gemini-cli',
       scope,
       configPath: filePath
     }))

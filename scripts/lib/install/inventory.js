@@ -7,18 +7,18 @@ const { isWithinRoot, realpathNearestExisting } = require('../path-safety');
 
 const CURRENT_PLUGIN_ID = 'ecc@ecc';
 const LEGACY_PLUGIN_IDS = new Set([
-  'everything-claude-code@everything-claude-code',
-  'everything-claude-code@ecc',
+  'everything-gemini-code@everything-gemini-code',
+  'everything-gemini-code@ecc',
 ]);
 
-function resolveClaudePaths(options = {}) {
+function resolveGeminiPaths(options = {}) {
   const homeDir = options.homeDir
     || process.env.HOME
     || process.env.USERPROFILE
     || os.homedir();
   const configDir = options.configDir
-    || process.env.CLAUDE_CONFIG_DIR
-    || path.join(homeDir, '.claude');
+    || process.env.GEMINI_CONFIG_DIR
+    || path.join(homeDir, '.gemini');
   const projectRoot = options.projectRoot || process.cwd();
 
   return {
@@ -42,15 +42,15 @@ function readJsonObject(filePath, label) {
 }
 
 function findManualClaudePlugin(options = {}) {
-  const { configDir } = resolveClaudePaths(options);
+  const { configDir } = resolveGeminiPaths(options);
   const pluginsDir = path.join(configDir, 'plugins');
   const candidates = [
-    ['ecc', '.claude-plugin', 'plugin.json'],
+    ['ecc', '.gemini-plugin', 'plugin.json'],
     ['ecc', 'plugin.json'],
-    ['ecc@ecc', '.claude-plugin', 'plugin.json'],
+    ['ecc@ecc', '.gemini-plugin', 'plugin.json'],
     ['ecc@ecc', 'plugin.json'],
-    ['everything-claude-code', '.claude-plugin', 'plugin.json'],
-    ['everything-claude-code', 'plugin.json'],
+    ['everything-gemini-code', '.gemini-plugin', 'plugin.json'],
+    ['everything-gemini-code', 'plugin.json'],
   ];
 
   for (const segments of candidates) {
@@ -77,7 +77,7 @@ function validateManagedState(state, statePath, expectedRoot) {
     || !selectedModules.every(moduleId => typeof moduleId === 'string' && moduleId.length > 0)
     || !Array.isArray(operations)
   ) {
-    throw new Error(`Managed Claude install-state is invalid at ${statePath}`);
+    throw new Error(`Managed Gemini install-state is invalid at ${statePath}`);
   }
 
   for (const operation of operations) {
@@ -88,7 +88,7 @@ function validateManagedState(state, statePath, expectedRoot) {
       || !path.isAbsolute(operation.destinationPath)
       || !isWithinRoot(operation.destinationPath, expectedRoot)
     ) {
-      throw new Error(`Managed Claude install-state is invalid at ${statePath}`);
+      throw new Error(`Managed Gemini install-state is invalid at ${statePath}`);
     }
   }
 
@@ -104,22 +104,22 @@ function operationOverlapsPlugin(operation, expectedRoot) {
 }
 
 function findManagedClaudeInstalls(options = {}) {
-  const { configDir, projectRoot } = resolveClaudePaths(options);
+  const { configDir, projectRoot } = resolveGeminiPaths(options);
   const candidates = [
     {
       statePath: path.join(configDir, 'ecc', 'install-state.json'),
       expectedRoot: configDir,
     },
     {
-      statePath: path.join(projectRoot, '.claude', 'ecc', 'install-state.json'),
-      expectedRoot: path.join(projectRoot, '.claude'),
+      statePath: path.join(projectRoot, '.gemini', 'ecc', 'install-state.json'),
+      expectedRoot: path.join(projectRoot, '.gemini'),
     },
   ];
   const findings = [];
 
   for (const candidate of candidates) {
     if (!fs.existsSync(candidate.statePath)) continue;
-    const state = readJsonObject(candidate.statePath, 'Managed Claude install-state');
+    const state = readJsonObject(candidate.statePath, 'Managed Gemini install-state');
     const { selectedModules, operations } = validateManagedState(
       state,
       candidate.statePath,
@@ -144,5 +144,5 @@ module.exports = {
   LEGACY_PLUGIN_IDS,
   findManagedClaudeInstalls,
   findManualClaudePlugin,
-  resolveClaudePaths,
+  resolveGeminiPaths,
 };

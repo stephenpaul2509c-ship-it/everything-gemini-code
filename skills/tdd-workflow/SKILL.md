@@ -95,7 +95,7 @@ Do not assume `npm test`. The commands in the steps and examples below use `<tes
    node scripts/setup-package-manager.js --detect
    ```
 
-   It resolves the package manager (npm / pnpm / yarn / bun) from, in order: `CLAUDE_PACKAGE_MANAGER`, `.gemini/package-manager.json`, the `package.json` `packageManager` field, the lockfile, then global config.
+   It resolves the package manager (npm / pnpm / yarn / bun) from, in order: `GEMINI_PACKAGE_MANAGER`, `.gemini/package-manager.json`, the `package.json` `packageManager` field, the lockfile, then global config.
 
 2. **Distinguish the package manager from the test runner — they are not the same.** A project can use Bun to install dependencies yet still run Jest or Vitest. Inspect `package.json` `scripts.test` and the test files:
    - `scripts.test` invokes `jest` / `vitest` -> run through the detected PM (`npm test`, `pnpm test`, `yarn test`, or `bun run test`).

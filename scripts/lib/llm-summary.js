@@ -2,8 +2,8 @@
 /**
  * LLM-powered session summary generator
  *
- * Uses `claude -p` (Claude Code CLI) to generate rich, contextual session
- * summaries from JSONL transcripts. Requires no API key — reuses Claude Code's
+ * Uses `claude -p` (Gemini CLI / Antigravity CLI) to generate rich, contextual session
+ * summaries from JSONL transcripts. Requires no API key — reuses Gemini CLI / Antigravity's
  * own authentication.
  *
  * Recursion guard: sets ECC_SKIP_LLM_SUMMARY=1 in subprocess env so any Stop
@@ -74,7 +74,7 @@ function extractConversationText(transcriptPath) {
           .replace(/\n+/g, ' ')
           .trim();
         if (textParts) {
-          turns.push({ role: 'Claude', text: textParts.slice(0, 600) });
+          turns.push({ role: 'Gemini', text: textParts.slice(0, 600) });
         }
       }
     } catch {
@@ -116,7 +116,7 @@ function generateSessionSummary(transcriptPath) {
   if (!conversation) return null;
 
   const prompt = [
-    'Below is a conversation log from a Claude Code coding session.',
+    'Below is a conversation log from a Gemini CLI / Antigravity coding session.',
     'Create a summary to help the next session quickly understand the context.',
     '',
     '## Prioritize including',

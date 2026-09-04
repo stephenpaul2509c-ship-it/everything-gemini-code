@@ -45,7 +45,7 @@ function run(rawInput, mode = 'audit') {
     if (config) {
       const input = String(rawInput || '').trim() ? JSON.parse(String(rawInput)) : {};
       const command = sanitizeCommand(input.tool_input?.command || '?');
-      appendLine(path.join(os.homedir(), '.claude', config.fileName), config.format(command));
+      appendLine(path.join(os.homedir(), '.gemini', config.fileName), config.format(command));
     }
   } catch {
     // Logging must never block the calling hook.

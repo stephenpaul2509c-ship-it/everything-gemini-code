@@ -506,7 +506,7 @@ function extractCommand(rawInput) {
     const parsed = JSON.parse(trimmed);
     if (typeof parsed !== 'object' || parsed === null) return trimmed;
 
-    // Claude Code format: { tool_input: { command: "..." } }
+    // Gemini CLI / Antigravity format: { tool_input: { command: "..." } }
     const cmd = parsed.tool_input?.command;
     if (typeof cmd === 'string') return cmd;
 

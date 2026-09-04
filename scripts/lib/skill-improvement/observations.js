@@ -11,7 +11,7 @@ function resolveProjectRoot(options = {}) {
 }
 
 function getSkillTelemetryRoot(options = {}) {
-  return path.join(resolveProjectRoot(options), '.claude', 'ecc', 'skills');
+  return path.join(resolveProjectRoot(options), '.gemini', 'ecc', 'skills');
 }
 
 function getSkillObservationsPath(options = {}) {

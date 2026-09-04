@@ -14,7 +14,7 @@ const fs = require('fs');
 const os = require('os');
 const path = require('path');
 const { sanitizeSessionId, readBridge, writeBridgeAtomic } = require('../lib/session-bridge');
-const { getClaudeDir } = require('../lib/utils');
+const { getGeminiDir } = require('../lib/utils');
 
 const MAX_STDIN = 1024 * 1024;
 const MAX_FILES_TRACKED = 200;
@@ -153,7 +153,7 @@ function writeCostWarningIfChanged(kind, costsPath, signature, message) {
 function readSessionCost(sessionId) {
   let costsPath = path.join('metrics', 'costs.jsonl');
   try {
-    costsPath = path.join(getClaudeDir(), 'metrics', 'costs.jsonl');
+    costsPath = path.join(getGeminiDir(), 'metrics', 'costs.jsonl');
     const content = fs.readFileSync(costsPath, 'utf8');
     const lines = content.split('\n').filter(Boolean);
 
@@ -215,7 +215,7 @@ function run(rawInput) {
     const toolName = String(input.tool_name || '');
     const toolInput = input.tool_input || {};
 
-    const sessionId = sanitizeSessionId(input.session_id) || sanitizeSessionId(process.env.ECC_SESSION_ID) || sanitizeSessionId(process.env.CLAUDE_SESSION_ID);
+    const sessionId = sanitizeSessionId(input.session_id) || sanitizeSessionId(process.env.ECC_SESSION_ID) || sanitizeSessionId(process.env.GEMINI_SESSION_ID);
 
     if (!sessionId) return rawInput;
 

@@ -41,7 +41,7 @@ function extractSessionSummary(transcriptPath) {
 
       // Collect user messages (first 200 chars each)
       if (entry.type === 'user' || entry.role === 'user' || entry.message?.role === 'user') {
-        // Support both direct content and nested message.content (Claude Code JSONL format)
+        // Support both direct content and nested message.content (Gemini CLI / Antigravity JSONL format)
         const rawContent = entry.message?.content ?? entry.content;
         // Skip tool_result carrier turns — they are not user asks.
         const isToolResult = Array.isArray(rawContent) && rawContent.some(c => c && c.type === 'tool_result');
@@ -68,7 +68,7 @@ function extractSessionSummary(transcriptPath) {
         }
       }
 
-      // Extract tool uses from assistant message content blocks (Claude Code JSONL format)
+      // Extract tool uses from assistant message content blocks (Gemini CLI / Antigravity JSONL format)
       if (entry.type === 'assistant' && Array.isArray(entry.message?.content)) {
         for (const block of entry.message.content) {
           if (block.type === 'tool_use') {
@@ -101,7 +101,7 @@ function extractSessionSummary(transcriptPath) {
   };
 }
 
-// Read hook input from stdin (Claude Code provides transcript_path via stdin JSON)
+// Read hook input from stdin (Gemini CLI / Antigravity provides transcript_path via stdin JSON)
 const MAX_STDIN = 1024 * 1024;
 let stdinData = '';
 process.stdin.setEncoding('utf8');
@@ -182,13 +182,13 @@ async function main() {
     // Malformed stdin: fall through to the env-var fallback below.
   }
   if (!transcriptPath) {
-    const envTranscriptPath = process.env.CLAUDE_TRANSCRIPT_PATH;
+    const envTranscriptPath = process.env.GEMINI_TRANSCRIPT_PATH;
     if (typeof envTranscriptPath === 'string' && envTranscriptPath.length > 0) {
       transcriptPath = envTranscriptPath;
     }
   }
 
-  // ECC's LLM summary helper launches a one-shot Claude subprocess whose Stop
+  // ECC's LLM summary helper launches a one-shot Gemini subprocess whose Stop
   // hooks inherit this dedicated marker. Skip that known internal session
   // before touching session state. Transcript cardinality is not a safe proxy:
   // an ordinary user session may legitimately contain one prompt and no tools.

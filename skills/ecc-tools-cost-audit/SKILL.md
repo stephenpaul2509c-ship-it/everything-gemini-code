@@ -31,7 +31,7 @@ Pull these EGC-native skills into the workflow when relevant:
 
 ## Scope Guardrails
 
-- work in the sibling `EGC-Tools` repo, not in `everything-claude-code`
+- work in the sibling `EGC-Tools` repo, not in `everything-gemini-code`
 - start read-only unless the user clearly asked for a fix
 - do not mutate unrelated billing, checkout, or UI flows while tracing analysis burn
 - treat app-generated branches and app-generated PRs as red-flag recursion paths until proved otherwise

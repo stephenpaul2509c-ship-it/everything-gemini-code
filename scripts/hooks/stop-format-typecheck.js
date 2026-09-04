@@ -51,8 +51,8 @@ function parseAccumulator(raw) {
  */
 function isPluginClonePath(filePath, cwd = process.cwd(), homeDir = os.homedir()) {
   const resolved = path.resolve(filePath);
-  const roots = [path.join(cwd, '.claude', 'plugins')];
-  if (homeDir) roots.push(path.join(homeDir, '.claude', 'plugins'));
+  const roots = [path.join(cwd, '.gemini', 'plugins')];
+  if (homeDir) roots.push(path.join(homeDir, '.gemini', 'plugins'));
 
   return roots.some(root => {
     const rel = path.relative(root, resolved);
@@ -62,7 +62,7 @@ function isPluginClonePath(filePath, cwd = process.cwd(), homeDir = os.homedir()
 
 function getAccumFile() {
   const raw =
-    process.env.CLAUDE_SESSION_ID ||
+    process.env.GEMINI_SESSION_ID ||
     crypto.createHash('sha1').update(process.cwd()).digest('hex').slice(0, 12);
   const sessionId = raw.replace(/[^a-zA-Z0-9_-]/g, '_').slice(0, 64);
   return path.join(os.tmpdir(), `ecc-edited-${sessionId}.txt`);

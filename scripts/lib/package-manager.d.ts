@@ -56,18 +56,18 @@ export interface GetPackageManagerOptions {
  * Get the package manager to use for the current project.
  *
  * Detection priority:
- * 1. CLAUDE_PACKAGE_MANAGER environment variable
+ * 1. GEMINI_PACKAGE_MANAGER environment variable
  * 2. Project-specific config (.claude/package-manager.json)
  * 3. package.json `packageManager` field
  * 4. Lock file detection
- * 5. Global user preference (~/.claude/package-manager.json)
+ * 5. Global user preference (~/.gemini/package-manager.json)
  * 6. Default to npm (no child processes spawned)
  */
 export function getPackageManager(options?: GetPackageManagerOptions): PackageManagerResult;
 
 /**
  * Set the user's globally preferred package manager.
- * Saves to ~/.claude/package-manager.json.
+ * Saves to ~/.gemini/package-manager.json.
  * @throws If pmName is not a known package manager or if save fails
  */
 export function setPreferredPackageManager(pmName: PackageManagerName): { packageManager: string; setAt: string };

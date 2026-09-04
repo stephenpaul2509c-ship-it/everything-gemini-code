@@ -3,7 +3,7 @@
 #
 # Fix for #521: Added re-entrancy guard, cooldown throttle, and
 # tail-based sampling to prevent memory explosion from runaway
-# parallel Claude analysis processes.
+# parallel Gemini analysis processes.
 
 set +e
 unset CLAUDECODE
@@ -102,7 +102,7 @@ wait_for_claude_analysis() {
       return 0
     fi
 
-    # SIGUSR1 can interrupt wait while the Claude child is still running.
+    # SIGUSR1 can interrupt wait while the Gemini child is still running.
     # Re-wait in that case so a signal is not logged as a false child failure.
     if kill -0 "$child_pid" 2>/dev/null; then
       continue
@@ -153,11 +153,11 @@ analyze_observations() {
   analysis_count=$(wc -l < "$analysis_file" 2>/dev/null || echo 0)
   echo "[$(date)] Using last $analysis_count of $obs_count observations for analysis" >> "$LOG_FILE"
 
-  # Claude Code resolves relative paths against the user's home directory on
+  # Gemini CLI / Antigravity resolves relative paths against the user's home directory on
   # macOS/Linux, even though the observer changes to PROJECT_DIR first. Use
   # the absolute path there so the analyzer reads the file that was sampled.
   # Keep the relative path on Windows (Git Bash/MSYS2), where absolute paths
-  # from mktemp can contain /c/ prefixes that the Claude subprocess cannot
+  # from mktemp can contain /c/ prefixes that the Gemini subprocess cannot
   # resolve (#842, #2673).
   if [ "${CLV2_IS_WINDOWS:-false}" = "true" ]; then
     analysis_relpath=".observer-tmp/$(basename "$analysis_file")"
@@ -208,7 +208,7 @@ Rules:
 - Examples of project patterns: use React functional components, follow Django REST framework conventions
 PROMPT
 
-  # Read the prompt into memory before the Claude subprocess is spawned.
+  # Read the prompt into memory before the Gemini subprocess is spawned.
   # On Windows/MSYS2, the mktemp path can differ from the shell's later path
   # resolution, so relying on cat "$prompt_file" inside the claude invocation
   # can fail even though the file was created successfully.
@@ -223,7 +223,7 @@ PROMPT
   timeout_seconds="${ECC_OBSERVER_TIMEOUT_SECONDS:-120}"
   # Auto-scale max_turns proportional to analysis batch size when not explicitly set.
   # The old hardcoded default of 20 is insufficient for the 500-line MAX_ANALYSIS_LINES
-  # default: Claude hits --max-turns before it can write all discovered instinct files.
+  # default: Gemini hits --max-turns before it can write all discovered instinct files.
   # Formula: 1 turn per 10 analysis lines, floor 20, cap 100. (#2035)
   if [ -n "${ECC_OBSERVER_MAX_TURNS:-}" ]; then
     max_turns="${ECC_OBSERVER_MAX_TURNS}"
@@ -270,7 +270,7 @@ PROMPT
   (
     sleep "$timeout_seconds"
     if kill -0 "$claude_pid" 2>/dev/null; then
-      echo "[$(date)] Claude analysis timed out after ${timeout_seconds}s; terminating process" >> "$LOG_FILE"
+      echo "[$(date)] Gemini analysis timed out after ${timeout_seconds}s; terminating process" >> "$LOG_FILE"
       kill "$claude_pid" 2>/dev/null || true
     fi
   ) &
@@ -282,7 +282,7 @@ PROMPT
   rm -f "$analysis_file"
 
   if [ "$exit_code" -ne 0 ]; then
-    echo "[$(date)] Claude analysis failed (exit $exit_code); retaining observations for retry" >> "$LOG_FILE"
+    echo "[$(date)] Gemini analysis failed (exit $exit_code); retaining observations for retry" >> "$LOG_FILE"
     return
   fi
 

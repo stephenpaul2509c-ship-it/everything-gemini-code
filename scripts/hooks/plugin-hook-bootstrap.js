@@ -187,7 +187,7 @@ function spawnNode(rootDir, relPath, raw, args) {
   ensureAgentDataHomeEnv();
   const hookEnv = {
     ...process.env,
-    CLAUDE_PLUGIN_ROOT: rootDir,
+    GEMINI_PLUGIN_ROOT: rootDir,
     ECC_PLUGIN_ROOT: rootDir,
   };
   const result = spawnSync(process.execPath, [resolveTarget(rootDir, relPath), ...args], {
@@ -217,7 +217,7 @@ function spawnShell(rootDir, relPath, raw, args) {
   ensureAgentDataHomeEnv();
   const hookEnv = {
     ...process.env,
-    CLAUDE_PLUGIN_ROOT: rootDir,
+    GEMINI_PLUGIN_ROOT: rootDir,
     ECC_PLUGIN_ROOT: rootDir,
   };
   const scriptPath = resolveTarget(rootDir, relPath);
@@ -264,7 +264,7 @@ function main() {
   const [, , mode, relPath, ...args] = process.argv;
   const raw = readStdinRaw();
   const rootDir = normalizePluginRootForPlatform(
-    process.env.CLAUDE_PLUGIN_ROOT || process.env.ECC_PLUGIN_ROOT
+    process.env.GEMINI_PLUGIN_ROOT || process.env.ECC_PLUGIN_ROOT
   );
 
   if (!mode || !relPath || !rootDir) {

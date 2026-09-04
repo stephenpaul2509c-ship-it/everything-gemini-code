@@ -19,7 +19,7 @@ const VERDICTS = new Set(['approve', 'request-changes']);
 function resolveStateDir(env = process.env) {
   const override = env.ECC_PLAN_CANVAS_STATE_DIR;
   if (override && String(override).trim()) return path.resolve(String(override).trim());
-  return path.join(os.homedir(), '.claude', 'plan-canvas');
+  return path.join(os.homedir(), '.gemini', 'plan-canvas');
 }
 
 // Canonicalize so `./plan.md`, symlinks, and absolute paths all land on the

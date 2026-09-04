@@ -19,8 +19,8 @@ const REQUIRED_DECISIONS = [
     label: 'npm `next` publish',
   },
   {
-    id: 'claude-plugin-tag',
-    label: 'Claude plugin tag',
+    id: 'gemini-plugin-tag',
+    label: 'Gemini plugin tag',
   },
   {
     id: 'codex-repo-marketplace',
@@ -56,8 +56,8 @@ const REQUIRED_URL_SURFACES = [
     exampleUrl: 'https://www.npmjs.com/package/ecc-universal/v/2.0.0-rc.1',
   },
   {
-    id: 'claude-plugin-tag-url',
-    label: 'Claude plugin tag URL',
+    id: 'gemini-plugin-tag-url',
+    label: 'Gemini plugin tag URL',
     exampleUrl: 'https://github.com/affaan-m/ECC/releases/tag/ecc--v2.0.0-rc.1',
   },
   {

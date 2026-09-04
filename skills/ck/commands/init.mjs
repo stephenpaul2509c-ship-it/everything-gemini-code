@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * ck — Context Keeper v2
- * init.mjs — auto-detect project info and output JSON for Claude to confirm
+ * init.mjs — auto-detect project info and output JSON for Gemini to confirm
  *
  * Usage: node init.mjs
  * stdout: JSON with auto-detected project info

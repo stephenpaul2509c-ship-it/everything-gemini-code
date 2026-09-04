@@ -77,14 +77,14 @@ Prefer the plugin-bundled setup script. Substitute the two selected values and
 include `--move-scope` only for a scope migration:
 
 ```bash
-node "$CLAUDE_PLUGIN_ROOT/scripts/setup.js" --mode claude-plugin \
+node "$GEMINI_PLUGIN_ROOT/scripts/setup.js" --mode gemini-plugin \
   --scope <scope> --hooks <hooks> [--move-scope] --dry-run --json
 ```
 
-If `$CLAUDE_PLUGIN_ROOT` is unavailable, use the published npm package:
+If `$GEMINI_PLUGIN_ROOT` is unavailable, use the published npm package:
 
 ```bash
-npx --yes --package ecc-universal ecc setup --mode claude-plugin \
+npx --yes --package ecc-universal ecc setup --mode gemini-plugin \
   --scope <scope> --hooks <hooks> [--move-scope] --dry-run --json
 ```
 
@@ -99,14 +99,14 @@ After confirmation, rerun the same route without `--dry-run`. Keep every choice
 explicit and request JSON so success can be checked deterministically:
 
 ```bash
-node "$CLAUDE_PLUGIN_ROOT/scripts/setup.js" --mode claude-plugin \
+node "$GEMINI_PLUGIN_ROOT/scripts/setup.js" --mode gemini-plugin \
   --scope <scope> --hooks <hooks> [--move-scope] --yes --json
 ```
 
 Fallback:
 
 ```bash
-npx --yes --package ecc-universal ecc setup --mode claude-plugin \
+npx --yes --package ecc-universal ecc setup --mode gemini-plugin \
   --scope <scope> --hooks <hooks> [--move-scope] --yes --json
 ```
 
@@ -120,7 +120,7 @@ claude plugin list --json
 ```
 
 Continue only when exactly one enabled `ecc@ecc` entry exists at the selected
-scope. When `$CLAUDE_PLUGIN_ROOT` is available, pass the successful setup
+scope. When `$GEMINI_PLUGIN_ROOT` is available, pass the successful setup
 `action` (`installed`, `updated`, `migrated`, `resumed`, or
 `already-migrated`) to the bundled renderer:
 
@@ -129,7 +129,7 @@ Before invoking it, require the provider-reported version to match
 version text instead of interpolating it into a shell command.
 
 ```bash
-node -e 'const { renderTerminalWelcome } = require(process.env.CLAUDE_PLUGIN_ROOT + "/scripts/lib/terminal-welcome"); process.stdout.write(renderTerminalWelcome({ action: process.argv[1], version: process.argv[2], color: process.stdout.isTTY }));' "<action>" "<installed-version>"
+node -e 'const { renderTerminalWelcome } = require(process.env.GEMINI_PLUGIN_ROOT + "/scripts/lib/terminal-welcome"); process.stdout.write(renderTerminalWelcome({ action: process.argv[1], version: process.argv[2], color: process.stdout.isTTY }));' "<action>" "<installed-version>"
 ```
 
 Render the welcome exactly once. On failure, dry-run, cancellation, a scope or

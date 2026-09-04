@@ -4,7 +4,7 @@
  *
  * Cross-platform (Windows, macOS, Linux)
  *
- * Runs before Claude compacts context. Generates a rich LLM summary of the
+ * Runs before Gemini compacts context. Generates a rich LLM summary of the
  * current session and writes it to the active session .tmp file so that the
  * next session start gets a high-quality summary even after lossy compaction.
  *

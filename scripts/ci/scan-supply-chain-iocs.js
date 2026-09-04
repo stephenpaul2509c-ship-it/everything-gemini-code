@@ -798,7 +798,7 @@ persistence paths for active supply-chain IOC markers.
 
 Options:
   --root <dir>       Directory to scan (default: repo root)
-  --home             Also scan user-level Claude, VS Code, LaunchAgent, systemd,
+  --home             Also scan user-level Gemini, VS Code, LaunchAgent, systemd,
                      local bin, and /tmp persistence targets
   --home-dir <dir>   Home directory to use with --home
   --json             Emit JSON instead of text

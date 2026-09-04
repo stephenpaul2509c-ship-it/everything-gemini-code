@@ -220,7 +220,7 @@
     },
     "devfleet": {
       "serverUrl": "http://localhost:18801/mcp",
-      "description": "Multi-agent orchestration \u2014 dispatch parallel Gemini CLI / Antigravity agents in isolated worktrees. Plan projects, auto-chain missions, read structured reports. Repo: https://github.com/LEC-AI/claude-devfleet"
+      "description": "Multi-agent orchestration \u2014 dispatch parallel Gemini CLI / Antigravity agents in isolated worktrees. Plan projects, auto-chain missions, read structured reports. Repo: https://github.com/LEC-AI/gemini-devfleet"
     },
     "token-optimizer": {
       "command": "npx",

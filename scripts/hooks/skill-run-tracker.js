@@ -7,7 +7,7 @@
  * Wires the write side of the already-shipped JSONL tracker
  * (scripts/lib/skill-evolution/tracker.js). Before this hook,
  * recordSkillExecution() had zero production callers, so
- * ~/.claude/state/skill-runs.jsonl was never written and
+ * ~/.gemini/state/skill-runs.jsonl was never written and
  * `scripts/skills-health.js --dashboard` always reported 0 runs (#2463).
  *
  * Privacy: the dashboard aggregates skill/version/outcome only, so this hook
@@ -57,7 +57,7 @@ function firstIdentifier(maxLength, pattern, ...values) {
 }
 
 // Extract the skill identifier from the Skill tool input across the field
-// names Claude Code has used for it. The Skill tool is genuinely un-wired in
+// names Gemini CLI / Antigravity has used for it. The Skill tool is genuinely un-wired in
 // this repo, so no single canonical field is guaranteed — probe the plausible
 // ones and bail (record nothing) if none is present.
 function extractSkillId(toolInput) {

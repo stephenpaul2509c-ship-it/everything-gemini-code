@@ -107,15 +107,15 @@ Use managed install paths:
 
 ```bash
 node scripts/install-plan.js --list-profiles
-node scripts/install-plan.js --profile minimal --target claude --json
-node scripts/install-apply.js --profile minimal --target claude --dry-run
+node scripts/install-plan.js --profile minimal --target gemini --json
+node scripts/install-apply.js --profile minimal --target gemini --dry-run
 ```
 
 For specific skill installs:
 
 ```bash
-node scripts/install-plan.js --skills <skill-id> --target claude --json
-node scripts/install-apply.js --skills <skill-id> --target claude --dry-run
+node scripts/install-plan.js --skills <skill-id> --target gemini --json
+node scripts/install-apply.js --skills <skill-id> --target gemini --dry-run
 ```
 
 Warn users not to stack plugin installs and full manual/profile installs unless they intentionally want duplicate surfaces.

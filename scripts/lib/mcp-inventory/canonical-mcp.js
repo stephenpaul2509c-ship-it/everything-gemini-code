@@ -106,7 +106,7 @@ function asStringArray(value) {
 }
 
 // Normalize a transport label across harnesses:
-//   Claude:   type "stdio" | "http" | "sse"
+//   Gemini:   type "stdio" | "http" | "sse"
 //   OpenCode: type "local" (stdio) | "remote" (http/sse)
 //   Codex:    no type; presence of url => http, else stdio
 function normalizeTransport(rawType, { url } = {}) {

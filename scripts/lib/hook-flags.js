@@ -7,7 +7,7 @@
  * - ECC_HOOK_PROFILE=minimal|standard|strict (default: standard)
  * - ECC_DISABLED_HOOKS=comma,separated,hook,ids
  *
- * Claude plugin options are used when their corresponding ECC variable is
+ * Gemini plugin options are used when their corresponding ECC variable is
  * absent. A managed install can provide ecc/setup.json as the final fallback.
  */
 
@@ -41,7 +41,7 @@ function sanitizeDiagnostic(value) {
 
 function readManagedHookConfig(env = process.env) {
   const pluginRoot = String(
-    env.CLAUDE_PLUGIN_ROOT || env.ECC_PLUGIN_ROOT || ''
+    env.GEMINI_PLUGIN_ROOT || env.ECC_PLUGIN_ROOT || ''
   ).trim();
   const configPath = String(env.ECC_HOOK_CONFIG || '').trim()
     || (pluginRoot ? path.join(pluginRoot, 'ecc', 'setup.json') : '');
@@ -66,8 +66,8 @@ function areHooksEnabled(env = process.env, managed = readManagedHookConfig(env)
   const raw = env.ECC_HOOKS_ENABLED !== undefined
     ? env.ECC_HOOKS_ENABLED
     : (
-      env.CLAUDE_PLUGIN_OPTION_HOOKS_ENABLED !== undefined
-        ? env.CLAUDE_PLUGIN_OPTION_HOOKS_ENABLED
+      env.GEMINI_PLUGIN_OPTION_HOOKS_ENABLED !== undefined
+        ? env.GEMINI_PLUGIN_OPTION_HOOKS_ENABLED
         : managed.enabled
     );
   return parseBoolean(raw, true);
@@ -77,8 +77,8 @@ function getHookProfile(env = process.env, managed = readManagedHookConfig(env))
   const selected = env.ECC_HOOK_PROFILE !== undefined
     ? env.ECC_HOOK_PROFILE
     : (
-      env.CLAUDE_PLUGIN_OPTION_HOOK_PROFILE !== undefined
-        ? env.CLAUDE_PLUGIN_OPTION_HOOK_PROFILE
+      env.GEMINI_PLUGIN_OPTION_HOOK_PROFILE !== undefined
+        ? env.GEMINI_PLUGIN_OPTION_HOOK_PROFILE
         : managed.profile
     );
   const raw = String(selected ?? 'standard').trim().toLowerCase();

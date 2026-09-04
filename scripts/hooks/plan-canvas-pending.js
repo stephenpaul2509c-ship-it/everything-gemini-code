@@ -37,7 +37,7 @@ const MAX_ITEMS_REPORTED = 20;
 function stateDir() {
   const override = process.env.ECC_PLAN_CANVAS_STATE_DIR;
   if (override && override.trim()) return path.resolve(override.trim());
-  return path.join(os.homedir(), '.claude', 'plan-canvas');
+  return path.join(os.homedir(), '.gemini', 'plan-canvas');
 }
 
 function readState() {

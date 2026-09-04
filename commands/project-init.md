@@ -11,7 +11,7 @@ Create a safe, reviewable EGC onboarding plan for the current project. This comm
 ```text
 /project-init
 /project-init --dry-run
-/project-init --target claude
+/project-init --target gemini
 /project-init --target cursor
 /project-init --skills continuous-learning-v2,security-review
 /project-init --config ecc-install.json
@@ -39,7 +39,7 @@ When the EGC checkout is available, use `config/project-stack-mappings.json` as 
 
 ## Planning Flow
 
-1. Identify the target harness. Default to `claude` unless the user asks for `cursor`, `codex`, `gemini`, `opencode`, `codebuddy`, `joycode`, or `qwen`.
+1. Identify the target harness. Default to `gemini` unless the user asks for `cursor`, `codex`, `gemini`, `opencode`, `codebuddy`, `joycode`, or `qwen`.
 2. Detect stacks from project files and show the evidence for each match.
 3. Resolve the smallest useful EGC plan:
    - project has an `ecc-install.json`: `node scripts/install-plan.js --config ecc-install.json --json`

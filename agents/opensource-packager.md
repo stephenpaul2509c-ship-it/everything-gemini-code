@@ -203,7 +203,7 @@ Key settings: {list 3-5 most important env vars}
 This project includes a \`GEMINI.md\` that gives Gemini CLI / Antigravity full context.
 
 \`\`\`bash
-claude    # Start Gemini CLI / Antigravity — reads GEMINI.md automatically
+gemini # Start Gemini CLI / Antigravity — reads GEMINI.md automatically
 \`\`\`
 
 ## License

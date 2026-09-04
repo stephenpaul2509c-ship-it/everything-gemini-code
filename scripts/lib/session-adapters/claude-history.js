@@ -12,7 +12,7 @@ function parseClaudeTarget(target) {
     return null;
   }
 
-  for (const prefix of ['claude-history:', 'claude:', 'history:']) {
+  for (const prefix of ['gemini-history:', 'claude:', 'history:']) {
     if (target.startsWith(prefix)) {
       return target.slice(prefix.length).trim();
     }
@@ -61,13 +61,13 @@ function resolveSessionRecord(target, cwd) {
     if (explicitTarget === 'latest') {
       const [latest] = sessionManager.getAllSessions({ limit: 1 }).sessions;
       if (!latest) {
-        throw new Error('No Claude session history found');
+        throw new Error('No Gemini session history found');
       }
 
       return {
         session: sessionManager.getSessionById(latest.filename, true),
         sourceTarget: {
-          type: 'claude-history',
+          type: 'gemini-history',
           value: 'latest'
         }
       };
@@ -86,13 +86,13 @@ function resolveSessionRecord(target, cwd) {
 
     const session = sessionManager.getSessionById(explicitTarget, true);
     if (!session) {
-      throw new Error(`Claude session not found: ${explicitTarget}`);
+      throw new Error(`Gemini session not found: ${explicitTarget}`);
     }
 
     return {
       session,
       sourceTarget: {
-        type: 'claude-history',
+        type: 'gemini-history',
         value: explicitTarget
       }
     };
@@ -108,22 +108,22 @@ function resolveSessionRecord(target, cwd) {
     };
   }
 
-  throw new Error(`Unsupported Claude session target: ${target}`);
+  throw new Error(`Unsupported Gemini session target: ${target}`);
 }
 
 function createClaudeHistoryAdapter(options = {}) {
   const persistCanonicalSnapshotImpl = options.persistCanonicalSnapshotImpl || persistCanonicalSnapshot;
 
   return {
-    id: 'claude-history',
-    description: 'Claude local session history and session-file snapshots',
-    targetTypes: ['claude-history', 'claude-alias', 'session-file'],
+    id: 'gemini-history',
+    description: 'Gemini local session history and session-file snapshots',
+    targetTypes: ['gemini-history', 'claude-alias', 'session-file'],
     canOpen(target, context = {}) {
-      if (context.adapterId && context.adapterId !== 'claude-history') {
+      if (context.adapterId && context.adapterId !== 'gemini-history') {
         return false;
       }
 
-      if (context.adapterId === 'claude-history') {
+      if (context.adapterId === 'gemini-history') {
         return true;
       }
 
@@ -134,7 +134,7 @@ function createClaudeHistoryAdapter(options = {}) {
       const cwd = context.cwd || process.cwd();
 
       return {
-        adapterId: 'claude-history',
+        adapterId: 'gemini-history',
         getSnapshot() {
           const { session, sourceTarget } = resolveSessionRecord(target, cwd);
           const canonicalSnapshot = normalizeClaudeHistorySession(session, sourceTarget);

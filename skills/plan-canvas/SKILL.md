@@ -31,7 +31,7 @@ remote URLs. The canvas serves local artifact files only.
 ## How It Works
 
 Invoke the CLI as `ecc-plan-canvas` — the bin shipped by the `ecc-universal`
-package (on PATH after a global/plugin install; `node "$CLAUDE_PLUGIN_ROOT/scripts/plan-canvas.js"`
+package (on PATH after a global/plugin install; `node "$GEMINI_PLUGIN_ROOT/scripts/plan-canvas.js"`
 also works for plugin installs). Run it from the project you are reviewing in;
 it works from any working directory. It manages a detached loopback server
 (`127.0.0.1:4517`) shared by all sessions, keyed by artifact path — no session

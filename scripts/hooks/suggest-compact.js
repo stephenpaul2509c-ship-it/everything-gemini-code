@@ -199,7 +199,7 @@ function buildContextSuggestion(transcriptPath, bucketFile, env) {
 }
 
 async function main() {
-  // Claude Code passes hook input via stdin JSON; session_id is the
+  // Gemini CLI / Antigravity passes hook input via stdin JSON; session_id is the
   // canonical field (legacy env var, then 'default', as fallbacks) and
   // transcript_path points at the session transcript JSONL used by the
   // context-size signal.
@@ -212,7 +212,7 @@ async function main() {
 
   const rawSessionId = (input && typeof input.session_id === 'string' && input.session_id)
     ? input.session_id
-    : (process.env.CLAUDE_SESSION_ID || 'default');
+    : (process.env.GEMINI_SESSION_ID || 'default');
   const sessionId = rawSessionId.replace(/[^a-zA-Z0-9_-]/g, '') || 'default';
   const transcriptPath = (input && typeof input.transcript_path === 'string') ? input.transcript_path : '';
 
@@ -248,7 +248,7 @@ async function main() {
     messages.push(`[StrategicCompact] ${count} tool calls - good checkpoint for /compact if context is stale`);
   }
 
-  // log() writes to stderr (debug log). Per the Claude Code hooks guide,
+  // log() writes to stderr (debug log). Per the Gemini CLI / Antigravity hooks guide,
   // non-blocking PreToolUse stderr (exit 0) is only written to the debug log;
   // it does not reach the model. To inject a user-facing suggestion without
   // blocking the tool call, emit structured JSON to stdout with

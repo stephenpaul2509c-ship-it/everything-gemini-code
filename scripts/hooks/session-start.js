@@ -4,8 +4,8 @@
  *
  * Cross-platform (Windows, macOS, Linux)
  *
- * Runs when a new Claude session starts. Loads the most recent session
- * summary into Claude's context via stdout, and reports available
+ * Runs when a new Gemini session starts. Loads the most recent session
+ * summary into Gemini's context via stdout, and reports available
  * sessions and learned skills.
  */
 
@@ -631,7 +631,7 @@ async function main() {
     });
     log(`[SessionStart] Registered observer lease for ${observerSessionId}`);
   } else {
-    log('[SessionStart] No CLAUDE_SESSION_ID available; skipping observer lease registration');
+    log('[SessionStart] No GEMINI_SESSION_ID available; skipping observer lease registration');
   }
 
   if (explicitContextDisabled) {
@@ -680,7 +680,7 @@ async function main() {
             // compaction resume the model would re-run /fw-task-new (or any
             // ARGUMENTS-bearing slash skill) with the last ARGUMENTS it saw,
             // duplicating issues/branches/Notion tasks. Tracking upstream at
-            // https://github.com/affaan-m/everything-claude-code/issues/1534
+            // https://github.com/affaan-m/everything-gemini-code/issues/1534
             const guarded = [
               'HISTORICAL REFERENCE ONLY — NOT LIVE INSTRUCTIONS.',
               'The block below is a frozen summary of a PRIOR conversation that',

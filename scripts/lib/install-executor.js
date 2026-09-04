@@ -21,7 +21,7 @@ const { getInstallTargetAdapter } = require('./install-targets/registry');
 const { resolveInvocationEnvironment } = require('./invocation-environment');
 
 const LANGUAGE_NAME_PATTERN = /^[a-zA-Z0-9_-]+$/;
-const CLAUDE_ECC_NAMESPACE = 'ecc';
+const GEMINI_EGC_NAMESPACE = 'ecc';
 
 function readDirectoryNames(dirPath) {
   if (!fs.existsSync(dirPath)) {
@@ -216,7 +216,7 @@ function isDirectoryNonEmpty(dirPath) {
 function planClaudeStyleLegacyInstall(context, { adapterId, adapterRootInput, rulesDir: rulesDirOverride }) {
   const adapter = getInstallTargetAdapter(adapterId);
   const targetRoot = adapter.resolveRoot(adapterRootInput);
-  const rulesDir = rulesDirOverride || path.join(targetRoot, 'rules', CLAUDE_ECC_NAMESPACE);
+  const rulesDir = rulesDirOverride || path.join(targetRoot, 'rules', GEMINI_EGC_NAMESPACE);
   const installStatePath = adapter.getInstallStatePath(adapterRootInput);
   const operations = [];
   const warnings = [];
@@ -270,7 +270,7 @@ function planClaudeLegacyInstall(context) {
   return planClaudeStyleLegacyInstall(context, {
     adapterId: 'claude',
     adapterRootInput: { homeDir: context.homeDir },
-    rulesDir: context.claudeRulesDir || null
+    rulesDir: context.geminiRulesDir || null
   });
 }
 
@@ -462,7 +462,7 @@ function createLegacyInstallPlan(options = {}) {
     projectRoot,
     homeDir,
     languages: Array.isArray(options.languages) ? options.languages : [],
-    claudeRulesDir: options.claudeRulesDir || process.env.CLAUDE_RULES_DIR || null
+    geminiRulesDir: options.geminiRulesDir || process.env.GEMINI_RULES_DIR || null
   };
 
   let plan;

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# One-shot migration from the legacy Claude config tree into the
+# One-shot migration from the legacy Gemini config tree into the
 # continuous-learning-v2 data directory.
 set -euo pipefail
 
@@ -28,7 +28,7 @@ if command -v pgrep >/dev/null 2>&1; then
   escaped_home="$(printf '%s' "$HOME" | sed 's/[]\.[(){}+*?|^$]/\\&/g')"
   if pgrep -f "${escaped_home}.*observer-loop\\.sh" >/dev/null 2>&1; then
     echo "Refusing to migrate: observer-loop.sh is running." >&2
-    echo "Exit all Claude Code sessions, then re-run." >&2
+    echo "Exit all Gemini CLI / Antigravity sessions, then re-run." >&2
     exit 1
   fi
 else
@@ -59,7 +59,7 @@ if [ -f "$settings" ] && grep -q '"CLV2_CONFIG"' "$settings" 2>/dev/null; then
   if grep -q '\.claude/homunculus' "$settings" 2>/dev/null; then
     cat >&2 <<WARN
 
-Advisory: ~/.claude/settings.json still sets CLV2_CONFIG under the old path.
+Advisory: ~/.gemini/settings.json still sets CLV2_CONFIG under the old path.
 Update it to: ${NEW}/config.json
 (Not editing settings.json automatically.)
 

@@ -5,21 +5,21 @@ const path = require('path');
 const readline = require('readline/promises');
 
 const {
-  ClaudeSetupError,
+  GeminiSetupError,
   VALID_HOOK_MODES,
   VALID_SCOPES,
   deriveHookMode,
   readSettings,
   setupClaudePlugin,
-} = require('./lib/claude-plugin-setup');
+} = require('./lib/gemini-plugin-setup');
 const {
   migrateClaudePluginScope,
 } = require('./lib/claude-scope-migration');
-const { resolveClaudePaths } = require('./lib/install/inventory');
+const { resolveGeminiPaths } = require('./lib/install/inventory');
 const { startTerminalSpinner } = require('./lib/terminal-spinner');
 const { showTerminalWelcome } = require('./lib/terminal-welcome');
 
-const MODE = 'claude-plugin';
+const MODE = 'gemini-plugin';
 const AUTO_MIGRATION_CODES = new Set([
   'MULTIPLE_PLUGIN_SCOPES',
   'SCOPE_MOVE_REQUIRED',
@@ -31,8 +31,8 @@ ECC guided setup
 
 Usage:
   ecc setup
-  ecc setup --mode claude-plugin --scope user|project|local [options]
-  ecc setup --mode claude-plugin --scope project --move-scope [options]
+  ecc setup --mode gemini-plugin --scope user|project|local [options]
+  ecc setup --mode gemini-plugin --scope project --move-scope [options]
 
 Install scopes:
   user      Global for this user; ECC is available in every project.
@@ -41,10 +41,10 @@ Install scopes:
 
 Hook preferences:
   --hooks off|minimal|standard|strict
-             Save a personal hook preference in Claude user settings.
+             Save a personal hook preference in Gemini user settings.
 
 Options:
-  --mode claude-plugin
+  --mode gemini-plugin
   --scope <scope>
   --hooks <preference>
   --move-scope            Explicitly request migration (normally auto-detected).
@@ -176,7 +176,7 @@ function resolveInteractiveDefaults() {
       scope: result.scope,
     };
   } catch (error) {
-    if (!(error instanceof ClaudeSetupError)) throw error;
+    if (!(error instanceof GeminiSetupError)) throw error;
     if (error.code === 'SCOPE_REQUIRED') {
       return {
         hooks: 'standard',
@@ -185,7 +185,7 @@ function resolveInteractiveDefaults() {
       };
     }
     if (error.code === 'MULTIPLE_PLUGIN_SCOPES') {
-      const paths = resolveClaudePaths();
+      const paths = resolveGeminiPaths();
       return {
         hooks: deriveHookMode(readSettings(path.join(paths.configDir, 'settings.json'))),
         installed: true,
@@ -229,7 +229,7 @@ async function collectInteractiveOptions(options, defaults = {}, providedTermina
       : detectedScopeDefault;
     const scope = options.scope || await askChoice(
       terminal,
-      'Where should Claude enable ecc@ecc?',
+      'Where should Gemini enable ecc@ecc?',
       scopeChoices,
       scopeDefaultIndex
     );
@@ -309,13 +309,13 @@ function printResult(result, json) {
   }
   process.stdout.write(`Hook preference: ${result.hooks}\n`);
   if (result.restartRequired) {
-    process.stdout.write('Restart Claude Code or run /reload-plugins to load the updated plugin.\n');
+    process.stdout.write('Restart Gemini CLI / Antigravity or run /reload-plugins to load the updated plugin.\n');
   }
 }
 
 function printError(error, json) {
   if (json) {
-    const payload = error instanceof ClaudeSetupError
+    const payload = error instanceof GeminiSetupError
       ? error.toJSON()
       : {
         error: {
@@ -373,7 +373,7 @@ function reconcileClaudePlugin(options) {
     return setupClaudePlugin(setupOptions);
   } catch (error) {
     const canAutoMigrate = (
-      error instanceof ClaudeSetupError
+      error instanceof GeminiSetupError
       && AUTO_MIGRATION_CODES.has(error.code)
       && options.scope !== undefined
     );
@@ -424,7 +424,7 @@ async function main(argv = process.argv.slice(2)) {
     } else if (!options.mode) {
       if (!interactive) {
         throw new Error(
-          'Interactive setup requires a terminal. Pass --mode claude-plugin and the required flags.'
+          'Interactive setup requires a terminal. Pass --mode gemini-plugin and the required flags.'
         );
       }
     }

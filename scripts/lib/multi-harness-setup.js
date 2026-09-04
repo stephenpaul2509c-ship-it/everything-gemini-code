@@ -8,8 +8,8 @@ const path = require('path');
 const { assertSafeInstallOperation } = require('./install/apply');
 const { assertWithinTrustedRoot, realpathNearestExisting } = require('./path-safety');
 
-const VALID_CLAUDE_SCOPES = new Set(['user', 'project', 'local']);
-const VALID_CLAUDE_HOOKS = new Set(['off', 'minimal', 'standard', 'strict']);
+const VALID_GEMINI_SCOPES = new Set(['user', 'project', 'local']);
+const VALID_GEMINI_HOOKS = new Set(['off', 'minimal', 'standard', 'strict']);
 const VALID_PROFILES = new Set(['minimal', 'core', 'developer', 'security', 'research', 'full']);
 
 function catalogHelpers() {
@@ -20,26 +20,26 @@ function normalizeGuidedInstallRequest(input = {}) {
   const { normalizeHarnessSelection } = catalogHelpers();
   const harnesses = normalizeHarnessSelection(input.harnesses || []);
   if (harnesses.length === 0) {
-    throw new Error('Choose at least one guided harness: Claude, Codex, or Kimi.');
+    throw new Error('Choose at least one guided harness: Gemini, Codex, or Kimi.');
   }
 
-  const includesClaude = harnesses.includes('claude');
+  const includesGemini = harnesses.includes('claude');
   const includesKimi = harnesses.includes('kimi');
-  if (!includesClaude && (input.claudeScope !== undefined || input.claudeHooks !== undefined)) {
-    throw new Error('Claude scope and hook options require Claude to be selected.');
+  if (!includesGemini && (input.geminiScope !== undefined || input.geminiHooks !== undefined)) {
+    throw new Error('Gemini scope and hook options require Gemini to be selected.');
   }
   if (!includesKimi && input.profile !== undefined) {
     throw new Error('The managed install profile requires Kimi to be selected.');
   }
 
-  const claudeScope = includesClaude ? (input.claudeScope || 'user') : undefined;
-  const claudeHooks = includesClaude ? (input.claudeHooks || 'standard') : undefined;
+  const geminiScope = includesGemini ? (input.geminiScope || 'user') : undefined;
+  const geminiHooks = includesGemini ? (input.geminiHooks || 'standard') : undefined;
   const profile = includesKimi ? (input.profile || 'core') : undefined;
-  if (claudeScope && !VALID_CLAUDE_SCOPES.has(claudeScope)) {
-    throw new Error(`Invalid Claude scope: ${claudeScope}`);
+  if (geminiScope && !VALID_GEMINI_SCOPES.has(geminiScope)) {
+    throw new Error(`Invalid Gemini scope: ${geminiScope}`);
   }
-  if (claudeHooks && !VALID_CLAUDE_HOOKS.has(claudeHooks)) {
-    throw new Error(`Invalid Claude hooks preference: ${claudeHooks}`);
+  if (geminiHooks && !VALID_GEMINI_HOOKS.has(geminiHooks)) {
+    throw new Error(`Invalid Gemini hooks preference: ${geminiHooks}`);
   }
   if (profile && !VALID_PROFILES.has(profile)) {
     throw new Error(`Invalid Kimi install profile: ${profile}`);
@@ -47,8 +47,8 @@ function normalizeGuidedInstallRequest(input = {}) {
 
   return {
     harnesses,
-    ...(claudeHooks ? { claudeHooks } : {}),
-    ...(claudeScope ? { claudeScope } : {}),
+    ...(geminiHooks ? { geminiHooks } : {}),
+    ...(geminiScope ? { geminiScope } : {}),
     dryRun: Boolean(input.dryRun),
     json: Boolean(input.json),
     ...(profile ? { profile } : {}),
@@ -418,7 +418,7 @@ async function applyPreflightedManagedPlan(entry) {
 function defaultDependencies(options = {}) {
   return {
     previewClaude: request => require('../setup').reconcileClaudePlugin(
-      { dryRun: true, hooks: request.claudeHooks, scope: request.claudeScope }
+      { dryRun: true, hooks: request.geminiHooks, scope: request.geminiScope }
     ),
     previewCodex: () => require('./codex-plugin-setup').reconcileCodexPlugin({ dryRun: true }),
     createManagedPlan: request => require('./install/runtime').createInstallPlanFromRequest(
@@ -434,7 +434,7 @@ function defaultDependencies(options = {}) {
     ),
     preflightManaged: preflightManagedPlan,
     applyClaude: request => require('../setup').reconcileClaudePlugin(
-      { dryRun: false, hooks: request.claudeHooks, scope: request.claudeScope }
+      { dryRun: false, hooks: request.geminiHooks, scope: request.geminiScope }
     ),
     applyCodex: () => require('./codex-plugin-setup').reconcileCodexPlugin({ dryRun: false }),
     applyManaged: applyPreflightedManagedPlan,
@@ -499,8 +499,8 @@ async function applyMultiHarnessPlan(plan, injected = {}, options = {}) {
 }
 
 module.exports = {
-  VALID_CLAUDE_HOOKS,
-  VALID_CLAUDE_SCOPES,
+  VALID_GEMINI_HOOKS,
+  VALID_GEMINI_SCOPES,
   VALID_PROFILES,
   applyMultiHarnessPlan,
   createMultiHarnessPlan,

@@ -1,6 +1,6 @@
 'use strict';
 
-const { createClaudeHistoryAdapter } = require('./claude-history');
+const { createClaudeHistoryAdapter } = require('./gemini-history');
 const { createDmuxTmuxAdapter } = require('./dmux-tmux');
 const { createCodexWorktreeAdapter } = require('./codex-worktree');
 const { createOpencodeAdapter } = require('./opencode');
@@ -8,9 +8,9 @@ const { createOpencodeAdapter } = require('./opencode');
 const TARGET_TYPE_TO_ADAPTER_ID = Object.freeze({
   plan: 'dmux-tmux',
   session: 'dmux-tmux',
-  'claude-history': 'claude-history',
-  'claude-alias': 'claude-history',
-  'session-file': 'claude-history',
+  'gemini-history': 'gemini-history',
+  'claude-alias': 'gemini-history',
+  'session-file': 'gemini-history',
   'codex-worktree': 'codex-worktree',
   codex: 'codex-worktree',
   opencode: 'opencode'
@@ -34,7 +34,7 @@ function buildDefaultAdapterOptions(options, adapterId) {
 
 function createDefaultAdapters(options = {}) {
   return [
-    createClaudeHistoryAdapter(buildDefaultAdapterOptions(options, 'claude-history')),
+    createClaudeHistoryAdapter(buildDefaultAdapterOptions(options, 'gemini-history')),
     createDmuxTmuxAdapter(buildDefaultAdapterOptions(options, 'dmux-tmux')),
     createCodexWorktreeAdapter(buildDefaultAdapterOptions(options, 'codex-worktree')),
     createOpencodeAdapter(buildDefaultAdapterOptions(options, 'opencode'))
@@ -69,7 +69,7 @@ function normalizeStructuredTarget(target, context = {}) {
     adapterId
   };
 
-  if (type === 'claude-history' || type === 'claude-alias') {
+  if (type === 'gemini-history' || type === 'claude-alias') {
     return {
       target: `claude:${value}`,
       context: nextContext

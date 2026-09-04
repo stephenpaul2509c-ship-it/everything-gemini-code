@@ -9,14 +9,14 @@ const {
   hasExplicitCommitAttributionPreference,
   withCommitAttributionDisabled,
 } = require('./claude-commit-attribution');
-const { createDryRunClaudeRunner } = require('./claude-dry-run-sandbox');
+const { createDryRunGeminiRunner } = require('./claude-dry-run-sandbox');
 const { normalizeGitHubGitOrigin } = require('./github-origin');
 const {
   CURRENT_PLUGIN_ID,
   LEGACY_PLUGIN_IDS,
   findManagedClaudeInstalls,
   findManualClaudePlugin,
-  resolveClaudePaths,
+  resolveGeminiPaths,
 } = require('./install/inventory');
 
 const OFFICIAL_MARKETPLACE_NAME = 'ecc';
@@ -26,10 +26,10 @@ const PROVIDER_COMMAND_TIMEOUT_MS = 120 * 1000;
 const VALID_SCOPES = new Set(['user', 'project', 'local']);
 const VALID_HOOK_MODES = new Set(['off', 'minimal', 'standard', 'strict']);
 
-class ClaudeSetupError extends Error {
+class GeminiSetupError extends Error {
   constructor(code, message, details = {}) {
     super(message);
-    this.name = 'ClaudeSetupError';
+    this.name = 'GeminiSetupError';
     this.code = code;
     this.phase = details.phase || 'preflight';
     this.observedScopes = [...(details.observedScopes || [])];
@@ -50,7 +50,7 @@ class ClaudeSetupError extends Error {
 }
 
 function fail(code, message, details) {
-  throw new ClaudeSetupError(code, message, details);
+  throw new GeminiSetupError(code, message, details);
 }
 
 function normalizeGitHubRepository(value) {
@@ -78,13 +78,13 @@ function parseJsonArray(stdout, label) {
   } catch (error) {
     fail(
       `INVALID_${label.toUpperCase()}_INVENTORY`,
-      `Claude ${label} inventory returned invalid JSON: ${error.message}`
+      `Gemini ${label} inventory returned invalid JSON: ${error.message}`
     );
   }
   if (!Array.isArray(parsed)) {
     fail(
       `INVALID_${label.toUpperCase()}_INVENTORY`,
-      `Claude ${label} inventory is invalid: expected a JSON array`
+      `Gemini ${label} inventory is invalid: expected a JSON array`
     );
   }
   return parsed;
@@ -97,7 +97,7 @@ function parsePluginList(stdout) {
       plugin.id === CURRENT_PLUGIN_ID
       || String(plugin.id || '').startsWith('ecc@')
       || LEGACY_PLUGIN_IDS.has(plugin.id)
-      || String(plugin.id || '').startsWith('everything-claude-code@')
+      || String(plugin.id || '').startsWith('everything-gemini-code@')
     );
     if (!isRelevant) continue;
     if (
@@ -107,7 +107,7 @@ function parsePluginList(stdout) {
     ) {
       fail(
         'INVALID_PLUGIN_INVENTORY',
-        'Claude plugin inventory contains an invalid ECC plugin entry'
+        'Gemini plugin inventory contains an invalid ECC plugin entry'
       );
     }
   }
@@ -126,7 +126,7 @@ function parseMarketplaceList(stdout) {
     ) {
       fail(
         'INVALID_MARKETPLACE_INVENTORY',
-        'Claude marketplace inventory contains an invalid `ecc` entry'
+        'Gemini marketplace inventory contains an invalid `ecc` entry'
       );
     }
   }
@@ -138,7 +138,7 @@ const UNSAFE_WINDOWS_SHELL_CHARS = /[\r\n&|<>^%!]/;
 function quoteWindowsCommandToken(value) {
   const token = String(value);
   if (UNSAFE_WINDOWS_SHELL_CHARS.test(token)) {
-    throw new Error('Claude Code command contains characters that are unsafe for cmd.exe');
+    throw new Error('Gemini CLI / Antigravity command contains characters that are unsafe for cmd.exe');
   }
   if (token === '') return '""';
   if (!/[\s"]/.test(token)) return token;
@@ -186,7 +186,7 @@ function assertGitAvailable(options = {}, dependencies = {}) {
   if (result.error?.code === 'ENOENT') {
     fail(
       'GIT_NOT_FOUND',
-      'Git is required for Claude marketplace setup but `git` is not on PATH. Install Git, ensure `git` is on PATH, then rerun ECC setup.',
+      'Git is required for Gemini marketplace setup but `git` is not on PATH. Install Git, ensure `git` is on PATH, then rerun ECC setup.',
       {
         phase: 'preflight',
         recovery: [
@@ -200,7 +200,7 @@ function assertGitAvailable(options = {}, dependencies = {}) {
     const detail = String(result.stderr || result.stdout || result.error?.message || '').trim();
     fail(
       'GIT_UNAVAILABLE',
-      `Git is required for Claude marketplace setup but could not run${detail ? `: ${detail}` : '.'}`,
+      `Git is required for Gemini marketplace setup but could not run${detail ? `: ${detail}` : '.'}`,
       {
         phase: 'preflight',
         recovery: ['Repair Git, ensure `git --version` succeeds, then rerun ECC setup.'],
@@ -209,7 +209,7 @@ function assertGitAvailable(options = {}, dependencies = {}) {
   }
 }
 
-function runClaude(args, options = {}, dependencies = {}) {
+function runGemini(args, options = {}, dependencies = {}) {
   const command = options.command || 'claude';
   const spawn = dependencies.spawnSync || spawnSync;
   const timeoutMs = options.timeoutMs ?? PROVIDER_COMMAND_TIMEOUT_MS;
@@ -232,8 +232,8 @@ function runClaude(args, options = {}, dependencies = {}) {
         commandLine = buildWindowsCommandLine(shim, args);
       } catch (error) {
         fail(
-          'CLAUDE_COMMAND_FAILED',
-          `Could not run Claude Code: ${error.message}`,
+          'GEMINI_COMMAND_FAILED',
+          `Could not run Gemini CLI / Antigravity: ${error.message}`,
           { phase: options.phase || 'provider' }
         );
       }
@@ -250,30 +250,30 @@ function runClaude(args, options = {}, dependencies = {}) {
   );
   if (timedOut) {
     fail(
-      'CLAUDE_COMMAND_FAILED',
-      `Claude Code command timed out after ${timeoutMs} ms`,
+      'GEMINI_COMMAND_FAILED',
+      `Gemini CLI / Antigravity command timed out after ${timeoutMs} ms`,
       { phase: options.phase || 'provider' }
     );
   }
   if (result.error) {
     if (result.error.code === 'ENOENT') {
       fail(
-        'CLAUDE_NOT_FOUND',
-        'Claude Code is not installed or `claude` is not on PATH. Install Claude Code, then rerun ECC setup.',
+        'GEMINI_NOT_FOUND',
+        'Gemini CLI / Antigravity is not installed or `claude` is not on PATH. Install Gemini CLI / Antigravity, then rerun ECC setup.',
         { phase: options.phase || 'inventory' }
       );
     }
     fail(
-      'CLAUDE_COMMAND_FAILED',
-      `Could not run Claude Code: ${result.error.message}`,
+      'GEMINI_COMMAND_FAILED',
+      `Could not run Gemini CLI / Antigravity: ${result.error.message}`,
       { phase: options.phase || 'provider' }
     );
   }
   if (result.status !== 0) {
     const detail = String(result.stderr || result.stdout || '').trim();
     fail(
-      'CLAUDE_COMMAND_FAILED',
-      `Claude Code command failed${detail ? `: ${detail}` : ''}`,
+      'GEMINI_COMMAND_FAILED',
+      `Gemini CLI / Antigravity command failed${detail ? `: ${detail}` : ''}`,
       { phase: options.phase || 'provider' }
     );
   }
@@ -287,15 +287,15 @@ function readSettings(settingsPath) {
     settings = JSON.parse(fs.readFileSync(settingsPath, 'utf8'));
   } catch (error) {
     fail(
-      'INVALID_CLAUDE_SETTINGS',
-      `Claude user settings are invalid at ${settingsPath}: ${error.message}`,
+      'INVALID_GEMINI_SETTINGS',
+      `Gemini user settings are invalid at ${settingsPath}: ${error.message}`,
       { phase: 'preflight' }
     );
   }
   if (!settings || typeof settings !== 'object' || Array.isArray(settings)) {
     fail(
-      'INVALID_CLAUDE_SETTINGS',
-      `Claude user settings are invalid at ${settingsPath}: expected a JSON object`,
+      'INVALID_GEMINI_SETTINGS',
+      `Gemini user settings are invalid at ${settingsPath}: expected a JSON object`,
       { phase: 'preflight' }
     );
   }
@@ -306,8 +306,8 @@ function readSettings(settingsPath) {
     || Array.isArray(pluginConfigs)
   )) {
     fail(
-      'INVALID_CLAUDE_SETTINGS',
-      `Claude user settings are invalid at ${settingsPath}: pluginConfigs must be an object`,
+      'INVALID_GEMINI_SETTINGS',
+      `Gemini user settings are invalid at ${settingsPath}: pluginConfigs must be an object`,
       { phase: 'preflight' }
     );
   }
@@ -318,8 +318,8 @@ function readSettings(settingsPath) {
     || Array.isArray(eccConfig)
   )) {
     fail(
-      'INVALID_CLAUDE_SETTINGS',
-      `Claude user settings are invalid at ${settingsPath}: ${CURRENT_PLUGIN_ID} config must be an object`,
+      'INVALID_GEMINI_SETTINGS',
+      `Gemini user settings are invalid at ${settingsPath}: ${CURRENT_PLUGIN_ID} config must be an object`,
       { phase: 'preflight' }
     );
   }
@@ -329,8 +329,8 @@ function readSettings(settingsPath) {
     || Array.isArray(eccConfig.options)
   )) {
     fail(
-      'INVALID_CLAUDE_SETTINGS',
-      `Claude user settings are invalid at ${settingsPath}: ${CURRENT_PLUGIN_ID} options must be an object`,
+      'INVALID_GEMINI_SETTINGS',
+      `Gemini user settings are invalid at ${settingsPath}: ${CURRENT_PLUGIN_ID} options must be an object`,
       { phase: 'preflight' }
     );
   }
@@ -400,7 +400,7 @@ function currentEccPlugins(plugins) {
 function assertNoConflictingEccPlugins(plugins) {
   const legacy = plugins.find(plugin => (
     LEGACY_PLUGIN_IDS.has(plugin?.id)
-    || String(plugin?.id || '').startsWith('everything-claude-code@')
+    || String(plugin?.id || '').startsWith('everything-gemini-code@')
   ));
   if (legacy) {
     fail(
@@ -462,7 +462,7 @@ function inspectPluginInventory(plugins, requestedScope) {
       {
         observedScopes,
         recovery: [
-          `ecc setup --mode claude-plugin --scope ${scope} --move-scope --yes`,
+          `ecc setup --mode gemini-plugin --scope ${scope} --move-scope --yes`,
         ],
       }
     );
@@ -493,14 +493,14 @@ function assertSafeLocalInventory(options) {
   if (overlap) {
     fail(
       'MANAGED_INSTALL_OVERLAP',
-      `Managed ECC content at ${overlap.statePath} overlaps the Claude plugin. Remove that managed overlap before setup.`
+      `Managed ECC content at ${overlap.statePath} overlaps the Gemini plugin. Remove that managed overlap before setup.`
     );
   }
   return managedInstalls;
 }
 
 function ensureOfficialMarketplace(options) {
-  const run = options.run || runClaude;
+  const run = options.run || runGemini;
   const existing = options.marketplaces.find(entry => entry?.name === OFFICIAL_MARKETPLACE_NAME);
   if (existing && !isOfficialMarketplace(existing)) {
     fail(
@@ -542,7 +542,7 @@ function ensureOfficialMarketplace(options) {
 }
 
 function verifyPluginAtScope(options) {
-  const run = options.run || runClaude;
+  const run = options.run || runGemini;
   const plugins = parsePluginList(
     run(
       ['plugin', 'list', '--json'],
@@ -569,7 +569,7 @@ function verifyPluginAtScope(options) {
 }
 
 function ensurePluginAtScope(options) {
-  const run = options.run || runClaude;
+  const run = options.run || runGemini;
   const configuredHooks = options.hookConfiguration || hookOptions(options.hooks);
   if (options.installed) {
     run(
@@ -591,7 +591,7 @@ function ensurePluginAtScope(options) {
 }
 
 function setupClaudePlugin(options = {}, dependencies = {}) {
-  const paths = resolveClaudePaths(options);
+  const paths = resolveGeminiPaths(options);
   if (options.hooks !== undefined && !VALID_HOOK_MODES.has(options.hooks)) {
     fail('INVALID_HOOK_MODE', `Invalid hook mode: ${options.hooks}`);
   }
@@ -607,9 +607,9 @@ function setupClaudePlugin(options = {}, dependencies = {}) {
     { spawnSync: dependencies.spawnSync }
   );
 
-  const providerRun = dependencies.runClaude || runClaude;
+  const providerRun = dependencies.runGemini || runGemini;
   const run = options.dryRun
-    ? createDryRunClaudeRunner(providerRun, paths, options)
+    ? createDryRunGeminiRunner(providerRun, paths, options)
     : providerRun;
   const plugins = parsePluginList(
     run(
@@ -690,7 +690,7 @@ function setupClaudePlugin(options = {}, dependencies = {}) {
 }
 
 module.exports = {
-  ClaudeSetupError,
+  GeminiSetupError,
   CURRENT_PLUGIN_ID,
   OFFICIAL_MARKETPLACE_NAME,
   OFFICIAL_MARKETPLACE_URL,
@@ -701,7 +701,7 @@ module.exports = {
   assertNoConflictingEccPlugins,
   assertSafeLocalInventory,
   assertGitAvailable,
-  createDryRunClaudeRunner,
+  createDryRunGeminiRunner,
   currentEccPlugins,
   deriveHookMode,
   ensureOfficialMarketplace,
@@ -713,7 +713,7 @@ module.exports = {
   parsePluginList,
   readStoredHookOptions,
   readSettings,
-  runClaude,
+  runGemini,
   setupClaudePlugin,
   verifyPluginAtScope,
   needsClaudeCommitAttributionPreferenceWrite,

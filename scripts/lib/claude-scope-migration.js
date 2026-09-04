@@ -3,7 +3,7 @@
 const path = require('path');
 
 const {
-  ClaudeSetupError,
+  GeminiSetupError,
   CURRENT_PLUGIN_ID,
   OFFICIAL_MARKETPLACE_URL,
   VALID_HOOK_MODES,
@@ -12,7 +12,7 @@ const {
   assertSafeLocalInventory,
   assertGitAvailable,
   currentEccPlugins,
-  createDryRunClaudeRunner,
+  createDryRunGeminiRunner,
   deriveHookMode,
   ensureOfficialMarketplace,
   ensurePluginAtScope,
@@ -23,13 +23,13 @@ const {
   parsePluginList,
   readSettings,
   readStoredHookOptions,
-  runClaude,
+  runGemini,
   writeClaudePluginOptions,
-} = require('./claude-plugin-setup');
-const { resolveClaudePaths } = require('./install/inventory');
+} = require('./gemini-plugin-setup');
+const { resolveGeminiPaths } = require('./install/inventory');
 
 function migrationError(code, message, details = {}) {
-  return new ClaudeSetupError(code, message, details);
+  return new GeminiSetupError(code, message, details);
 }
 
 function recoveryCommands(sourceScope, destinationScope) {
@@ -40,7 +40,7 @@ function recoveryCommands(sourceScope, destinationScope) {
     );
   }
   commands.push(
-    `ecc setup --mode claude-plugin --scope ${destinationScope} --move-scope --yes`
+    `ecc setup --mode gemini-plugin --scope ${destinationScope} --move-scope --yes`
   );
   return commands;
 }
@@ -67,7 +67,7 @@ function assertMigrationInventory(plugins, destinationScope) {
       {
         observedScopes,
         recovery: [
-          `ecc setup --mode claude-plugin --scope ${destinationScope} --yes`,
+          `ecc setup --mode gemini-plugin --scope ${destinationScope} --yes`,
         ],
       }
     );
@@ -182,7 +182,7 @@ function verifySourceAndDestination(run, paths, migration, destinationScope, pha
         : 'DESTINATION_VERIFICATION_FAILED',
       destinationScope,
       message: phase === 'concurrency-check'
-        ? 'Claude plugin scopes changed during migration; the source was not removed.'
+        ? 'Gemini plugin scopes changed during migration; the source was not removed.'
         : `Could not verify ${CURRENT_PLUGIN_ID} at the destination before source cleanup.`,
       phase,
       recovery: recoveryCommands(null, destinationScope),
@@ -215,14 +215,14 @@ function uninstallSource(run, paths, migration, destinationScope) {
         && installed[0].scope === destinationScope
         && installed[0].enabled === true
       ) {
-        return ['Claude reported an uninstall error, but destination-only state was verified.'];
+        return ['Gemini reported an uninstall error, but destination-only state was verified.'];
       }
     } catch {
       // Preserve the safest known two-scope state in the structured recovery.
     }
     throw migrationError(
       'SOURCE_UNINSTALL_FAILED',
-      `The destination is installed, but Claude could not remove the ${migration.sourceScope} source scope.`,
+      `The destination is installed, but Gemini could not remove the ${migration.sourceScope} source scope.`,
       {
         phase: 'source-uninstall',
         observedScopes,
@@ -254,7 +254,7 @@ function migrateClaudePluginScope(options = {}, dependencies = {}) {
     throw migrationError('INVALID_HOOK_MODE', `Invalid hook mode: ${options.hooks}`);
   }
 
-  const paths = resolveClaudePaths(options);
+  const paths = resolveGeminiPaths(options);
   const settingsPath = path.join(paths.configDir, 'settings.json');
   const settings = readSettings(settingsPath);
   assertSafeLocalInventory(paths);
@@ -262,9 +262,9 @@ function migrateClaudePluginScope(options = {}, dependencies = {}) {
     { cwd: paths.projectRoot },
     { spawnSync: dependencies.spawnSync }
   );
-  const providerRun = dependencies.runClaude || runClaude;
+  const providerRun = dependencies.runGemini || runGemini;
   const run = options.dryRun
-    ? createDryRunClaudeRunner(providerRun, paths, options)
+    ? createDryRunGeminiRunner(providerRun, paths, options)
     : providerRun;
   const plugins = readPluginInventory(run, paths.projectRoot, 'inventory');
   const migration = assertMigrationInventory(plugins, options.scope);

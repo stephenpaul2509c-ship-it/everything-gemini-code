@@ -12,8 +12,8 @@ function getPluginRoot(options = {}) {
   if (options.pluginRoot && String(options.pluginRoot).trim()) {
     return String(options.pluginRoot).trim();
   }
-  if (process.env.CLAUDE_PLUGIN_ROOT && process.env.CLAUDE_PLUGIN_ROOT.trim()) {
-    return process.env.CLAUDE_PLUGIN_ROOT.trim();
+  if (process.env.GEMINI_PLUGIN_ROOT && process.env.GEMINI_PLUGIN_ROOT.trim()) {
+    return process.env.GEMINI_PLUGIN_ROOT.trim();
   }
   if (process.env.ECC_PLUGIN_ROOT && process.env.ECC_PLUGIN_ROOT.trim()) {
     return process.env.ECC_PLUGIN_ROOT.trim();
@@ -130,7 +130,7 @@ function run(raw, options = {}) {
     encoding: 'utf8',
     env: {
       ...process.env,
-      CLAUDE_PLUGIN_ROOT: pluginRoot,
+      GEMINI_PLUGIN_ROOT: pluginRoot,
       ECC_PLUGIN_ROOT: pluginRoot
     },
     cwd: process.cwd(),
