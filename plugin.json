@@ -1,0 +1,23 @@
+{
+  "name": "everything-gemini-code",
+  "version": "2.2.1",
+  "description": "Harness-native EGC plugin for Gemini CLI & Antigravity - 68 agents, 286 skills, 94 commands, lifecycle hooks, rules, and MCP configurations.",
+  "author": {
+    "name": "Affaan Mustafa & Gemini Community"
+  },
+  "homepage": "https://github.com/affaan-m/ECC",
+  "license": "MIT",
+  "keywords": [
+    "gemini",
+    "gemini-cli",
+    "antigravity",
+    "agents",
+    "skills",
+    "hooks",
+    "rules",
+    "tdd",
+    "code-review",
+    "security",
+    "best-practices"
+  ]
+}

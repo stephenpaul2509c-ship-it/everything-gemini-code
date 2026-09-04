@@ -1,0 +1,7 @@
+{
+  "name": "everything-gemini-code",
+  "version": "2.2.1",
+  "description": "Harness-native EGC plugin for Gemini CLI - 68 agents, 286 skills, 94 commands, rules, and MCP configurations.",
+  "author": "Affaan Mustafa & Gemini Community",
+  "license": "MIT"
+}
