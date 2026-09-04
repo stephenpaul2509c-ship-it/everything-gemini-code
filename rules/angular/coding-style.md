@@ -1,14 +1,3 @@
----
-paths:
-  - "**/*.component.ts"
-  - "**/*.component.html"
-  - "**/*.service.ts"
-  - "**/*.directive.ts"
-  - "**/*.pipe.ts"
-  - "**/*.guard.ts"
-  - "**/*.resolver.ts"
-  - "**/*.module.ts"
----
 # Angular Coding Style
 
 > This file extends [common/coding-style.md](../common/coding-style.md) with Angular specific content.

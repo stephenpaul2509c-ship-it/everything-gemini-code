@@ -1,11 +1,3 @@
----
-paths:
-  - "**/nuxt.config.*"
-  - "**/app.config.*"
-  - "**/server/**/*.ts"
-  - "**/*.vue"
----
-
 # Nuxt Hooks
 
 > This file extends [common/hooks.md](../common/hooks.md) with Nuxt specific content.

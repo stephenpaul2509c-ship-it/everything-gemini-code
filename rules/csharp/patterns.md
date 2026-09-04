@@ -1,8 +1,3 @@
----
-paths:
-  - "**/*.cs"
-  - "**/*.csx"
----
 # C# Patterns
 
 > This file extends [common/patterns.md](../common/patterns.md) with C#-specific content.

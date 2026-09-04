@@ -1,11 +1,3 @@
----
-paths:
-  - "**/*.pl"
-  - "**/*.pm"
-  - "**/*.t"
-  - "**/*.psgi"
-  - "**/*.cgi"
----
 # Perl Security
 
 > This file extends [common/security.md](../common/security.md) with Perl-specific content.

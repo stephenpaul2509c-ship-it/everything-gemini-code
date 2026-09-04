@@ -1,12 +1,3 @@
----
-paths:
-  - "**/*.tsx"
-  - "**/*.jsx"
-  - "**/hooks/**/*.ts"
-  - "**/hooks/**/*.js"
-  - "**/use-*.ts"
-  - "**/use-*.tsx"
----
 # React Hooks
 
 > This file covers **React hooks** (`useState`, `useEffect`, `useMemo`, `useCallback`, custom hooks) — NOT the Gemini CLI / Antigravity `hooks/` runtime system. Naming matches the per-language convention `rules/<lang>/hooks.md` used across this repo.

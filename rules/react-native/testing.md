@@ -1,8 +1,3 @@
----
-paths:
-  - "**/*.ts"
-  - "**/*.tsx"
----
 # React Native / Expo Testing
 
 > This file extends [common/testing.md](../common/testing.md) with React Native / Expo specific content.

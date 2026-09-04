@@ -34,7 +34,7 @@ Usage: install.sh [--target <${LEGACY_INSTALL_TARGETS.join('|')}>] [--dry-run] [
 
 Targets:
   claude       (default) - Install ECC into ~/.gemini/ with managed rules under rules/ecc and flat skills under skills/
-  claude-project - Install ECC into ./.claude/ (per-project) with managed rules under rules/ecc and flat skills under skills/
+  claude-project - Install ECC into ./.gemini/ (per-project) with managed rules under rules/ecc and flat skills under skills/
   cursor       - Install rules, hooks, and bundled Cursor configs to ./.cursor/
   antigravity  - Install rules, workflows, skills, and agents to ./.agents/
   codex        - Install shared agents/config into ~/.codex/
@@ -56,7 +56,7 @@ Options:
   --skills <ids>      Install one or more skill directories by ID, e.g. continuous-learning-v2
   --without <component>
                       Exclude a user-facing install component
-  --locale <code>     Install translated docs to ~/.gemini/docs/<locale>/ (or ./.claude/docs/<locale>/ for claude-project)
+  --locale <code>     Install translated docs to ~/.gemini/docs/<locale>/ (or ./.gemini/docs/<locale>/ for claude-project)
                       (claude or claude-project target only; can be combined with --profile or --with)
   --config <path>     Load install intent from ecc-install.json
   --enable-hooks      Confirm installing the automatic hook runtime (required

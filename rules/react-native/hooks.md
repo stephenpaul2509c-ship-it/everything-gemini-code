@@ -1,8 +1,3 @@
----
-paths:
-  - "**/*.ts"
-  - "**/*.tsx"
----
 # React Native / Expo Hooks
 
 > This file extends [common/hooks.md](../common/hooks.md) with React Native / Expo-specific automation guidance.

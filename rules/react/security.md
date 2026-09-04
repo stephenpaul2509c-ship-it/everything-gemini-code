@@ -1,11 +1,3 @@
----
-paths:
-  - "**/*.tsx"
-  - "**/*.jsx"
-  - "**/components/**/*.ts"
-  - "**/app/**/*.ts"
-  - "**/pages/**/*.ts"
----
 # React Security
 
 > This file extends [typescript/security.md](../typescript/security.md) and [common/security.md](../common/security.md) with React specific content.

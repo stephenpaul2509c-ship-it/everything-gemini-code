@@ -320,7 +320,7 @@ function buildChecks(rootDir) {
           'Mini Shai-Hulud',
           'scan-supply-chain-iocs.js',
           'gh-token-monitor',
-          '.claude/settings.json',
+          '.gemini/settings.json',
           '.vscode/tasks.json',
           'npm audit signatures',
           'trusted publishing',

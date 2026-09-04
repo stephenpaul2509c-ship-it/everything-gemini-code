@@ -153,7 +153,7 @@ function getAvailablePackageManagers() {
  *
  * Detection priority:
  * 1. Environment variable GEMINI_PACKAGE_MANAGER
- * 2. Project-specific config (in .claude/package-manager.json)
+ * 2. Project-specific config (in .gemini/package-manager.json)
  * 3. package.json packageManager field
  * 4. Lock file detection
  * 5. Global user preference (in ~/.gemini/package-manager.json)

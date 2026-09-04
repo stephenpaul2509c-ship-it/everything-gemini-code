@@ -61,7 +61,7 @@ function run(inputOrRaw, _options = {}) {
       additionalContext: [
         '[Hook] WARNING: Ad-hoc documentation filename detected',
         `[Hook] File: ${filePath}`,
-        '[Hook] Consider using a structured path (e.g. docs/, .claude/, skills/, .github/, benchmarks/, templates/)',
+        '[Hook] Consider using a structured path (e.g. docs/, .gemini/, skills/, .github/, benchmarks/, templates/)',
       ],
     };
   }

@@ -1,11 +1,3 @@
----
-paths:
-  - "**/*.component.ts"
-  - "**/*.component.html"
-  - "**/*.service.ts"
-  - "**/*.store.ts"
-  - "**/*.routes.ts"
----
 # Angular Patterns
 
 > This file extends [common/patterns.md](../common/patterns.md) with Angular specific content.

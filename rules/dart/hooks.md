@@ -1,9 +1,3 @@
----
-paths:
-  - "**/*.dart"
-  - "**/pubspec.yaml"
-  - "**/analysis_options.yaml"
----
 # Dart/Flutter Hooks
 
 > This file extends [common/hooks.md](../common/hooks.md) with Dart and Flutter-specific content.

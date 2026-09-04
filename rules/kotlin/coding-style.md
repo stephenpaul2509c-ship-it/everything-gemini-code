@@ -1,8 +1,3 @@
----
-paths:
-  - "**/*.kt"
-  - "**/*.kts"
----
 # Kotlin Coding Style
 
 > This file extends [common/coding-style.md](../common/coding-style.md) with Kotlin-specific content.

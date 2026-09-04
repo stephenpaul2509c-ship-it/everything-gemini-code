@@ -27,7 +27,7 @@ function usage() {
     '  skills:evaluate      Compare baseline vs amended skill outcomes',
     '',
     'Examples:',
-    '  node scripts/session-inspect.js .claude/plan/workflow.json',
+    '  node scripts/session-inspect.js .gemini/plan/workflow.json',
     '  node scripts/session-inspect.js workflow-visual-proof',
     '  node scripts/session-inspect.js claude:latest',
     '  node scripts/session-inspect.js latest --target-type gemini-history',

@@ -1,10 +1,3 @@
----
-paths:
-  - "**/*.component.ts"
-  - "**/*.component.html"
-  - "**/*.service.ts"
-  - "**/*.interceptor.ts"
----
 # Angular Security
 
 > This file extends [common/security.md](../common/security.md) with Angular specific content.

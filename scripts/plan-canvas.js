@@ -5,8 +5,8 @@
  * Plan Canvas CLI — open plan artifacts in a browser review canvas and block
  * on human feedback.
  *
- *   node scripts/plan-canvas.js open .claude/plans/feature.plan.md
- *   node scripts/plan-canvas.js await .claude/plans/feature.plan.md
+ *   node scripts/plan-canvas.js open .gemini/plans/feature.plan.md
+ *   node scripts/plan-canvas.js await .gemini/plans/feature.plan.md
  *   node scripts/plan-canvas.js await <file> --reply "Updated section 3."
  *   node scripts/plan-canvas.js end <file>
  *   node scripts/plan-canvas.js stop

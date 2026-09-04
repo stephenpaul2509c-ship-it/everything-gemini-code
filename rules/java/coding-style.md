@@ -1,7 +1,3 @@
----
-paths:
-  - "**/*.java"
----
 # Java Coding Style
 
 > This file extends [common/coding-style.md](../common/coding-style.md) with Java-specific content.

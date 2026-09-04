@@ -1,8 +1,3 @@
----
-paths:
-  - "**/*.ts"
-  - "**/*.tsx"
----
 # React Native / Expo Accessibility
 
 > Extends the EGC quality bar to accessibility (a11y). Treat a11y as a release requirement, not an afterthought.

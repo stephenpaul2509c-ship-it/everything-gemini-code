@@ -57,7 +57,7 @@ export interface GetPackageManagerOptions {
  *
  * Detection priority:
  * 1. GEMINI_PACKAGE_MANAGER environment variable
- * 2. Project-specific config (.claude/package-manager.json)
+ * 2. Project-specific config (.gemini/package-manager.json)
  * 3. package.json `packageManager` field
  * 4. Lock file detection
  * 5. Global user preference (~/.gemini/package-manager.json)
@@ -74,7 +74,7 @@ export function setPreferredPackageManager(pmName: PackageManagerName): { packag
 
 /**
  * Set a project-specific preferred package manager.
- * Saves to <projectDir>/.claude/package-manager.json.
+ * Saves to <projectDir>/.gemini/package-manager.json.
  * @throws If pmName is not a known package manager
  */
 export function setProjectPackageManager(pmName: PackageManagerName, projectDir?: string): { packageManager: string; setAt: string };

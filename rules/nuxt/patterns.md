@@ -1,13 +1,3 @@
----
-paths:
-  - "**/nuxt.config.*"
-  - "**/app.config.*"
-  - "**/app.vue"
-  - "**/server/**/*.ts"
-  - "**/pages/**"
-  - "**/middleware/**"
----
-
 # Nuxt Patterns
 
 > This file extends [common/patterns.md](../common/patterns.md) with Nuxt specific content.

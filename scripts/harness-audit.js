@@ -821,7 +821,7 @@ function collectProviderChecks(rootDir, packageJson) {
 function getConsumerChecks(rootDir) {
   const packageJson = safeParseJson(safeRead(rootDir, 'package.json'));
   const gitignore = safeRead(rootDir, '.gitignore');
-  const projectHooks = safeRead(rootDir, '.claude/settings.json');
+  const projectHooks = safeRead(rootDir, '.gemini/settings.json');
   const pluginInstall = findPluginInstall(rootDir);
 
   return [
@@ -840,13 +840,13 @@ function getConsumerChecks(rootDir) {
       category: 'Tool Coverage',
       points: 3,
       scopes: ['repo', 'hooks', 'skills', 'commands', 'agents'],
-      path: '.claude/',
-      description: 'Project-specific harness overrides exist under .claude/',
-      pass: countFiles(rootDir, '.claude/agents', '.md') > 0 ||
-        countFiles(rootDir, '.claude/skills', 'SKILL.md') > 0 ||
-        countFiles(rootDir, '.claude/commands', '.md') > 0 ||
-        fileExists(rootDir, '.claude/settings.json') ||
-        fileExists(rootDir, '.claude/hooks.json'),
+      path: '.gemini/',
+      description: 'Project-specific harness overrides exist under .gemini/',
+      pass: countFiles(rootDir, '.gemini/agents', '.md') > 0 ||
+        countFiles(rootDir, '.gemini/skills', 'SKILL.md') > 0 ||
+        countFiles(rootDir, '.gemini/commands', '.md') > 0 ||
+        fileExists(rootDir, '.gemini/settings.json') ||
+        fileExists(rootDir, '.gemini/hooks.json'),
       fix: 'Add project-local .claude hooks, commands, skills, or settings that tailor ECC to this repo.',
     },
     {
@@ -856,7 +856,7 @@ function getConsumerChecks(rootDir) {
       scopes: ['repo'],
       path: 'AGENTS.md',
       description: 'The project has explicit agent or instruction context',
-      pass: fileExists(rootDir, 'AGENTS.md') || fileExists(rootDir, 'CLAUDE.md') || fileExists(rootDir, '.claude/CLAUDE.md'),
+      pass: fileExists(rootDir, 'AGENTS.md') || fileExists(rootDir, 'CLAUDE.md') || fileExists(rootDir, '.gemini/CLAUDE.md'),
       fix: 'Add AGENTS.md or CLAUDE.md so the harness has project-specific instructions.',
     },
     {
@@ -866,8 +866,8 @@ function getConsumerChecks(rootDir) {
       scopes: ['repo', 'hooks'],
       path: '.mcp.json',
       description: 'The project declares local MCP or Gemini settings',
-      pass: fileExists(rootDir, '.mcp.json') || fileExists(rootDir, '.claude/settings.json') || fileExists(rootDir, '.claude/settings.local.json'),
-      fix: 'Add .mcp.json or .claude/settings.json so project-local tool configuration is explicit.',
+      pass: fileExists(rootDir, '.mcp.json') || fileExists(rootDir, '.gemini/settings.json') || fileExists(rootDir, '.gemini/settings.local.json'),
+      fix: 'Add .mcp.json or .gemini/settings.json so project-local tool configuration is explicit.',
     },
     {
       id: 'consumer-test-suite',
@@ -894,10 +894,10 @@ function getConsumerChecks(rootDir) {
       category: 'Memory Persistence',
       points: 2,
       scopes: ['repo'],
-      path: '.claude/memory.md',
+      path: '.gemini/memory.md',
       description: 'Project memory or durable notes are checked in',
-      pass: fileExists(rootDir, '.claude/memory.md') || countFiles(rootDir, 'docs/adr', '.md') > 0,
-      fix: 'Add durable project memory such as .claude/memory.md or ADRs under docs/adr/.',
+      pass: fileExists(rootDir, '.gemini/memory.md') || countFiles(rootDir, 'docs/adr', '.md') > 0,
+      fix: 'Add durable project memory such as .gemini/memory.md or ADRs under docs/adr/.',
     },
     {
       id: 'consumer-eval-coverage',
@@ -934,9 +934,9 @@ function getConsumerChecks(rootDir) {
       category: 'Security Guardrails',
       points: 2,
       scopes: ['repo', 'hooks'],
-      path: '.claude/settings.json',
+      path: '.gemini/settings.json',
       description: 'Project-local hook settings reference tool/prompt guardrails',
-      pass: projectHooks.includes('PreToolUse') || projectHooks.includes('beforeSubmitPrompt') || fileExists(rootDir, '.claude/hooks.json'),
+      pass: projectHooks.includes('PreToolUse') || projectHooks.includes('beforeSubmitPrompt') || fileExists(rootDir, '.gemini/hooks.json'),
       fix: 'Add project-local hook settings or hook definitions for prompt/tool guardrails.',
     },
     ...buildGithubChecks(rootDir),

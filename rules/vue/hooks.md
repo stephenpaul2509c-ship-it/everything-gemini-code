@@ -1,10 +1,3 @@
----
-paths:
-  - "**/*.vue"
-  - "**/*.ts"
-  - "**/*.tsx"
----
-
 # Vue Hooks
 
 > This file extends [common/hooks.md](../common/hooks.md) with Vue specific content.

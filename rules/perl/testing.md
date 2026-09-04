@@ -1,11 +1,3 @@
----
-paths:
-  - "**/*.pl"
-  - "**/*.pm"
-  - "**/*.t"
-  - "**/*.psgi"
-  - "**/*.cgi"
----
 # Perl Testing
 
 > This file extends [common/testing.md](../common/testing.md) with Perl-specific content.

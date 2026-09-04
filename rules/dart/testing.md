@@ -1,9 +1,3 @@
----
-paths:
-  - "**/*.dart"
-  - "**/pubspec.yaml"
-  - "**/analysis_options.yaml"
----
 # Dart/Flutter Testing
 
 > This file extends [common/testing.md](../common/testing.md) with Dart and Flutter-specific content.

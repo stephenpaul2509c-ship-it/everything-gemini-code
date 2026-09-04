@@ -1,12 +1,3 @@
----
-paths:
-  - "**/nuxt.config.*"
-  - "**/server/**/*.ts"
-  - "**/pages/**"
-  - "**/layouts/**"
-  - "**/middleware/**"
----
-
 # Nuxt Testing
 
 > This file extends [common/testing.md](../common/testing.md) with Nuxt specific content.

@@ -1,13 +1,3 @@
----
-paths:
-  - "**/*.cpp"
-  - "**/*.hpp"
-  - "**/*.cc"
-  - "**/*.hh"
-  - "**/*.cxx"
-  - "**/*.h"
-  - "**/CMakeLists.txt"
----
 # C++ Hooks
 
 > This file extends [common/hooks.md](../common/hooks.md) with C++ specific content.

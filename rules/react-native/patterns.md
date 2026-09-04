@@ -1,8 +1,3 @@
----
-paths:
-  - "**/*.ts"
-  - "**/*.tsx"
----
 # React Native / Expo Patterns
 
 > This file extends [common/patterns.md](../common/patterns.md) with React Native / Expo specific patterns.

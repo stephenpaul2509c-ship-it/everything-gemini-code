@@ -13,8 +13,8 @@ function usage() {
     '',
     'Examples:',
     '  node scripts/orchestration-status.js workflow-visual-proof',
-    '  node scripts/orchestration-status.js .claude/plan/workflow-visual-proof.json',
-    '  node scripts/orchestration-status.js .claude/plan/workflow-visual-proof.json --write /tmp/snapshot.json'
+    '  node scripts/orchestration-status.js .gemini/plan/workflow-visual-proof.json',
+    '  node scripts/orchestration-status.js .gemini/plan/workflow-visual-proof.json --write /tmp/snapshot.json'
   ].join('\n'));
 }
 

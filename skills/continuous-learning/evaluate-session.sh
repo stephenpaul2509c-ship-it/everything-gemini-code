@@ -27,7 +27,7 @@ set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 CONFIG_FILE="$SCRIPT_DIR/config.json"
-LEARNED_SKILLS_PATH="${HOME}/.claude/skills/learned"
+LEARNED_SKILLS_PATH="${HOME}/.gemini/skills/learned"
 MIN_SESSION_LENGTH=10
 
 # Load config if exists

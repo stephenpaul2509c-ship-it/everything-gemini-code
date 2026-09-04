@@ -1,10 +1,3 @@
----
-paths:
-  - "**/*.ets"
-  - "**/*.ts"
-  - "**/module.json5"
-  - "**/oh-package.json5"
----
 # HarmonyOS / ArkTS Hooks
 
 > This file extends [common/hooks.md](../common/hooks.md) with HarmonyOS-specific build and validation hooks.

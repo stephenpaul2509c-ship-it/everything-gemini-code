@@ -1,8 +1,3 @@
----
-paths:
-  - "**/*.ets"
-  - "**/*.ts"
----
 # HarmonyOS / ArkTS Patterns
 
 > This file extends [common/patterns.md](../common/patterns.md) with HarmonyOS and ArkTS-specific patterns.

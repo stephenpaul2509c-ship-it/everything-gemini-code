@@ -1,11 +1,3 @@
----
-paths:
-  - "**/*.rb"
-  - "**/*.rake"
-  - "**/Gemfile"
-  - "**/*.gemspec"
-  - "**/config.ru"
----
 # Ruby Coding Style
 
 > This file extends [common/coding-style.md](../common/coding-style.md) with Ruby and Rails specific content.

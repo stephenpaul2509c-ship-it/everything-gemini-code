@@ -13,7 +13,7 @@ Setup:
   pip install insa-its
   export ECC_ENABLE_INSAITS=1
 
-  Add to .claude/settings.json:
+  Add to .gemini/settings.json:
   {
     "hooks": {
       "PreToolUse": [

@@ -1,13 +1,3 @@
----
-paths:
-  - "**/nuxt.config.*"
-  - "**/app.config.*"
-  - "**/app.vue"
-  - "**/pages/**"
-  - "**/layouts/**"
-  - "**/middleware/**"
----
-
 # Nuxt Coding Style
 
 > This file extends [common/coding-style.md](../common/coding-style.md) with Nuxt specific content.

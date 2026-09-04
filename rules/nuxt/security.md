@@ -1,10 +1,3 @@
----
-paths:
-  - "**/nuxt.config.*"
-  - "**/app.config.*"
-  - "**/server/**/*.ts"
----
-
 # Nuxt Security
 
 > This file extends [common/security.md](../common/security.md) with Nuxt specific content.

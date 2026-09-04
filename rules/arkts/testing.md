@@ -1,9 +1,3 @@
----
-paths:
-  - "**/*.ets"
-  - "**/*.ts"
-  - "**/ohosTest/**"
----
 # HarmonyOS / ArkTS Testing
 
 > This file extends [common/testing.md](../common/testing.md) with HarmonyOS-specific testing practices.

@@ -133,7 +133,7 @@ python scripts/verify-plugin.py
 =====================================================
  [PASS] Antigravity Manifest (plugin.json)
  [PASS] Gemini CLI Manifest (gemini-extension.json)
- [PASS] MCP Server Catalog (35 servers configured)
+ [PASS] MCP Server Catalog (29 servers configured)
  [PASS] Lifecycle Hooks (23 named hooks configured)
  [PASS] Contextual Skills (288/288 skills valid - 100%)
  [PASS] Specialized Subagents (72/72 agents valid - 100%)

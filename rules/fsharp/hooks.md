@@ -1,13 +1,3 @@
----
-paths:
-  - "**/*.fs"
-  - "**/*.fsx"
-  - "**/*.fsproj"
-  - "**/*.sln"
-  - "**/*.slnx"
-  - "**/Directory.Build.props"
-  - "**/Directory.Build.targets"
----
 # F# Hooks
 
 > This file extends [common/hooks.md](../common/hooks.md) with F#-specific content.

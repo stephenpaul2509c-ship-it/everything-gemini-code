@@ -1,8 +1,3 @@
----
-paths:
-  - "**/*.vue"
----
-
 # Vue Testing
 
 > This file extends [common/testing.md](../common/testing.md) with Vue specific content.

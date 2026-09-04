@@ -1,15 +1,3 @@
----
-paths:
-  - "**/*.css"
-  - "**/*.scss"
-  - "**/*.sass"
-  - "**/*.less"
-  - "**/*.html"
-  - "**/*.tsx"
-  - "**/*.jsx"
-  - "**/*.vue"
-  - "**/*.svelte"
----
 > This file extends [common/hooks.md](../common/hooks.md) with web-specific hook recommendations.
 
 # Web Hooks

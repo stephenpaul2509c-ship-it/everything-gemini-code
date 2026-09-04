@@ -1,11 +1,3 @@
----
-paths:
-  - "**/*.ets"
-  - "**/*.ts"
-  - "**/module.json5"
-  - "**/oh-package.json5"
-  - "**/build-profile.json5"
----
 # HarmonyOS / ArkTS Coding Style
 
 > This file extends [common/coding-style.md](../common/coding-style.md) with HarmonyOS and ArkTS-specific content.

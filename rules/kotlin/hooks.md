@@ -1,9 +1,3 @@
----
-paths:
-  - "**/*.kt"
-  - "**/*.kts"
-  - "**/build.gradle.kts"
----
 # Kotlin Hooks
 
 > This file extends [common/hooks.md](../common/hooks.md) with Kotlin-specific content.

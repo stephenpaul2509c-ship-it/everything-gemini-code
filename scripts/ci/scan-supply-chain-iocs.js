@@ -706,11 +706,11 @@ function scanFile(filePath, rootDir, findings) {
 
 function homeTargets(homeDir) {
   return [
-    '.claude/settings.json',
-    '.claude/settings.local.json',
-    '.claude/hooks/hooks.json',
-    '.claude/router_runtime.js',
-    '.claude/setup.mjs',
+    '.gemini/settings.json',
+    '.gemini/settings.local.json',
+    '.gemini/hooks/hooks.json',
+    '.gemini/router_runtime.js',
+    '.gemini/setup.mjs',
     '.vscode/tasks.json',
     '.vscode/setup.mjs',
     'Library/Application Support/Code/User/tasks.json',

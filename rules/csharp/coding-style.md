@@ -1,8 +1,3 @@
----
-paths:
-  - "**/*.cs"
-  - "**/*.csx"
----
 # C# Coding Style
 
 > This file extends [common/coding-style.md](../common/coding-style.md) with C#-specific content.

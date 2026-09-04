@@ -32,7 +32,7 @@ Usage:
 Options:
   --detect        Detect and show current package manager
   --global <pm>   Set global preference (saves to ~/.gemini/package-manager.json)
-  --project <pm>  Set project preference (saves to .claude/package-manager.json)
+  --project <pm>  Set project preference (saves to .gemini/package-manager.json)
   --list          List available package managers
   --help          Show this help message
 
@@ -145,7 +145,7 @@ function setProject(pmName) {
   try {
     setProjectPackageManager(pmName);
     console.log(`\n✓ Project preference set to: ${pmName}`);
-    console.log('  Saved to: .claude/package-manager.json');
+    console.log('  Saved to: .gemini/package-manager.json');
     console.log('');
   } catch (err) {
     console.error(`Error: ${err.message}`);
