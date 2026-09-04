@@ -102,8 +102,50 @@ Run guided workflow commands by typing:
 
 ---
 
+## 🧪 Validation & Test Suite Results
+
+Every component of Everything Gemini Code is tested and validated against the official Gemini CLI and Antigravity specifications.
+
+Run the test suite locally at any time:
+```bash
+python scripts/verify-plugin.py
+```
+
+### Automated Test Suite Output:
+```text
+=====================================================
+ Everything Gemini Code (EGC) - Plugin Test Suite
+=====================================================
+ [PASS] Antigravity Manifest (plugin.json)
+ [PASS] Gemini CLI Manifest (gemini-extension.json)
+ [PASS] MCP Server Catalog (35 servers configured)
+ [PASS] Lifecycle Hooks (23 named hooks configured)
+ [PASS] Contextual Skills (286/286 skills valid - 100%)
+ [PASS] Specialized Subagents (68/68 agents valid - 100%)
+=====================================================
+ TEST SUMMARY: 6 passed, 0 failed
+ Status: ALL CHECKS PASSED [OK]
+=====================================================
+```
+
+---
+
+## ⚡ Performance: Vanilla Gemini vs. Gemini + EGC
+
+| Capability | Vanilla Gemini (Base) | Gemini with Everything Gemini Code (EGC) |
+| :--- | :--- | :--- |
+| **Code Review** | Generic review; comments on subjective style preferences and adds noise. | **`code-reviewer` agent**: Strict 4-stage confidence gate (>80% certainty required), exact file & line citations, concrete failure modes, and zero noise. |
+| **Development Workflow** | Immediately writes code, often without tests or validation. | **`tdd-workflow` skill**: Enforces Red-Green-Refactor cycle with 80%+ unit, integration, and E2E test coverage before shipping. |
+| **Context Window Efficiency** | Large monolithic prompts bloat the context window. | **Progressive Disclosure**: Only skill names & descriptions load initially (~200 tokens). Full operational runbooks load *only when triggered*. |
+| **Safety & Security Gates** | Blind execution of bash scripts and file edits. | **GateGuard Lifecycle Hooks**: Intercepts pre/post tool use to block secret leakage, prevent accidental data destruction, and verify MCP health. |
+| **Specialized Delegation** | Single general-purpose model handles all tasks. | **68 Delegated Subagents**: Tasks are routed to specialized personas (e.g. `architect`, `build-error-resolver`, `security-auditor`). |
+| **Multi-Language Standards** | Generic syntax suggestions. | **23+ Curated Rulebooks**: Dedicated best-practice guides for Python (FastAPI), TypeScript, React, Go, Rust, C++, Swift, etc. |
+
+---
+
 ## 🤝 Attribution & Acknowledgements
 
 This project is a direct adaptation of [affaan-m/ECC](https://github.com/affaan-m/ECC) created by **Affaan Mustafa**. All credit for the original design, skills, and agent harness architecture belongs to the upstream author and contributors.
 
 Licensed under the [MIT License](./LICENSE).
+
