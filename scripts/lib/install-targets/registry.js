@@ -1,6 +1,6 @@
 const adalProject = require('./adal-project');
 const antigravityProject = require('./antigravity-project');
-const claudeHome = require('./gemini-home');
+const claudeHome = require('./claude-home');
 const claudeProject = require('./claude-project');
 const codebuddyProject = require('./codebuddy-project');
 const codexHome = require('./codex-home');
