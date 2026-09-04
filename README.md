@@ -28,13 +28,13 @@ It equips your Gemini coding assistant with **68 specialized agents**, **286 con
 #### A. Workspace / Project-Level:
 Place or clone this repository into `.agents/plugins/everything-gemini-code` in your project root:
 ```bash
-git clone https://github.com/<your-username>/everything-gemini-code.git .agents/plugins/everything-gemini-code
+git clone https://github.com/stephenpaul2509c-ship-it/everything-gemini-code.git .agents/plugins/everything-gemini-code
 ```
 
 #### B. Machine-Wide Global Plugin:
 Clone into your global Gemini config directory:
 ```bash
-git clone https://github.com/<your-username>/everything-gemini-code.git ~/.gemini/config/plugins/everything-gemini-code
+git clone https://github.com/stephenpaul2509c-ship-it/everything-gemini-code.git ~/.gemini/config/plugins/everything-gemini-code
 ```
 
 Antigravity will automatically detect `plugin.json`, load all 286 skills progressively, register rules, and expose MCP servers.
@@ -45,7 +45,7 @@ Antigravity will automatically detect `plugin.json`, load all 286 skills progres
 
 Install directly via the Gemini CLI:
 ```bash
-gemini extensions install https://github.com/<your-username>/everything-gemini-code
+gemini extensions install https://github.com/stephenpaul2509c-ship-it/everything-gemini-code
 ```
 Or copy `gemini-extension.json` and assets into your active Gemini CLI workspace.
 
