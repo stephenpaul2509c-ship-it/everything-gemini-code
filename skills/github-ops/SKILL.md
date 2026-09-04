@@ -119,7 +119,7 @@ When preparing a release:
 
 For the EGC repository's maintainer release path, especially `EGC-031` and any
 follow-up where tag identity, npm provenance, and announcement evidence must
-all line up, read [references/ecc-release-checklist.md](references/ecc-release-checklist.md)
+all line up, read [references/egc-release-checklist.md](references/egc-release-checklist.md)
 before mutating tags, npm dist-tags, or GitHub Releases. That checklist
 captures the exact-green-main, signed-tag, registry-readback, and announcement
 requirements that the generic examples below do not.

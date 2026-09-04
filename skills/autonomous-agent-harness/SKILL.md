@@ -98,8 +98,8 @@ mcp__scheduled-tasks__create_scheduled_task({
   project_dir: "/path/to/repo"
 })
 
-# Via claude -p (programmatic mode)
-echo "Review open PRs and summarize" | claude -p --project /path/to/repo
+# Via gemini -p (programmatic mode)
+echo "Review open PRs and summarize" | gemini -p --project /path/to/repo
 ```
 
 **Useful cron patterns:**
@@ -120,7 +120,7 @@ Trigger Gemini CLI / Antigravity agents remotely for event-driven workflows.
 
 ```bash
 # Trigger from CI/CD
-curl -X POST "https://api.anthropic.com/dispatch" \
+curl -X POST "https://ai.google.dev/dispatch" \
   -H "Authorization: Bearer $ANTHROPIC_API_KEY" \
   -d '{"prompt": "Build failed on main. Diagnose and fix.", "project": "/repo"}'
 
@@ -128,7 +128,7 @@ curl -X POST "https://api.anthropic.com/dispatch" \
 # GitHub webhook → dispatch → Gemini agent → fix → PR
 
 # Trigger from another agent
-claude -p "Analyze the output of the security scan and create issues for findings"
+gemini -p "Analyze the output of the security scan and create issues for findings"
 ```
 
 ### 4. Computer Use
@@ -195,15 +195,15 @@ Ensure these are in `~/.gemini.json`:
   "mcpServers": {
     "memory": {
       "command": "npx",
-      "args": ["-y", "@anthropic/memory-mcp-server"]
+      "args": ["-y", "@modelcontextprotocol/server-memory"]
     },
     "scheduled-tasks": {
       "command": "npx",
-      "args": ["-y", "@anthropic/scheduled-tasks-mcp-server"]
+      "args": ["-y", "@modelcontextprotocol/server-scheduled-tasks"]
     },
     "computer-use": {
       "command": "npx",
-      "args": ["-y", "@anthropic/computer-use-mcp-server"]
+      "args": ["-y", "@modelcontextprotocol/server-puppeteer"]
     }
   }
 }
@@ -213,17 +213,17 @@ Ensure these are in `~/.gemini.json`:
 
 ```bash
 # Daily morning briefing
-claude -p "Create a scheduled task: every weekday at 9am, review my GitHub notifications, open PRs, and calendar. Write a morning briefing to memory."
+gemini -p "Create a scheduled task: every weekday at 9am, review my GitHub notifications, open PRs, and calendar. Write a morning briefing to memory."
 
 # Continuous learning
-claude -p "Create a scheduled task: every Sunday at 8pm, extract patterns from this week's sessions and update the learned skills."
+gemini -p "Create a scheduled task: every Sunday at 8pm, extract patterns from this week's sessions and update the learned skills."
 ```
 
 ### Step 3: Initialize Memory Graph
 
 ```bash
 # Bootstrap your identity and context
-claude -p "Create memory entities for: me (user profile), my projects, my key contacts. Add observations about current priorities."
+gemini -p "Create memory entities for: me (user profile), my projects, my key contacts. Add observations about current priorities."
 ```
 
 ### Step 4: Enable Computer Use (Optional)

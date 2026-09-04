@@ -11,11 +11,11 @@ need to inspect a wedged or sibling session, run the packaged CLI from another
 terminal:
 
 ```bash
-npx --package ecc-universal ecc loop-status --json
+node scripts/orchestration-status.js --json
 ```
 
-The CLI scans local Gemini transcript JSONL files under
-`~/.gemini/projects/**` and reports stale `ScheduleWakeup` calls or `Bash`
+The tool scans local Gemini transcript JSONL files under
+`~/.gemini/projects/**` and reports stale `ScheduleWakeup` calls or `run_command`
 tool calls that have no matching `tool_result`.
 
 ## Usage

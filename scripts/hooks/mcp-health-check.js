@@ -67,9 +67,9 @@ function configPaths() {
   const home = os.homedir();
 
   return [
-    path.join(cwd, '.claude.json'),
+    path.join(cwd, '.gemini.json'),
     path.join(cwd, '.gemini', 'settings.json'),
-    path.join(home, '.claude.json'),
+    path.join(home, '.gemini.json'),
     path.join(home, '.gemini', 'settings.json')
   ];
 }

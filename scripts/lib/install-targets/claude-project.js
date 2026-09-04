@@ -7,7 +7,7 @@ const {
   normalizeRelativePath,
 } = require('./helpers');
 
-const GEMINI_EGC_NAMESPACE = 'ecc';
+const GEMINI_EGC_NAMESPACE = 'everything-gemini-code';
 
 function getClaudeManagedDestinationPath(adapter, sourceRelativePath, input) {
   const normalizedSourcePath = normalizeRelativePath(sourceRelativePath);

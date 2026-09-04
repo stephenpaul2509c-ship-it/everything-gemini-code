@@ -38,7 +38,7 @@ and output a complete optimized prompt the user can paste and run.
 
 - User wants the task done directly (just execute it)
 - User says "优化代码", "优化性能", "optimize this code", "optimize performance" — these are refactoring tasks, not prompt optimization
-- User is asking about EGC configuration (use `configure-ecc` instead)
+- User is asking about EGC configuration (use `configure-egc` instead)
 - User wants a skill inventory (use `skill-stocktake` instead)
 - User says "just do it" or "直接做"
 
@@ -390,7 +390,7 @@ Recommended: gemini-2.5-pro 5 for blueprint planning, gemini-2.5-pro 5 for phase
 
 | Component | When to Reference |
 |-----------|------------------|
-| `configure-ecc` | User hasn't set up EGC yet |
+| `configure-egc` | User hasn't set up EGC yet |
 | `skill-stocktake` | Audit which components are installed (use instead of hardcoded catalog) |
 | `search-first` | Research phase in optimized prompts |
 | `blueprint` | EPIC-scope optimized prompts (invoke as skill, not command) |

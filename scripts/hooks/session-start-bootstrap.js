@@ -17,7 +17,7 @@
  *
  * How it works:
  *   1. Reads the raw JSON event from stdin (passed by Gemini CLI / Antigravity).
- *   2. Resolves the ECC plugin root directory (via GEMINI_PLUGIN_ROOT env var
+ *   2. Resolves the EGC plugin root directory (via GEMINI_PLUGIN_ROOT env var
  *      or a set of well-known fallback paths).
  *   3. Delegates to `scripts/hooks/run-with-flags.js` with the `session:start`
  *      event, which applies hook-profile gating and then runs session-start.js.
@@ -29,7 +29,7 @@
 const fs = require('fs');
 const path = require('path');
 const { spawnSync } = require('child_process');
-const { resolveEccRoot } = require('../lib/resolve-ecc-root');
+const { resolveEgcRoot } = require('../lib/resolve-ecc-root');
 
 // Read the raw JSON event from stdin
 const raw = fs.readFileSync(0, 'utf8');
@@ -37,9 +37,9 @@ const raw = fs.readFileSync(0, 'utf8');
 // Path (relative to plugin root) to the hook runner
 const rel = path.join('scripts', 'hooks', 'run-with-flags.js');
 
-// Resolve the ECC plugin root via the shared resolver, probing for the runner
+// Resolve the EGC plugin root via the shared resolver, probing for the runner
 // so a valid root is one that actually contains run-with-flags.js.
-const root = resolveEccRoot({ probe: rel });
+const root = resolveEgcRoot({ probe: rel });
 const script = path.join(root, rel);
 
 if (fs.existsSync(script)) {
@@ -80,6 +80,6 @@ if (fs.existsSync(script)) {
 }
 
 process.stderr.write(
-  '[SessionStart] WARNING: could not resolve ECC plugin root; skipping session-start hook\n'
+  '[SessionStart] WARNING: could not resolve EGC plugin root; skipping session-start hook\n'
 );
 process.stdout.write(raw);

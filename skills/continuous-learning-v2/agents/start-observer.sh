@@ -2,7 +2,7 @@
 # Continuous Learning v2 - Observer Agent Launcher
 #
 # Starts the background observer agent that analyzes observations
-# and creates instincts. Uses Haiku model for cost efficiency.
+# and creates instincts. Uses Gemini 2.5 Flash for cost efficiency.
 #
 # v2.1: Project-scoped — detects current project and analyzes
 #       project-specific observations into project-scoped instincts.
@@ -16,7 +16,7 @@
 set -e
 
 # NOTE: set -e is disabled inside the background subshell below
-# to prevent claude CLI failures from killing the observer loop.
+# to prevent gemini CLI failures from killing the observer loop.
 
 # ─────────────────────────────────────────────
 # Project detection

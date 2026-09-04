@@ -139,7 +139,7 @@ Sub-questions investigated: [list]
 
 ## Parallel Research with Subagents
 
-For broad topics, use Gemini CLI / Antigravity's Task tool to parallelize:
+For broad topics, use Gemini CLI / Antigravity subagent invocation (`invoke_subagent`) to parallelize:
 
 ```
 Launch 3 research agents in parallel:

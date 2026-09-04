@@ -120,8 +120,8 @@ git worktree add -b feat/auth ../feature-auth HEAD
 git worktree add -b feat/billing ../feature-billing HEAD
 
 # Run agents in separate worktrees
-# Pane 1: cd ../feature-auth && claude
-# Pane 2: cd ../feature-billing && claude
+# Pane 1: cd ../feature-auth && gemini
+# Pane 2: cd ../feature-billing && gemini
 
 # Merge branches when done
 git merge feat/auth
@@ -134,7 +134,7 @@ git merge feat/billing
 |------|-------------|-------------|
 | **dmux** | tmux pane management for agents | Parallel agent sessions |
 | **Superset** | Terminal IDE for 10+ parallel agents | Large-scale orchestration |
-| **Gemini CLI / Antigravity Task tool** | In-process subagent spawning | Programmatic parallelism within a session |
+| **Gemini CLI / Antigravity Subagents (`invoke_subagent`)** | In-process subagent spawning | Programmatic parallelism within a session |
 | **Codex multi-agent** | Built-in agent roles | Codex-specific parallel work |
 
 ## EGC Helper

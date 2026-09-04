@@ -225,7 +225,7 @@ Agentic OS tasks run on a schedule using external cron, not Gemini CLI / Antigra
     <string>com.agentic.daily-sync</string>
     <key>ProgramArguments</key>
     <array>
-        <string>/claude</string>
+        <string>/gemini</string>
         <string>--cwd</string>
         <string>/path/to/project</string>
         <string>--command</string>
@@ -253,7 +253,7 @@ Description=Agentic OS Daily Sync
 
 [Service]
 Type=oneshot
-ExecStart=/usr/local/bin/claude --cwd /path/to/project --command /daily-sync
+ExecStart=/usr/local/bin/gemini --cwd /path/to/project --command /daily-sync
 ```
 
 ```ini
@@ -276,7 +276,7 @@ WantedBy=timers.target
 module.exports = {
   apps: [{
     name: 'agentic-daily-sync',
-    script: 'claude',
+    script: 'gemini',
     args: '--cwd /path/to/project --command /daily-sync',
     cron_restart: '0 8 * * *',
     autorestart: false

@@ -23,8 +23,8 @@ Patterns for controlling LLM API costs while maintaining quality. Combines model
 Automatically select cheaper models for simple tasks, reserving expensive models for complex ones.
 
 ```python
-MODEL_SONNET = "claude-gemini-2.5-pro-5"
-MODEL_HAIKU = "claude-gemini-2.5-flash-4-5-20251001"
+MODEL_PRO = "gemini-2.5-pro"
+MODEL_FLASH = "gemini-2.5-flash"
 
 _SONNET_TEXT_THRESHOLD = 10_000  # chars
 _SONNET_ITEM_THRESHOLD = 30     # items
@@ -82,7 +82,7 @@ class CostTracker:
 Retry only on transient errors. Fail fast on authentication or bad request errors.
 
 ```python
-from anthropic import (
+from google import genai
     APIConnectionError,
     InternalServerError,
     RateLimitError,

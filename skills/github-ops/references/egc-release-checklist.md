@@ -46,7 +46,7 @@ gh run view 33429641766 --repo stephenpaul2509c-ship-it/everything-gemini-code -
 gh release view v2.2.0 --repo stephenpaul2509c-ship-it/everything-gemini-code --json tagName,targetCommitish,publishedAt,url
 git ls-remote --tags origin 'refs/tags/v2.2.0*'
 git tag -v v2.2.0
-npm view ecc-universal dist-tags --json
+npm view everything-gemini-code dist-tags --json
 ```
 
 ## Checklist
@@ -83,7 +83,7 @@ Expected next version is `2.2.1` unless it already exists.
 VERSION=2.2.1
 git ls-remote --tags origin "refs/tags/v${VERSION}*"
 gh release view "v${VERSION}" --repo stephenpaul2509c-ship-it/everything-gemini-code
-npm view "ecc-universal@${VERSION}" version
+npm view "everything-gemini-code@${VERSION}" version
 ```
 
 Expected:
@@ -175,13 +175,13 @@ After the workflow succeeds:
 
 ```bash
 VERSION=2.2.1
-npm view ecc-universal dist-tags --json
-npm view "ecc-universal@${VERSION}" name version dist.integrity --json
+npm view everything-gemini-code dist-tags --json
+npm view "everything-gemini-code@${VERSION}" name version dist.integrity --json
 gh release view "v${VERSION}" --repo stephenpaul2509c-ship-it/everything-gemini-code \
   --json tagName,name,isDraft,isPrerelease,publishedAt,url
 gh api repos/stephenpaul2509c-ship-it/everything-gemini-code/releases/latest --jq .tag_name
-npx --yes "ecc-universal@${VERSION}" setup --help
-npx --yes ecc-universal@latest setup --help
+npx --yes "everything-gemini-code@${VERSION}" setup --help
+npx --yes everything-gemini-code@latest setup --help
 ```
 
 Also run the clean install, doctor, repair, uninstall, and rollback canaries

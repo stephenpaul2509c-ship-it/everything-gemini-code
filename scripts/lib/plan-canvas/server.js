@@ -541,7 +541,7 @@ function createPlanCanvasServer({
     Promise.resolve()
       .then(() => {
         if (req.method === 'GET' && pathname === '/health') {
-          return sendJson(res, 200, { ok: true, app: 'ecc-plan-canvas', version });
+          return sendJson(res, 200, { ok: true, app: 'egc-plan-canvas', version });
         }
         if (req.method === 'POST' && pathname === '/shutdown') {
           sendJson(res, 200, { status: 'stopping' });

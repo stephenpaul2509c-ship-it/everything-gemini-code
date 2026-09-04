@@ -111,7 +111,7 @@
       "kind": "platform",
       "description": "Baseline platform configs, package-manager setup, and MCP catalog.",
       "paths": [
-        ".claude-plugin",
+        ".gemini-plugin",
         ".codex",
         ".cursor",
         ".gemini",
@@ -281,7 +281,7 @@
     {
       "id": "skill-unified-memory",
       "kind": "skills",
-      "description": "Single-skill unified-memory guidance; requires the separately installed ecc-universal CLI runtime.",
+      "description": "Single-skill unified-memory guidance; requires the separately installed everything-gemini-code CLI runtime.",
       "paths": [
         "skills/unified-memory"
       ],
@@ -349,8 +349,8 @@
         "skills/config-gc",
         "skills/context-budget",
         "skills/delivery-gate",
-        "skills/ecc-guide",
-        "skills/ecc-recipes",
+        "skills/egc-guide",
+        "skills/egc-recipes",
         "skills/growth-log",
         "skills/inherit-legacy-style",
         "skills/intent-driven-development",
@@ -548,7 +548,7 @@
         "skills/cost-tracking",
         "skills/customer-billing-ops",
         "skills/dashboard-builder",
-        "skills/ecc-tools-cost-audit",
+        "skills/egc-tools-cost-audit",
         "skills/email-ops",
         "skills/finance-billing-ops",
         "skills/github-ops",
@@ -806,7 +806,7 @@
         "skills/ai-first-engineering",
         "skills/autonomous-loops",
         "skills/blueprint",
-        "skills/claude-devfleet",
+        "skills/gemini-devfleet",
         "skills/content-hash-cache-pattern",
         "skills/continuous-agent-loop",
         "skills/cost-aware-llm-pipeline",

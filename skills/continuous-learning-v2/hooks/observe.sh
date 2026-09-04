@@ -146,8 +146,8 @@ if [ -n "${CLV2_CONFIG:-}" ] && [ -f "$(dirname "$CLV2_CONFIG")/disabled" ]; the
 fi
 
 # Prevent observe.sh from firing on non-human sessions to avoid:
-#   - ECC observing its own Haiku observer sessions (self-loop)
-#   - ECC observing other tools' automated sessions
+#   - EGC observing its own Flash observer sessions (self-loop)
+#   - EGC observing other tools' automated sessions
 #   - automated sessions creating project-scoped homunculus metadata
 
 # Layer 1: entrypoint. Only interactive terminal sessions should continue.
@@ -155,7 +155,7 @@ fi
 # Non-interactive SDK automation is still filtered by Layers 2-5 below
 # (ECC_HOOK_PROFILE=minimal, ECC_SKIP_OBSERVE=1, agent_id, path exclusions).
 case "${GEMINI_CODE_ENTRYPOINT:-cli}" in
-  cli|sdk-ts|claude-desktop|claude-vscode) ;;
+  cli|sdk-ts|gemini-cli|antigravity) ;;
   *) exit 0 ;;
 esac
 
@@ -170,7 +170,7 @@ _ECC_AGENT_ID=$(echo "$INPUT_JSON" | "$PYTHON_CMD" -c "import json,sys; print(js
 [ -n "$_ECC_AGENT_ID" ] && exit 0
 
 # Layer 5: known observer-session path exclusions.
-_ECC_SKIP_PATHS="${ECC_OBSERVE_SKIP_PATHS:-observer-sessions,.claude-mem}"
+_ECC_SKIP_PATHS="${ECC_OBSERVE_SKIP_PATHS:-observer-sessions,.gemini-mem}"
 if [ -n "$STDIN_CWD" ]; then
   IFS=',' read -ra _ECC_SKIP_ARRAY <<< "$_ECC_SKIP_PATHS"
   for _pattern in "${_ECC_SKIP_ARRAY[@]}"; do

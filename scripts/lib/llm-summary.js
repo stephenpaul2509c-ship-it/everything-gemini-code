@@ -155,7 +155,7 @@ function generateSessionSummary(transcriptPath) {
       encoding: 'utf8',
       env: {
         ...process.env,
-        CLAUDECODE: '',
+        GEMINICODE: '',
         ECC_SKIP_LLM_SUMMARY: '1',
         ECC_LLM_SUMMARY_SUBPROCESS: '1'
       },

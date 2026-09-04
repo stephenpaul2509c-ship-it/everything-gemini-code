@@ -1,8 +1,7 @@
 #!/bin/bash
 # gan-harness.sh — GAN-Style Generator-Evaluator Harness Orchestrator
 #
-# Inspired by Anthropic's "Harness Design for Long-Running Application Development"
-# https://www.anthropic.com/engineering/harness-design-long-running-apps
+# Inspired by Generative Multi-Agent Adversarial Harness Design for Application Development
 #
 # Usage:
 #   ./scripts/gan-harness.sh "Build a music streaming dashboard"
@@ -27,9 +26,9 @@ set -euo pipefail
 BRIEF="${1:?Usage: ./scripts/gan-harness.sh \"description of what to build\"}"
 MAX_ITERATIONS="${GAN_MAX_ITERATIONS:-15}"
 PASS_THRESHOLD="${GAN_PASS_THRESHOLD:-7.0}"
-PLANNER_MODEL="${GAN_PLANNER_MODEL:-sonnet}"
-GENERATOR_MODEL="${GAN_GENERATOR_MODEL:-sonnet}"
-EVALUATOR_MODEL="${GAN_EVALUATOR_MODEL:-sonnet}"
+PLANNER_MODEL="${GAN_PLANNER_MODEL:-gemini-2.5-pro}"
+GENERATOR_MODEL="${GAN_GENERATOR_MODEL:-gemini-2.5-pro}"
+EVALUATOR_MODEL="${GAN_EVALUATOR_MODEL:-gemini-2.5-pro}"
 DEV_PORT="${GAN_DEV_SERVER_PORT:-3000}"
 DEV_CMD="${GAN_DEV_SERVER_CMD:-npm run dev}"
 PROJECT_DIR="${GAN_PROJECT_DIR:-.}"
@@ -148,7 +147,7 @@ else
   phase "PHASE 1: Planning"
   log "Launching Planner agent (model: $PLANNER_MODEL)..."
 
-  claude -p --model "$PLANNER_MODEL" \
+  gemini -p --model "$PLANNER_MODEL" \
     "You are the Planner in a GAN-style harness. Read the agent definition in agents/gan-planner.md for your full instructions.
 
 Your brief: \"$BRIEF\"
@@ -188,7 +187,7 @@ for (( i=1; i<=MAX_ITERATIONS; i++ )); do
     FEEDBACK_CONTEXT="IMPORTANT: Read and address ALL issues in gan-harness/feedback/feedback-$(printf '%03d' $((i-1))).md before doing anything else."
   fi
 
-  claude -p --model "$GENERATOR_MODEL" \
+  gemini -p --model "$GENERATOR_MODEL" \
     "You are the Generator in a GAN-style harness. Read agents/gan-generator.md for full instructions.
 
 Iteration: $i
@@ -205,8 +204,8 @@ Update gan-harness/generator-state.md." \
   # ── EVALUATE ──
   echo -e "${RED}>> EVALUATOR (iteration $i)${NC}"
 
-  claude -p --model "$EVALUATOR_MODEL" \
-    --allowedTools "Read,Write,Bash,Grep,Glob" \
+  gemini -p --model "$EVALUATOR_MODEL" \
+    --allowedTools "view_file,write_to_file,replace_file_content,run_command,grep_search,find_by_name" \
     "You are the Evaluator in a GAN-style harness. Read agents/gan-evaluator.md for full instructions.
 
 Iteration: $i

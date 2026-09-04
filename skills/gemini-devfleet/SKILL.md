@@ -18,7 +18,7 @@ run it from its repository first: <https://github.com/LEC-AI/gemini-devfleet>
 
 Then connect the running instance via MCP:
 ```bash
-claude mcp add devfleet --transport http http://localhost:18801/mcp
+gemini mcp add devfleet --transport http http://localhost:18801/mcp
 ```
 
 Before first use, verify the process listening on port 18801 is the DevFleet

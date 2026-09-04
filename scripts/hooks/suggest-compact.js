@@ -41,8 +41,8 @@ const {
   formatWindowLabel
 } = require('../lib/transcript-context');
 
-const COUNTER_FILE_PREFIX = 'claude-tool-count-';
-const CONTEXT_BUCKET_FILE_PREFIX = 'claude-context-bucket-';
+const COUNTER_FILE_PREFIX = 'gemini-tool-count-';
+const CONTEXT_BUCKET_FILE_PREFIX = 'gemini-context-bucket-';
 const STATE_FILE_PREFIXES = [COUNTER_FILE_PREFIX, CONTEXT_BUCKET_FILE_PREFIX];
 const DEFAULT_COMPACT_STATE_TTL_DAYS = 14;
 
@@ -56,8 +56,8 @@ function getCounterRetentionDays() {
 /**
  * Sweep stale per-session state files from the temp dir.
  *
- * Each session writes `claude-tool-count-<sessionId>` (and, with the context
- * signal, `claude-context-bucket-<sessionId>`) into the OS temp dir; nothing
+ * Each session writes `gemini-tool-count-<sessionId>` (and, with the context
+ * signal, `gemini-context-bucket-<sessionId>`) into the OS temp dir; nothing
  * else removes them. Without a sweep these files accumulate one-per-session
  * forever. This helper removes state files whose mtime is older than
  * `retentionDays`, while preserving the active session's files (which are

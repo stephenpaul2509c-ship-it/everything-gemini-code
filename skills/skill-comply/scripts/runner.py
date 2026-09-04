@@ -1,4 +1,4 @@
-"""Run scenarios via claude -p and parse tool calls from stream-json output."""
+"""Run scenarios via gemini -p and parse tool calls from stream-json output."""
 
 from __future__ import annotations
 
@@ -14,7 +14,7 @@ from scripts.parser import ObservationEvent
 from scripts.scenario_generator import Scenario
 
 SANDBOX_BASE = Path("/tmp/skill-comply-sandbox")
-ALLOWED_MODELS = frozenset({"haiku", "sonnet", "opus"})
+ALLOWED_MODELS = frozenset({"gemini-2.5-flash", "gemini-2.5-pro", "gemini-2.5-flash-lite"})
 ALLOWED_SETUP_EXECUTABLES = frozenset({
     "git", "npm", "pip", "pip3",
     "touch", "mkdir", "cp", "mv", "echo",
@@ -36,7 +36,7 @@ class ScenarioRun:
 
 def run_scenario(
     scenario: Scenario,
-    model: str = "sonnet",
+    model: str = "gemini-2.5-pro",
     max_turns: int = 30,
     timeout: int = 300,
 ) -> ScenarioRun:
@@ -49,7 +49,7 @@ def run_scenario(
 
     result = subprocess.run(
         [
-            "claude", "-p", scenario.prompt,
+            "gemini", "-p", scenario.prompt,
             "--model", model,
             "--max-turns", str(max_turns),
             "--add-dir", str(sandbox_dir),
@@ -63,7 +63,7 @@ def run_scenario(
         cwd=sandbox_dir,
     )
 
-    # claude -p returns rc=1 when --max-turns is reached, but the stream-json
+    # gemini -p returns rc=1 when --max-turns is reached, but the stream-json
     # output is still complete and parseable. Treat this graceful termination
     # as non-fatal so scenarios that hit the turn cap still produce usable
     # observations.
@@ -72,12 +72,12 @@ def run_scenario(
         and '"terminal_reason":"max_turns"' in result.stdout
     )
     if result.returncode != 0 and not nonfatal_max_turns:
-        # Include both stderr and stdout tails. claude -p often surfaces the
+        # Include both stderr and stdout tails. gemini -p often surfaces the
         # actual failure context (model error JSON, partial stream-json) on
         # stdout, while stderr carries generic transport / auth messages.
         # Showing both dramatically reduces "rc=N: <empty>" debugging dead-ends.
         raise RuntimeError(
-            f"claude -p failed (rc={result.returncode}): "
+            f"gemini -p failed (rc={result.returncode}): "
             f"stderr={result.stderr[:500]!r} stdout_tail={result.stdout[-500:]!r}"
         )
 
@@ -184,7 +184,7 @@ def _serialize_report_value(value: object) -> str:
 
 
 def _parse_stream_json(stdout: str) -> list[ObservationEvent]:
-    """Parse claude -p stream-json output into ObservationEvents.
+    """Parse gemini -p stream-json output into ObservationEvents.
 
     Stream-json format:
     - type=assistant with content[].type=tool_use → tool call (name, input)

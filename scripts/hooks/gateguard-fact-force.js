@@ -985,7 +985,7 @@ function normalizeForMatch(value) {
 
 function isClaudeSettingsPath(filePath) {
   const normalized = normalizeForMatch(filePath);
-  return /(^|\/)\.claude\/settings(?:\.[^/]+)?\.json$/.test(normalized);
+  return /(^|\/)\.gemini\/settings(?:\.[^/]+)?\.json$/.test(normalized);
 }
 
 function isReadOnlyGitIntrospection(command) {

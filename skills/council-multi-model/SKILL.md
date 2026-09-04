@@ -34,7 +34,7 @@ An external process is not automatically a heterogeneous reviewer.
 
 | Current host | Reviewer | Label |
 | --- | --- | --- |
-| Anthropic / Gemini | OpenAI Codex | `cross-provider external critique` |
+| Gemini Pro / Flash | OpenAI Codex | `cross-provider external critique` |
 | OpenAI / Codex | OpenAI Codex | `same-provider external critique` |
 | Unknown | OpenAI Codex | `provider relationship unverified` |
 
@@ -94,10 +94,10 @@ contains this `SKILL.md`, then pipe the packet over stdin:
 SKILL_DIR="<native-skill-dir>"
 node "$SKILL_DIR/scripts/review-with-codex.js" \
   --consent-to-openai \
-  --host-provider anthropic < "$PROMPT_FILE"
+  --host-provider gemini < "$PROMPT_FILE"
 ```
 
-Choose `openai`, `anthropic`, or `unknown` for `--host-provider`. The adapter:
+Choose `openai`, `gemini`, or `unknown` for `--host-provider`. The adapter:
 
 - uses the installed `codex` CLI; it installs nothing;
 - runs in a new empty temporary directory, not the project;

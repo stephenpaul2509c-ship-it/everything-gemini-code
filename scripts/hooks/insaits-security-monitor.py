@@ -40,7 +40,7 @@ How it works:
 Environment variables:
   INSAITS_DEV_MODE   Set to "true" to enable dev mode (no API key needed).
                      Defaults to "false" (strict mode).
-  INSAITS_MODEL      LLM model identifier for fingerprinting. Default: claude-opus.
+  INSAITS_MODEL      LLM model identifier for fingerprinting. Default: gemini-2.5-pro.
   INSAITS_FAIL_MODE  "open" (default) = continue on SDK errors.
                      "closed" = block tool execution on SDK errors.
   INSAITS_VERBOSE    Set to any value to enable debug logging.
@@ -88,7 +88,7 @@ except ImportError:
 AUDIT_FILE: str = ".insaits_audit_session.jsonl"
 MIN_CONTENT_LENGTH: int = 10
 MAX_SCAN_LENGTH: int = 4000
-DEFAULT_MODEL: str = "claude-opus"
+DEFAULT_MODEL: str = "gemini-2.5-pro"
 BLOCKING_SEVERITIES: frozenset = frozenset({"CRITICAL"})
 
 

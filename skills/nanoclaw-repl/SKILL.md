@@ -1,6 +1,6 @@
 ---
 name: nanoclaw-repl
-description: Operate and extend NanoClaw v2, EGC's zero-dependency session-aware REPL built on claude -p. Use when operating or extending the NanoClaw REPL.
+description: Operate and extend NanoClaw v2, EGC's zero-dependency session-aware REPL built on gemini -p. Use when operating or extending the NanoClaw REPL.
 metadata:
   origin: EGC
 ---

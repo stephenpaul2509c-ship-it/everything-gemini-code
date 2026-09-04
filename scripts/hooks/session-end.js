@@ -193,7 +193,7 @@ async function main() {
   // before touching session state. Transcript cardinality is not a safe proxy:
   // an ordinary user session may legitimately contain one prompt and no tools.
   if (process.env.ECC_LLM_SUMMARY_SUBPROCESS === '1') {
-    log('[SessionEnd] Skipped ECC LLM summary subprocess');
+    log('[SessionEnd] Skipped EGC LLM summary subprocess');
     return;
   }
 
@@ -219,7 +219,7 @@ async function main() {
   // getSessionIdShort() would have produced from the same UUID), while making
   // every session map to a unique filename based on its own transcript UUID.
   //
-  // Without this, a parent session and any `claude -p ...` subprocess spawned by
+  // Without this, a parent session and any `gemini -p ...` subprocess spawned by
   // another Stop hook share the project-name fallback filename, and the subprocess
   // overwrites the parent's summary. See issue #1494 for full repro details.
   let shortId = null;

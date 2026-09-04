@@ -21,7 +21,7 @@ function main() {
       const payload = {
         env: envPayload,
         additional_context: [
-          'ECC memory persistence uses a dedicated agent data root for this Cursor session.',
+          'EGC memory persistence uses a dedicated agent data root for this Cursor session.',
           `${AGENT_DATA_HOME_ENV}=${agentDataHome}`,
           'Session summaries, learned skills, aliases, and metrics live under that directory.',
           'Override via shell env, project .cursor/ecc-agent-data.json, or ECC docs (issue #2065).',

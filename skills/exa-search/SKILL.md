@@ -95,7 +95,7 @@ get_code_context_exa(query: "Rust error handling patterns Result type", tokensNu
 ### Company or People Research
 ```
 web_search_exa(query: "Vercel funding valuation 2026", numResults: 3, category: "company")
-web_search_exa(query: "site:linkedin.com/in AI safety researchers Anthropic", numResults: 5)
+web_search_exa(query: "site:linkedin.com/in AI safety researchers Google DeepMind", numResults: 5)
 ```
 
 ### Technical Deep Dive

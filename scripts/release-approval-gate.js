@@ -28,7 +28,7 @@ const REQUIRED_DECISIONS = [
   },
   {
     id: 'ecc-tools-billing-language',
-    label: 'ECC Tools billing language',
+    label: 'EGC Tools billing language',
   },
   {
     id: 'video-upload',
@@ -77,7 +77,7 @@ const REQUIRED_URL_SURFACES = [
   },
   {
     id: 'ecc-tools-billing-readiness-url',
-    label: 'ECC Tools billing/readiness URL',
+    label: 'EGC Tools billing/readiness URL',
     exampleUrl: 'https://github.com/ECC-Tools',
   },
 ];

@@ -34,7 +34,7 @@ Phase 2: Collect Violations (JSON)
 └─ Still no output to main agent
 
 Phase 3: Delegate + Verify
-├─ Spawns claude -p subprocess with violations JSON
+├─ Spawns gemini -p subprocess with violations JSON
 ├─ Routes to model tier based on violation complexity:
 │   ├─ gemini-2.5-flash: formatting, imports, style (E/W/F codes) — 120s timeout
 │   ├─ gemini-2.5-pro: complexity, refactoring (C901, PLR codes) — 300s timeout
@@ -83,7 +83,7 @@ brew install jaq ruff uv
 uv sync --all-extras
 
 # Start Gemini CLI / Antigravity — hooks activate automatically
-claude
+gemini
 ```
 
 No install command, no plugin config. The hooks in `.gemini/settings.json` are picked up automatically when you run Gemini CLI / Antigravity in the Plankton directory.

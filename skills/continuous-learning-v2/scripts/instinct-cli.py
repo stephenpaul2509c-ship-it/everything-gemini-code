@@ -61,10 +61,10 @@ def _resolve_homunculus_dir() -> Path:
     xdg = os.environ.get("XDG_DATA_HOME")
     if xdg:
         if Path(xdg).is_absolute():
-            return Path(xdg) / "ecc-homunculus"
+            return Path(xdg) / "egc-homunculus"
         print(f"[ecc] XDG_DATA_HOME={xdg!r} is not absolute; ignoring", file=sys.stderr)
 
-    return Path.home() / ".local" / "share" / "ecc-homunculus"
+    return Path.home() / ".local" / "share" / "egc-homunculus"
 
 
 def _strip_remote_credentials(remote_url: str) -> str:
@@ -221,7 +221,7 @@ def _validate_import_url(source: str) -> str:
 def _fetch_import_url(source: str, *, max_bytes: int = 2 * 1024 * 1024) -> str:
     """Fetch a validated remote instinct file with bounded size and timeout."""
     url = _validate_import_url(source)
-    req = urllib.request.Request(url, headers={"User-Agent": "ECC-instinct-import/2"})
+    req = urllib.request.Request(url, headers={"User-Agent": "EGC-instinct-import/2"})
     with urllib.request.urlopen(req, timeout=15) as response:
         content_type = response.headers.get("Content-Type", "")
         if content_type and not any(
@@ -2044,7 +2044,7 @@ def _generate_evolved(skill_candidates: list, workflow_instincts: list, agent_ca
         content = "---\n"
         content += f"name: {agent_name}\n"
         content += f"description: {_yaml_quote(_evolved_description(str(cand.get('trigger', '')), cand['instincts'], 'agent'))}\n"
-        content += "model: sonnet\ntools: Read, Grep, Glob\n---\n"
+        content += "model: gemini-2.5-pro\ntools: view_file, grep_search, find_by_name\n---\n"
         content += f"# {agent_name}\n\n"
         content += f"Evolved from {len(cand['instincts'])} instincts "
         content += f"(avg confidence: {cand['avg_confidence']:.0%})\n"

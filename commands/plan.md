@@ -7,7 +7,7 @@ argument-hint: "[feature description | path/to/*.prd.md]"
 
 This command creates a comprehensive implementation plan before writing any code. It accepts either free-form requirements or a PRD markdown file.
 
-Run inline by default. Do not call the Task tool or any subagent by default. This keeps `/plan` usable from plugin installs that ship commands without agent files.
+Run inline by default. Do not invoke subagents by default. This keeps `/plan` usable from plugin installs that ship commands without agent files.
 
 ## What This Command Does
 

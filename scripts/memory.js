@@ -69,7 +69,7 @@ Write options:
   --body-file <path>         Read the body from a regular, non-symlink file
 
 MCP:
-  ecc-memory-mcp             Start the opt-in local stdio MCP server
+  egc-memory-mcp             Start the opt-in local stdio MCP server
 
 Safety:
   Tool-created memories are always unreviewed context, never executable policy.

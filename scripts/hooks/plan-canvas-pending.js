@@ -5,7 +5,7 @@
  * Cross-platform (Windows, macOS, Linux)
  *
  * Browser feedback only reaches an agent while that agent is parked inside
- * `ecc-plan-canvas await`. The moment a turn ends, nothing is listening, so
+ * `egc-plan-canvas await`. The moment a turn ends, nothing is listening, so
  * messages the human sends land in sessions.json and stay there: the canvas
  * looks alive, the agent never hears a word.
  *
@@ -173,7 +173,7 @@ function buildReason(delivered) {
       lines.push('  your normal reply; do not reopen the canvas.');
     } else {
       lines.push('  Reply IN THE CANVAS so the human sees it, and keep listening, with one command:');
-      lines.push(`    ecc-plan-canvas await ${JSON.stringify(entry.file)} --reply "<what you did>"`);
+      lines.push(`    egc-plan-canvas await ${JSON.stringify(entry.file)} --reply "<what you did>"`);
     }
     lines.push('');
   }

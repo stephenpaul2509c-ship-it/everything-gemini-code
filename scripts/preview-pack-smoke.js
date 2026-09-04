@@ -67,7 +67,7 @@ const REQUIRED_PUBLICATION_BLOCKERS = [
   'npm `ecc-universal@2.0.0-rc.1`',
   'Gemini plugin tag',
   'Codex repo-marketplace distribution evidence',
-  'ECC Tools billing/product readiness',
+  'EGC Tools billing/product readiness',
 ];
 
 const HERMES_BOUNDARY_MARKERS = [

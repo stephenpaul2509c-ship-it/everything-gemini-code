@@ -1,5 +1,5 @@
 ---
-name: configure-ecc
+name: configure-egc
 description: Guide EGC installation, update, or reconfiguration from inside Gemini CLI / Antigravity, Codex, or Kimi while respecting each harness's real plugin, scope, and hook capabilities.
 metadata:
   origin: EGC
@@ -12,8 +12,8 @@ only supported choices, preview, confirm once, apply non-interactively, verify,
 and show the welcome only after success. Never clone EGC into a temporary
 directory or copy plugin components by hand.
 
-For a human-operated terminal, the canonical entry points are `ecc setup` and
-`npx ecc-universal setup`. Inside a harness, use the explicit non-interactive
+For a human-operated terminal, the canonical entry points are `egc setup` and
+`npx egc setup`. Inside a harness, use the explicit non-interactive
 commands below instead.
 
 ## Route by the current harness
@@ -37,8 +37,8 @@ Run both commands and summarize the installed EGC scope, enabled state, and
 marketplace source:
 
 ```bash
-claude plugin list --json
-claude plugin marketplace list --json
+gemini plugin list --json
+gemini plugin marketplace list --json
 ```
 
 Treat a single existing `ecc@ecc` installation as a reconfiguration. Do not
@@ -84,13 +84,13 @@ node "$GEMINI_PLUGIN_ROOT/scripts/setup.js" --mode gemini-plugin \
 If `$GEMINI_PLUGIN_ROOT` is unavailable, use the published npm package:
 
 ```bash
-npx --yes --package ecc-universal ecc setup --mode gemini-plugin \
+npx --yes --package everything-gemini-code egc setup --mode gemini-plugin \
   --scope <scope> --hooks <hooks> [--move-scope] --dry-run --json
 ```
 
 Show exactly one confirmation summary containing the planned action, one scope,
 one hook mode, marketplace action, and any source-to-destination migration.
-Ask one yes/no question. Do not run a bare interactive `ecc setup` through a
+Ask one yes/no question. Do not run a bare interactive `egc setup` through a
 harness shell tool because that shell is commonly non-TTY.
 
 ### 4. Apply the explicit choices
@@ -106,7 +106,7 @@ node "$GEMINI_PLUGIN_ROOT/scripts/setup.js" --mode gemini-plugin \
 Fallback:
 
 ```bash
-npx --yes --package ecc-universal ecc setup --mode gemini-plugin \
+npx --yes --package everything-gemini-code egc setup --mode gemini-plugin \
   --scope <scope> --hooks <hooks> [--move-scope] --yes --json
 ```
 
@@ -116,7 +116,7 @@ Require a zero exit status and a setup result whose `scope` and `hooks` equal
 the selected values. Then independently run:
 
 ```bash
-claude plugin list --json
+gemini plugin list --json
 ```
 
 Continue only when exactly one enabled `ecc@ecc` entry exists at the selected
@@ -186,21 +186,21 @@ State the capability summary before confirmation: destination
 Gemini scope or hook-mode questions. Preview first:
 
 ```bash
-npx --yes --package ecc-universal ecc install --profile core --target kimi --dry-run
+node scripts/install-apply.js install --profile core --target kimi --dry-run
 ```
 
 Show one confirmation for that project destination, then apply the identical
 command without `--dry-run`. Verify with:
 
 ```bash
-npx --yes --package ecc-universal ecc doctor --target kimi
+node scripts/install-apply.js doctor --target kimi
 ```
 
 Only after doctor succeeds and the installed instructions and skills remain
 inside `./.kimi-code`, render:
 
 ```bash
-npx --yes --package ecc-universal ecc welcome --action configured
+node scripts/install-apply.js welcome --action configured
 ```
 
 Do not claim that Kimi installed or configured EGC lifecycle hooks.

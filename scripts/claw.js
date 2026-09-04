@@ -95,28 +95,39 @@ function askClaude(systemPrompt, history, userMessage, model) {
   }
   args.push('-p');
 
-  // On Windows the `claude` binary installed via npm is `claude.cmd`/`claude.ps1`,
+  // On Windows the CLI binary installed via npm is `gemini.cmd`/`gemini.ps1`,
   // and Node's spawn() cannot resolve those wrappers via PATH without shell: true.
   // But shell mode concatenates args *unescaped*, so a multi-line prompt passed as
-  // an arg gets mangled (newlines and the `===` section markers truncate it, and
-  // claude receives an empty prompt). Fix: send the prompt over stdin via `input`
-  // and keep only the short, safe flags (`--model`, `-p`) as args.
-  // 'claude' is a hardcoded literal here (not user input), so shell mode is safe.
-  const result = spawnSync('claude', args, {
+  // an arg gets mangled (newlines and the `===` section markers truncate it).
+  // Fix: send the prompt over stdin via `input` and keep only the short, safe flags (`--model`, `-p`) as args.
+  const cliBin = process.env.GEMINI_BIN || process.env.CLAUDE_BIN || 'gemini';
+  let result = spawnSync(cliBin, args, {
     input: fullPrompt,
     encoding: 'utf8',
     stdio: ['pipe', 'pipe', 'pipe'],
-    env: { ...process.env, CLAUDECODE: '' },
+    env: { ...process.env, GEMINICODE: '', GEMINICODE: '' },
     timeout: 300000,
     shell: process.platform === 'win32'
   });
+
+  if (result.error && cliBin === 'gemini') {
+    // Fallback to claude if gemini CLI wrapper is not on PATH
+    result = spawnSync('claude', args, {
+      input: fullPrompt,
+      encoding: 'utf8',
+      stdio: ['pipe', 'pipe', 'pipe'],
+      env: { ...process.env, GEMINICODE: '' },
+      timeout: 300000,
+      shell: process.platform === 'win32'
+    });
+  }
 
   if (result.error) {
     return `[Error: ${result.error.message}]`;
   }
 
   if (result.status !== 0 && result.stderr) {
-    return `[Error: claude exited with code ${result.status}: ${result.stderr.trim()}]`;
+    return `[Error: CLI exited with code ${result.status}: ${result.stderr.trim()}]`;
   }
 
   return (result.stdout || '').trim();

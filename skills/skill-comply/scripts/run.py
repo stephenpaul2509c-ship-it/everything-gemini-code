@@ -32,13 +32,13 @@ def main() -> None:
     )
     parser.add_argument(
         "--model",
-        default="sonnet",
-        help="Model for scenario execution (default: sonnet)",
+        default="gemini-2.5-pro",
+        help="Model for scenario execution (default: gemini-2.5-pro)",
     )
     parser.add_argument(
         "--gen-model",
-        default="haiku",
-        help="Model for spec/scenario generation (default: haiku)",
+        default="gemini-2.5-flash",
+        help="Model for spec/scenario generation (default: gemini-2.5-flash)",
     )
     parser.add_argument(
         "--dry-run",

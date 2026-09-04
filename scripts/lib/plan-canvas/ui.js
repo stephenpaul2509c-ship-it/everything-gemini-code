@@ -200,7 +200,7 @@ function canvasClientJs() {
   const sendBtn = $('send');
   const statusEl = $('sendStatus');
   const presence = $('presence');
-  const QKEY = 'ecc-plan-canvas:queue:' + key;
+  const QKEY = 'egc-plan-canvas:queue:' + key;
   let queue = [];
   let lastScroll = { x: 0, y: 0 };
   let ended = boot.status === 'ended';
@@ -209,7 +209,7 @@ function canvasClientJs() {
   try { queue = JSON.parse(sessionStorage.getItem(QKEY) || '[]'); } catch { queue = []; }
 
   // --- theme ---------------------------------------------------------
-  const themeKey = 'ecc-plan-canvas:theme';
+  const themeKey = 'egc-plan-canvas:theme';
   function applyTheme(t) {
     if (t === 'light') document.documentElement.setAttribute('data-theme', 'light');
     else document.documentElement.removeAttribute('data-theme');

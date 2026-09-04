@@ -30,7 +30,7 @@ const DEFAULT_SCRIPT_PROBE = path.join('scripts', 'lib', 'utils.js');
 const DEFAULT_SKILL_PROBE = path.join('skills', 'continuous-learning-v2');
 
 /**
- * Resolve the ECC source root directory.
+ * Resolve the EGC source root directory.
  *
  * Tries, in order:
  *   1. GEMINI_PLUGIN_ROOT env var (set by Gemini CLI / Antigravity for hooks, or by user)

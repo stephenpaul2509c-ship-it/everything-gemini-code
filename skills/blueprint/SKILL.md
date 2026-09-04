@@ -60,7 +60,7 @@ Produces `plans/myapp-migrate-database-to-postgresql.md` with steps like:
 /blueprint chatbot "extract LLM providers into a plugin system"
 ```
 
-Produces a plan with parallel steps where possible (e.g., "implement Anthropic plugin" and "implement OpenAI plugin" run in parallel after the plugin interface step is done), model tier assignments (strongest for the interface design step, default for implementation), and invariants verified after every step (e.g., "all existing tests pass", "no provider imports in core").
+Produces a plan with parallel steps where possible (e.g., "implement Gemini plugin" and "implement OpenAI plugin" run in parallel after the plugin interface step is done), model tier assignments (strongest for the interface design step, default for implementation), and invariants verified after every step (e.g., "all existing tests pass", "no provider imports in core").
 
 ## Key Features
 

@@ -2,14 +2,21 @@
 description: Navigate EGC's current agents, skills, commands, hooks, install profiles, and docs from the live repository surface.
 ---
 
-# /ecc-guide (Legacy Alias)
+# /egc-guide
 
-> Legacy alias for [`/egc-guide`](egc-guide.md). See [`commands/egc-guide.md`](egc-guide.md) for full documentation.
+Use this command as a conversational map of Everything Gemini Code. It should help the user discover the right EGC surface for their task without dumping the entire README or stale catalog counts.
 
 ## Usage
 
 ```text
 /egc-guide
+/egc-guide setup
+/egc-guide skills
+/egc-guide commands
+/egc-guide hooks
+/egc-guide install
+/egc-guide find: <query>
+/egc-guide <feature-or-file-name>
 ```
 
 ## Operating Rules

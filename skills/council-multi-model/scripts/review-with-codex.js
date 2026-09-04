@@ -11,7 +11,7 @@ const DEFAULT_TIMEOUT_MS = 60_000;
 const MAX_TIMEOUT_MS = 120_000;
 const MAX_PROMPT_BYTES = 64 * 1024;
 const SUPPORTED_CODEX_VERSION = '0.146.0';
-const HOST_PROVIDERS = new Set(['anthropic', 'openai', 'unknown']);
+const HOST_PROVIDERS = new Set(['gemini', 'anthropic', 'openai', 'unknown']);
 const REQUIRED_TOOLLESS_FEATURES = Object.freeze([
   'apps',
   'auth_elicitation',
@@ -40,7 +40,7 @@ const REQUIRED_TOOLLESS_FEATURES = Object.freeze([
 
 function usage() {
   return [
-    'Usage: review-with-codex.js --consent-to-openai --host-provider <anthropic|openai|unknown>',
+    'Usage: review-with-codex.js --consent-to-openai --host-provider <gemini|openai|unknown>',
     '                              [--timeout-seconds <10-120>]',
     '',
     'Reads one compact review packet from stdin and prints the labeled Codex critique.',
@@ -80,13 +80,13 @@ function parseArgs(argv) {
     throw new Error('explicit --consent-to-openai is required');
   }
   if (!HOST_PROVIDERS.has(options.hostProvider)) {
-    throw new Error('--host-provider must be anthropic, openai, or unknown');
+    throw new Error('--host-provider must be gemini, anthropic, openai, or unknown');
   }
   return options;
 }
 
 function providerLabel(hostProvider) {
-  if (hostProvider === 'anthropic') return 'cross-provider external critique';
+  if (hostProvider === 'gemini' || hostProvider === 'anthropic') return 'cross-provider external critique';
   if (hostProvider === 'openai') return 'same-provider external critique';
   return 'provider relationship unverified';
 }
@@ -195,7 +195,7 @@ function runReview(prompt, options, dependencies = {}) {
   const makeTemp = dependencies.mkdtempSync || fs.mkdtempSync;
   const readFile = dependencies.readFileSync || fs.readFileSync;
   const remove = dependencies.rmSync || fs.rmSync;
-  const tempDir = makeTemp(path.join(os.tmpdir(), 'ecc-council-review-'));
+  const tempDir = makeTemp(path.join(os.tmpdir(), 'egc-council-review-'));
   const outputFile = path.join(tempDir, 'last-message.txt');
 
   try {

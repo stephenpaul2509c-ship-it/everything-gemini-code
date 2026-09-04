@@ -23,7 +23,7 @@ function artifactSdkJs() {
 
   // --- shadow-root UI host --------------------------------------------
   const host = document.createElement('div');
-  host.setAttribute('data-ecc-plan-canvas', 'ui');
+  host.setAttribute('data-egc-plan-canvas', 'ui');
   host.style.cssText = 'position:absolute;top:0;left:0;width:0;height:0;z-index:2147483647';
   const root = host.attachShadow({ mode: 'open' });
   root.innerHTML = \`

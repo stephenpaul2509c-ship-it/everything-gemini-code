@@ -847,7 +847,7 @@ function getConsumerChecks(rootDir) {
         countFiles(rootDir, '.gemini/commands', '.md') > 0 ||
         fileExists(rootDir, '.gemini/settings.json') ||
         fileExists(rootDir, '.gemini/hooks.json'),
-      fix: 'Add project-local .claude hooks, commands, skills, or settings that tailor ECC to this repo.',
+      fix: 'Add project-local .gemini hooks, commands, skills, or settings that tailor EGC to this repo.',
     },
     {
       id: 'consumer-instructions',
@@ -856,8 +856,8 @@ function getConsumerChecks(rootDir) {
       scopes: ['repo'],
       path: 'AGENTS.md',
       description: 'The project has explicit agent or instruction context',
-      pass: fileExists(rootDir, 'AGENTS.md') || fileExists(rootDir, 'CLAUDE.md') || fileExists(rootDir, '.gemini/CLAUDE.md'),
-      fix: 'Add AGENTS.md or CLAUDE.md so the harness has project-specific instructions.',
+      pass: fileExists(rootDir, 'AGENTS.md') || fileExists(rootDir, 'GEMINI.md') || fileExists(rootDir, '.gemini/GEMINI.md') || fileExists(rootDir, 'GEMINI.md') || fileExists(rootDir, '.gemini/GEMINI.md'),
+      fix: 'Add AGENTS.md or GEMINI.md so the harness has project-specific instructions.',
     },
     {
       id: 'consumer-project-config',

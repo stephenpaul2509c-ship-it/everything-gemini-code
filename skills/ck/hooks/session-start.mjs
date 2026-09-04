@@ -10,7 +10,7 @@
  * - Compact 5-line summary for registered projects
  * - Unsaved session detection → "Last session wasn't saved. Run /ck:save."
  * - Git activity since last session
- * - Goal mismatch detection vs CLAUDE.md
+ * - Goal mismatch detection vs GEMINI.md
  * - Mini portfolio for unregistered directories
  */
 
@@ -60,7 +60,7 @@ function gitLogSince(projectPath, sinceDate) {
 }
 
 function extractClaudeMdGoal(projectPath) {
-  const p = resolve(projectPath, 'CLAUDE.md');
+  const p = resolve(projectPath, 'GEMINI.md');
   if (!existsSync(p)) return null;
   try {
     const md = readFileSync(p, 'utf8');
@@ -139,10 +139,10 @@ function main() {
       if (gitLine) summaryLines.push(`Git: ${gitLine}`);
 
       // ── Goal mismatch detection ───────────────────────────────────────────
-      const claudeMdGoal = extractClaudeMdGoal(cwd);
-      if (claudeMdGoal && context.goal &&
-          claudeMdGoal.toLowerCase().trim() !== context.goal.toLowerCase().trim()) {
-        summaryLines.push(`WARNING Goal mismatch — ck: "${context.goal.slice(0, 40)}" · CLAUDE.md: "${claudeMdGoal.slice(0, 40)}"`);
+      const geminiMdGoal = extractClaudeMdGoal(cwd);
+      if (geminiMdGoal && context.goal &&
+          geminiMdGoal.toLowerCase().trim() !== context.goal.toLowerCase().trim()) {
+        summaryLines.push(`WARNING Goal mismatch — ck: "${context.goal.slice(0, 40)}" · GEMINI.md: "${geminiMdGoal.slice(0, 40)}"`);
         summaryLines.push(`   Run /ck:save with updated goal to sync`);
       }
 

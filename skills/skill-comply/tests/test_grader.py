@@ -26,7 +26,7 @@ def noncompliant_trace():
     return parse_trace(FIXTURES / "noncompliant_trace.jsonl")
 
 
-def _mock_compliant_classification(spec, trace, model="haiku"):  # noqa: ARG001
+def _mock_compliant_classification(spec, trace, model="gemini-2.5-flash"):  # noqa: ARG001
     """Simulate LLM correctly classifying a compliant trace."""
     return {
         "write_test": [0],
@@ -37,7 +37,7 @@ def _mock_compliant_classification(spec, trace, model="haiku"):  # noqa: ARG001
     }
 
 
-def _mock_noncompliant_classification(spec, trace, model="haiku"):
+def _mock_noncompliant_classification(spec, trace, model="gemini-2.5-flash"):
     """Simulate LLM classifying a noncompliant trace (impl before test)."""
     return {
         "write_impl": [0],    # src/fib.py written first
@@ -46,7 +46,7 @@ def _mock_noncompliant_classification(spec, trace, model="haiku"):
     }
 
 
-def _mock_empty_classification(spec, trace, model="haiku"):
+def _mock_empty_classification(spec, trace, model="gemini-2.5-flash"):
     return {}
 
 

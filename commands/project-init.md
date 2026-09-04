@@ -14,7 +14,7 @@ Create a safe, reviewable EGC onboarding plan for the current project. This comm
 /project-init --target gemini
 /project-init --target cursor
 /project-init --skills continuous-learning-v2,security-review
-/project-init --config ecc-install.json
+/project-init --config egc-install.json
 ```
 
 ## Safety Rules
@@ -32,7 +32,7 @@ Read the current project root and detect stack signals from:
 - package manager files: `package.json`, `package-lock.json`, `pnpm-lock.yaml`, `yarn.lock`, `bun.lockb`
 - language manifests: `pyproject.toml`, `requirements.txt`, `go.mod`, `Cargo.toml`, `pom.xml`, `build.gradle`, `build.gradle.kts`
 - framework files: `next.config.*`, `vite.config.*`, `tailwind.config.*`, `Dockerfile`, `docker-compose.yml`
-- EGC config: `ecc-install.json`
+- EGC config: `egc-install.json` (or legacy `ecc-install.json`)
 - optional stack map: `config/project-stack-mappings.json` in the EGC repo
 
 When the EGC checkout is available, use `config/project-stack-mappings.json` as the stack-to-rules/skills reference. If the file is unavailable, fall back to the installed EGC manifests and explicit user choices.
@@ -42,7 +42,7 @@ When the EGC checkout is available, use `config/project-stack-mappings.json` as 
 1. Identify the target harness. Default to `gemini` unless the user asks for `cursor`, `codex`, `gemini`, `opencode`, `codebuddy`, `joycode`, or `qwen`.
 2. Detect stacks from project files and show the evidence for each match.
 3. Resolve the smallest useful EGC plan:
-   - project has an `ecc-install.json`: `node scripts/install-plan.js --config ecc-install.json --json`
+   - project has an `egc-install.json`: `node scripts/install-plan.js --config egc-install.json --json`
    - user named a profile: `node scripts/install-plan.js --profile <profile> --target <target> --json`
    - user named skills: `node scripts/install-plan.js --skills <skill-ids> --target <target> --json`
    - only language stacks are detected: use the legacy language install dry-run with those language names
@@ -83,4 +83,4 @@ Never replace an existing `GEMINI.md` without showing a diff and receiving appro
 - `config/project-stack-mappings.json` for stack-to-surface hints
 - `scripts/install-plan.js` for deterministic plan resolution
 - `scripts/install-apply.js` for dry-run and apply operations
-- `/ecc-guide` for interactive feature discovery before installing
+- `/egc-guide` for interactive feature discovery before installing

@@ -17,7 +17,7 @@ PROMPTS_DIR = Path(__file__).parent.parent / "prompts"
 def classify_events(
     spec: ComplianceSpec,
     trace: list[ObservationEvent],
-    model: str = "haiku",
+    model: str = "gemini-2.5-flash",
 ) -> dict[str, list[int]]:
     """Classify which tool calls match which compliance steps.
 
@@ -44,7 +44,7 @@ def classify_events(
     )
 
     result = subprocess.run(
-        ["claude", "-p", prompt, "--model", model, "--output-format", "text"],
+        ["gemini", "-p", prompt, "--model", model, "--output-format", "text"],
         capture_output=True,
         text=True,
         timeout=60,

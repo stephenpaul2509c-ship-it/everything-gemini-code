@@ -1,5 +1,5 @@
 ---
-name: ecc-tools-cost-audit
+name: egc-tools-cost-audit
 description: Evidence-first EGC Tools burn and billing audit workflow. Use when investigating runaway PR creation, quota bypass, premium-model leakage, duplicate jobs, or GitHub App cost spikes in the EGC Tools repo.
 metadata:
   origin: EGC
@@ -134,7 +134,7 @@ If usage is checked at the front door but only incremented in the worker, concur
 
 ### 3. Free tier on premium path
 
-If free queued jobs can still route into Anthropic or another premium provider when keys exist, that is real spend leakage even if the user never sees the premium result.
+If free queued jobs can still route into premium models when keys exist, that is real spend leakage even if the user never sees the premium result.
 
 ### 4. App-generated branches re-enter the webhook
 

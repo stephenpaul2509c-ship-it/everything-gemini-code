@@ -33,13 +33,13 @@ AgentShield must be installed. Check and install if needed:
 
 ```bash
 # Check if installed
-npx ecc-agentshield --version
+npx egc-agentshield --version
 
 # Install globally (recommended)
-npm install -g ecc-agentshield
+npm install -g egc-agentshield
 
 # Or run directly via npx (no install needed)
-npx ecc-agentshield scan .
+npx egc-agentshield scan .
 ```
 
 ## Usage
@@ -50,29 +50,29 @@ Run against the current project's `.gemini/` directory:
 
 ```bash
 # Scan current project
-npx ecc-agentshield scan
+npx egc-agentshield scan
 
 # Scan a specific path
-npx ecc-agentshield scan --path /path/to/.claude
+npx egc-agentshield scan --path /path/to/.gemini
 
 # Scan with minimum severity filter
-npx ecc-agentshield scan --min-severity medium
+npx egc-agentshield scan --min-severity medium
 ```
 
 ### Output Formats
 
 ```bash
 # Terminal output (default) — colored report with grade
-npx ecc-agentshield scan
+npx egc-agentshield scan
 
 # JSON — for CI/CD integration
-npx ecc-agentshield scan --format json
+npx egc-agentshield scan --format json
 
 # Markdown — for documentation
-npx ecc-agentshield scan --format markdown
+npx egc-agentshield scan --format markdown
 
 # HTML — self-contained dark-theme report
-npx ecc-agentshield scan --format html > security-report.html
+npx egc-agentshield scan --format html > security-report.html
 ```
 
 ### Auto-Fix
@@ -80,7 +80,7 @@ npx ecc-agentshield scan --format html > security-report.html
 Apply safe fixes automatically (only fixes marked as auto-fixable):
 
 ```bash
-npx ecc-agentshield scan --fix
+npx egc-agentshield scan --fix
 ```
 
 This will:
@@ -95,7 +95,7 @@ Run the adversarial three-agent pipeline for deeper analysis:
 ```bash
 # Requires ANTHROPIC_API_KEY
 export ANTHROPIC_API_KEY=your-key
-npx ecc-agentshield scan --gemini-2.5-pro --stream
+npx egc-agentshield scan --gemini-2.5-pro --stream
 ```
 
 This runs:
@@ -108,7 +108,7 @@ This runs:
 Scaffold a new secure `.gemini/` configuration from scratch:
 
 ```bash
-npx ecc-agentshield init
+npx egc-agentshield init
 ```
 
 Creates:
@@ -163,4 +163,4 @@ Add to your CI pipeline:
 ## Links
 
 - **GitHub**: [github.com/stephenpaul2509c-ship-it/agentshield](https://github.com/stephenpaul2509c-ship-it/agentshield)
-- **npm**: [npmjs.com/package/ecc-agentshield](https://www.npmjs.com/package/ecc-agentshield)
+- **npm**: [npmjs.com/package/egc-agentshield](https://www.npmjs.com/package/egc-agentshield)

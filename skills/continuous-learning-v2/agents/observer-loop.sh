@@ -125,12 +125,12 @@ analyze_observations() {
   echo "[$(date)] Analyzing $obs_count observations for project ${PROJECT_NAME}..." >> "$LOG_FILE"
 
   if [ "${CLV2_IS_WINDOWS:-false}" = "true" ] && [ "${ECC_OBSERVER_ALLOW_WINDOWS:-false}" != "true" ]; then
-    echo "[$(date)] Skipping claude analysis on Windows due to known non-interactive hang issue (#295). Set ECC_OBSERVER_ALLOW_WINDOWS=true to override." >> "$LOG_FILE"
+    echo "[$(date)] Skipping gemini analysis on Windows due to known non-interactive hang issue (#295). Set ECC_OBSERVER_ALLOW_WINDOWS=true to override." >> "$LOG_FILE"
     return
   fi
 
-  if ! command -v claude >/dev/null 2>&1; then
-    echo "[$(date)] claude CLI not found, skipping analysis" >> "$LOG_FILE"
+  if ! command -v gemini >/dev/null 2>&1; then
+    echo "[$(date)] gemini CLI not found, skipping analysis" >> "$LOG_FILE"
     return
   fi
 
@@ -148,7 +148,7 @@ analyze_observations() {
   # Keep the XXXXXX run at the very end of the template: BSD/macOS mktemp only
   # substitutes a trailing X run, so a suffix after it (e.g. `.jsonl`) produces a
   # literal, non-random name that wedges every later cycle with "File exists" (#2417).
-  analysis_file="$(mktemp "${observer_tmp_dir}/ecc-observer-analysis.jsonl.XXXXXX")"
+  analysis_file="$(mktemp "${observer_tmp_dir}/egc-observer-analysis.jsonl.XXXXXX")"
   tail -n "$MAX_ANALYSIS_LINES" "$OBSERVATIONS_FILE" > "$analysis_file"
   analysis_count=$(wc -l < "$analysis_file" 2>/dev/null || echo 0)
   echo "[$(date)] Using last $analysis_count of $obs_count observations for analysis" >> "$LOG_FILE"
@@ -165,7 +165,7 @@ analyze_observations() {
     analysis_relpath="$analysis_file"
   fi
 
-  prompt_file="$(mktemp "${observer_tmp_dir}/ecc-observer-prompt.XXXXXX")"
+  prompt_file="$(mktemp "${observer_tmp_dir}/egc-observer-prompt.XXXXXX")"
   cat > "$prompt_file" <<PROMPT
 IMPORTANT: You are running in non-interactive --print mode. You MUST use the Write tool directly to create files. Do NOT ask for permission, do NOT ask for confirmation, do NOT output summaries instead of writing. Just read, analyze, and write.
 
@@ -210,7 +210,7 @@ PROMPT
 
   # Read the prompt into memory before the Gemini subprocess is spawned.
   # On Windows/MSYS2, the mktemp path can differ from the shell's later path
-  # resolution, so relying on cat "$prompt_file" inside the claude invocation
+  # resolution, so relying on cat "$prompt_file" inside the gemini invocation
   # can fail even though the file was created successfully.
   prompt_content="$(cat "$prompt_file" 2>/dev/null || true)"
   rm -f "$prompt_file"
@@ -256,13 +256,13 @@ PROMPT
   # prompt_content is already loaded in-memory so this no longer depends on the
   # mktemp absolute path continuing to resolve after cwd changes (#1296).
   # stdin is explicitly closed with </dev/null: on Git Bash/MSYS2 the backgrounded
-  # child otherwise inherits an open stdin, and claude waits on it, warns
+  # child otherwise inherits an open stdin, and gemini waits on it, warns
   # "no stdin data received", and exits 1 before reading the analysis file (#2452).
-  # Model is configurable via ECC_OBSERVER_MODEL (defaults to haiku for cost efficiency);
-  # e.g. ECC_OBSERVER_MODEL=opus for higher-quality instinct extraction. Heavier models are
+  # Model is configurable via ECC_OBSERVER_MODEL (defaults to gemini-2.5-flash for cost efficiency);
+  # e.g. ECC_OBSERVER_MODEL=gemini-2.5-pro for higher-quality instinct extraction. Heavier models are
   # slower — consider raising ECC_OBSERVER_TIMEOUT_SECONDS (default 120s) so the watchdog
   # doesn't kill the analysis mid-run.
-  ECC_SKIP_OBSERVE=1 ECC_HOOK_PROFILE=minimal claude --model "${ECC_OBSERVER_MODEL:-haiku}" --max-turns "$max_turns" --print \
+  ECC_SKIP_OBSERVE=1 ECC_HOOK_PROFILE=minimal gemini --model "${ECC_OBSERVER_MODEL:-gemini-2.5-flash}" --max-turns "$max_turns" --print \
     --allowedTools "Read,Write" \
     -p "$prompt_content" < /dev/null >> "$LOG_FILE" 2>&1 &
   claude_pid=$!

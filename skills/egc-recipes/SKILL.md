@@ -1,9 +1,8 @@
 ---
-name: ecc-recipes
-description: "Map a described workflow to the right EGC command-GROUP with run-order and stop condition, and browse all command-group recipe families. Adds a family-grouping + run-order + when-to-stop layer on top of the flat command catalog. Advisory only. TRIGGER when the user says which commands for X, what command group runs X, show EGC recipes, list EGC pipelines, or how do I run a workflow with EGC. DO NOT TRIGGER when the user wants the task executed directly, wants a single-command deep doc (use ecc-guide), or wants a draft prompt rewritten (use prompt-optimizer)."
+name: egc-recipes
+description: "Map a described workflow to the right EGC command-GROUP with run-order and stop condition, and browse all command-group recipe families. Adds a family-grouping + run-order + when-to-stop layer on top of the flat command catalog. Advisory only. TRIGGER when the user says which commands for X, what command group runs X, show EGC recipes, list EGC pipelines, or how do I run a workflow with EGC. DO NOT TRIGGER when the user wants the task executed directly, wants a single-command deep doc (use egc-guide), or wants a draft prompt rewritten (use prompt-optimizer)."
 argument-hint: <workflow description | empty=list all>
 origin: community
-author: KyawZinLatt
 metadata:
   version: "1.0.0"
 ---
@@ -15,7 +14,7 @@ order, and when do I stop." Also browses every command-group recipe family.
 
 Fills the gap between two existing skills:
 
-- `ecc-guide` — lists commands and where to read docs, but as a flat catalog.
+- `egc-guide` — lists commands and where to read docs, but as a flat catalog.
 - `prompt-optimizer` — matches a task to components, but outputs a single prompt,
   not a multi-command group with run-order and stop condition.
 
@@ -27,12 +26,12 @@ This skill adds: **family grouping + run-order + stop condition.**
 - "What's the command sequence to build an MVP / fix a defect / refactor?"
 - "Show me all EGC command-group recipes" (catalog mode)
 - "How many workflow pipelines does EGC have?"
-- User invokes `/ecc-recipes` with or without a description.
+- User invokes `/egc-recipes` with or without a description.
 
 ### Do Not Use When
 
 - User wants the task done now — route to the actual command, don't describe it.
-- User wants deep docs for ONE command — use `ecc-guide`.
+- User wants deep docs for ONE command — use `egc-guide`.
 - User wants a draft prompt rewritten — use `prompt-optimizer`.
 
 ## Core Principle
@@ -47,8 +46,8 @@ Resolve the commands directory (first that exists), then list names:
 
 ```bash
 for D in \
-  "$HOME"/.gemini/plugins/marketplaces/ecc/commands \
-  "$HOME"/.gemini/plugins/cache/ecc/ecc/*/commands \
+  "$HOME"/.gemini/plugins/marketplaces/everything-gemini-code/commands \
+  "$HOME"/.gemini/plugins/cache/everything-gemini-code/everything-gemini-code/*/commands \
   ./commands \
   ./.gemini/commands \
   "$HOME"/.gemini/commands; do
@@ -106,7 +105,7 @@ workflow for a matched recipe.
 4. **Stop condition** — always explicit (max-runs, completion-signal,
    review-passes, or single-shot). For autonomous loops, warn about subscription
    burn and recommend a backstop bound.
-5. **Where to read** — the `commands/<name>.md` path plus `/ecc-guide <name>`.
+5. **Where to read** — the `commands/<name>.md` path plus `/egc-guide <name>`.
 
 ## Output Template (match mode)
 
@@ -125,26 +124,26 @@ Run-order:
   add a max-iteration or max-cost backstop alongside the completion signal.
 
 Read full docs:
-  commands/<cmd1>.md   (or: /ecc-guide <cmd1>)
+  commands/<cmd1>.md   (or: /egc-guide <cmd1>)
 ```
 
 ## Examples
 
-**Catalog:** `/ecc-recipes` → prints the family table and total count.
+**Catalog:** `/egc-recipes` → prints the family table and total count.
 
-**Match:** `/ecc-recipes plan a whole app upfront then auto-build with adversarial
+**Match:** `/egc-recipes plan a whole app upfront then auto-build with adversarial
 review until done` → Best fit: `loop-*` (autonomous) wrapping `gan-*` or
 `santa-loop` (adversarial). Run-order: `plan-prd` then
 `loop-start rfc-dag --mode safe` then monitor `loop-status`; STOP when all units
 pass review N consecutive times (add a max-iteration backstop to bound burn).
 
-**Match:** `/ecc-recipes fix a bug in my Go service` → Best fit: `orch-fix-defect`
+**Match:** `/egc-recipes fix a bug in my Go service` → Best fit: `orch-fix-defect`
 (reproduce, fix, review, commit). Alt: `go-test` then `go-build` then
 `go-review`. STOP: regression test green and review pass.
 
 ## Non-Goals
 
 - Not an executor — advisory only.
-- Not per-command deep docs — that's `ecc-guide`.
+- Not per-command deep docs — that's `egc-guide`.
 - Not prompt rewriting — that's `prompt-optimizer`.
 - Never hardcode command counts or member lists — always live-read.

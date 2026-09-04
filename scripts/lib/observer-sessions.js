@@ -17,12 +17,12 @@ function getHomunculusDir() {
   const xdgDataHome = process.env.XDG_DATA_HOME;
   if (xdgDataHome) {
     if (path.isAbsolute(xdgDataHome)) {
-      return path.join(xdgDataHome, 'ecc-homunculus');
+      return path.join(xdgDataHome, 'egc-homunculus');
     }
     process.stderr.write(`[ecc] XDG_DATA_HOME=${xdgDataHome} is not absolute; ignoring\n`);
   }
 
-  return path.join(os.homedir(), '.local', 'share', 'ecc-homunculus');
+  return path.join(os.homedir(), '.local', 'share', 'egc-homunculus');
 }
 
 function getProjectsDir() {

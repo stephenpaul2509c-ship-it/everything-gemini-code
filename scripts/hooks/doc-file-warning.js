@@ -22,7 +22,7 @@ const MAX_STDIN = 1024 * 1024;
 const ADHOC_FILENAMES = /^(NOTES|TODO|SCRATCH|TEMP|DRAFT|BRAINSTORM|SPIKE|DEBUG|WIP)\.(md|txt)$/;
 
 // Structured directories where even ad-hoc names are intentional
-const STRUCTURED_DIRS = /(^|\/)(docs|\.claude|\.github|commands|skills|benchmarks|templates|\.history|memory)\//;
+const STRUCTURED_DIRS = /(^|\/)(docs|\.gemini|\.github|commands|skills|benchmarks|templates|\.history|memory)\//;
 
 function isSuspiciousDocPath(filePath) {
   const normalized = filePath.replace(/\\/g, '/');

@@ -331,11 +331,11 @@ docker compose -f docker/plugin-setup/compose.yaml \
 Run the safe default flow in each image:
 
 ```bash
-docker compose -p ecc-plugin-debian-test \
+docker compose -p egc-plugin-debian-test \
   -f docker/plugin-setup/compose.yaml \
   run --rm -T real-cli dry-run
 
-docker compose -p ecc-plugin-ubuntu-test \
+docker compose -p egc-plugin-ubuntu-test \
   -f docker/plugin-setup/compose.yaml \
   run --rm -T real-cli-ubuntu dry-run
 ```
@@ -348,15 +348,15 @@ ecc install --profile core --target gemini-project --dry-run --json
 
 Before that command runs, the container creates a locally packed npm artifact
 from the read-only checkout with `npm pack --ignore-scripts`. It extracts the
-self-created tarball under `/tmp`, validates the `ecc-universal` package name,
+self-created tarball under `/tmp`, validates the `everything-gemini-code` package name,
 required install manifests, and the confined `package.json` `bin.ecc` mapping,
 then invokes the extracted `ecc` executable. The runtime stays on
 `network_mode: none`, does not execute package lifecycle scripts, and does not
 rely on host `node_modules`; its exact pinned production dependencies are
 already present in the image.
 
-The harness rejects an empty plan, a non-`claude-project` target, any operation
-outside `/workspace/project/.claude`, or any dry run that creates the target
+The harness rejects an empty plan, a non-`gemini-project` target, any operation
+outside `/workspace/project/.gemini`, or any dry run that creates the target
 directory. `install` performs the isolated apply twice, checks its managed
 install state, lists the installed target, and runs `doctor`.
 
@@ -366,9 +366,9 @@ Start a detached container without `--rm` so leaving a terminal does not remove
 the session:
 
 ```bash
-docker compose -p ecc-plugin-session \
+docker compose -p egc-plugin-session \
   -f docker/plugin-setup/compose.yaml \
-  run --detach --name ecc-plugin-shell real-cli shell
+  run --detach --name egc-plugin-shell real-cli shell
 ```
 
 The container copies the read-only fixture to the stable private directory
@@ -376,9 +376,9 @@ The container copies the read-only fixture to the stable private directory
 terminal-opener v1 data contract:
 
 ```bash
-docker inspect --format '{{.State.Running}}' ecc-plugin-shell
+docker inspect --format '{{.State.Running}}' egc-plugin-shell
 node docker/plugin-setup/interactive-plan.js \
-  --container ecc-plugin-shell \
+  --container egc-plugin-shell \
   --workdir /workspace/project \
   --json \
   -- bash
@@ -392,7 +392,7 @@ terminal adapter, interpolate a shell command, or manage a host GUI process.
 Until then, open the same PTY in the current host terminal directly:
 
 ```bash
-docker exec -it -w /workspace/project ecc-plugin-shell bash
+docker exec -it -w /workspace/project egc-plugin-shell bash
 ```
 
 Exit the shell without stopping the detached container. Reconnect with the
@@ -400,8 +400,8 @@ same `docker exec -it` command. When finished, remove the exact named container
 and its Compose project resources:
 
 ```bash
-docker rm --force ecc-plugin-shell
-docker compose -p ecc-plugin-session \
+docker rm --force egc-plugin-shell
+docker compose -p egc-plugin-session \
   -f docker/plugin-setup/compose.yaml \
   down --remove-orphans
 ```
@@ -425,15 +425,15 @@ npm run test:plugin-setup-platform
 Inspect the produced identity and environment before trusting the image:
 
 ```bash
-docker image inspect ecc-plugin-setup:debian ecc-plugin-setup:ubuntu
+docker image inspect egc-plugin-setup:debian egc-plugin-setup:ubuntu
 ```
 
 Clean each named test project without deleting unrelated volumes or images:
 
 ```bash
-docker compose -p ecc-plugin-debian-test \
+docker compose -p egc-plugin-debian-test \
   -f docker/plugin-setup/compose.yaml down --remove-orphans
-docker compose -p ecc-plugin-ubuntu-test \
+docker compose -p egc-plugin-ubuntu-test \
   -f docker/plugin-setup/compose.yaml down --remove-orphans
 ```
 

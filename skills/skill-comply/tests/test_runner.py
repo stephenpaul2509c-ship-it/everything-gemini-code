@@ -105,7 +105,7 @@ class TestSetupSandboxSkipsShellBuiltins:
 class TestRunScenarioMaxTurnsTermination:
     """rc=1 with terminal_reason=max_turns is graceful termination, not failure.
 
-    claude -p returns rc=1 when --max-turns is reached, but the stream-json
+    gemini -p returns rc=1 when --max-turns is reached, but the stream-json
     output is still valid. Treating this as RuntimeError aborts scenarios
     that would have produced useful observations. Detect the marker in stdout
     and downgrade rc=1 + max_turns to non-fatal.
@@ -123,12 +123,12 @@ class TestRunScenarioMaxTurnsTermination:
         )
 
         fake_result = subprocess.CompletedProcess(
-            args=["claude"], returncode=1, stdout=max_turns_stdout, stderr=""
+            args=["gemini"], returncode=1, stdout=max_turns_stdout, stderr=""
         )
 
         with patch("scripts.runner.subprocess.run", return_value=fake_result):
             # Must NOT raise — max_turns is graceful termination
-            run_scenario(scenario, model="haiku")
+            run_scenario(scenario, model="gemini-2.5-flash")
 
     def test_rc1_without_max_turns_marker_still_raises(self, tmp_path, monkeypatch):
         """Real failures (rc≠0 with no max_turns marker) must still raise."""
@@ -136,12 +136,12 @@ class TestRunScenarioMaxTurnsTermination:
         monkeypatch.setattr("scripts.runner._setup_sandbox", lambda *a, **kw: None)
 
         fake_result = subprocess.CompletedProcess(
-            args=["claude"], returncode=1, stdout="", stderr="auth error"
+            args=["gemini"], returncode=1, stdout="", stderr="auth error"
         )
 
         with patch("scripts.runner.subprocess.run", return_value=fake_result):
-            with pytest.raises(RuntimeError, match="claude -p failed"):
-                run_scenario(scenario, model="haiku")
+            with pytest.raises(RuntimeError, match="gemini -p failed"):
+                run_scenario(scenario, model="gemini-2.5-flash")
 
 
 @pytest.mark.unit
@@ -290,7 +290,7 @@ class TestParseStreamJsonRedactsHomePath:
 class TestRunScenarioErrorIncludesStdoutTail:
     """Error messages must include stdout tail, not only stderr.
 
-    When claude -p fails inside an LLM call, useful diagnostic context often
+    When gemini -p fails inside an LLM call, useful diagnostic context often
     appears in stdout (partial stream-json events, model error JSON), not
     stderr. Including stdout tail in the RuntimeError message dramatically
     improves debug-ability without adding any new dependency.
@@ -302,7 +302,7 @@ class TestRunScenarioErrorIncludesStdoutTail:
 
         diagnostic_marker = "DIAG_STDOUT_MARKER_xyz123"
         fake_result = subprocess.CompletedProcess(
-            args=["claude"],
+            args=["gemini"],
             returncode=2,
             stdout=f"some context {diagnostic_marker} more text",
             stderr="generic error",
@@ -310,7 +310,7 @@ class TestRunScenarioErrorIncludesStdoutTail:
 
         with patch("scripts.runner.subprocess.run", return_value=fake_result):
             with pytest.raises(RuntimeError) as excinfo:
-                run_scenario(scenario, model="haiku")
+                run_scenario(scenario, model="gemini-2.5-flash")
 
         # Stdout marker MUST appear in the error message
         assert diagnostic_marker in str(excinfo.value)
