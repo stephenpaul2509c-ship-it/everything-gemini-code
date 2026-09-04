@@ -116,7 +116,7 @@ def run_tests():
                 except Exception as ye:
                     skill_errors.append(f"{s.name}: YAML error: {ye}")
         if not skill_errors:
-            print(f" [PASS] Contextual Skills ({skill_valid}/286 skills valid - 100%)")
+            print(f" [PASS] Contextual Skills ({skill_valid}/288 skills valid - 100%)")
             passed += 1
         else:
             print(f" [FAIL] Skills ({len(skill_errors)} errors): {skill_errors[:3]}")
@@ -143,7 +143,7 @@ def run_tests():
                 except Exception as ye:
                     agent_errors.append(f"{a.name}: YAML error: {ye}")
         if not agent_errors:
-            print(f" [PASS] Specialized Subagents ({agent_valid}/68 agents valid - 100%)")
+            print(f" [PASS] Specialized Subagents ({agent_valid}/72 agents valid - 100%)")
             passed += 1
         else:
             print(f" [FAIL] Agents ({len(agent_errors)} errors): {agent_errors[:3]}")

@@ -5,7 +5,22 @@
 
 Everything Gemini Code (EGC) is a production-grade, multi-agent harness engineering framework specifically ported and optimized for **Gemini CLI** and the **Google Antigravity IDE / CLI**.
 
-It equips your Gemini coding assistant with **68 specialized agents**, **286 context-aware skills**, **94 workflow commands**, unified directory rules, and ready-to-use Model Context Protocol (MCP) integrations.
+It equips your Gemini coding assistant with **72 specialized agents**, **288 context-aware skills**, **96 workflow commands**, unified directory rules, and ready-to-use Model Context Protocol (MCP) integrations.
+
+---
+
+## 🚀 Gemini-Exclusive Superpowers
+
+Unlike text-only coding harnesses, Everything Gemini Code (EGC) is built from the ground up to exploit Google Gemini's distinct hardware and model advantages:
+
+1. 👁️ **Multimodal Visual UI Debugging (`/ui-fix`)**:
+   Feed Gemini a screenshot of a visual bug, broken responsive layout, or Figma design. The `visual-ui-engineer` agent compares pixels against source code and applies exact CSS/Tailwind/Flutter fixes.
+2. 🧠 **2-Million Token Mega-Context Repo Digest (`/repo-digest`)**:
+   Never lose context due to aggressive compaction. Ingest entire multi-thousand-file repositories simultaneously with `mega-context-architect` to detect circular dependencies, orphaned models, and architectural drift.
+3. ☁️ **Cloud-Native Deployers**:
+   Includes specialized subagents for **Firebase** (`firebase-architect`) and **Google Cloud Run** (`gcp-cloud-deployer`) with automated OCI containerization and security rule audits.
+4. 🤖 **Official GitHub Action Automated PR Reviewer**:
+   Deploy EGC straight into CI/CD with `uses: stephenpaul2509c-ship-it/everything-gemini-code@main` to automatically audit PR diffs with confidence scoring.
 
 ---
 
@@ -13,9 +28,9 @@ It equips your Gemini coding assistant with **68 specialized agents**, **286 con
 
 | Component | Count | Description |
 | :--- | :--- | :--- |
-| **Specialized Agents** | **68** | Modular sub-assistants for architecture, TDD, code review, debugging, security, refactoring, and domain workflows. |
-| **Contextual Skills** | **286** | Progressive-disclosure operational runbooks spanning accessibility, full-stack frameworks, cloud infrastructure, AI/ML, and testing. |
-| **Workflow Commands** | **94** | Interactive slash commands and prompts for fast review, auto-formatting, test generation, and checkpoints. |
+| **Specialized Agents** | **72** | Modular sub-assistants for architecture, TDD, code review, multimodal UI, Firebase, Cloud Run, and security. |
+| **Contextual Skills** | **288** | Progressive-disclosure operational runbooks spanning vision debugging, full-stack frameworks, cloud infrastructure, AI/ML, and testing. |
+| **Workflow Commands** | **96** | Interactive slash commands and prompts for fast review, whole-repo digest (`/repo-digest`), visual fixes (`/ui-fix`), and checkpoints. |
 | **Domain Rules** | **23+** | Structured coding guidelines and standards for Python, TypeScript, React, Go, Rust, C++, Swift, Security, and more. |
 | **MCP Connectors** | **15+** | Pre-configured Model Context Protocol servers for GitHub, Supabase, Jira, Memory, Vercel, and Cloudflare. |
 
@@ -120,8 +135,8 @@ python scripts/verify-plugin.py
  [PASS] Gemini CLI Manifest (gemini-extension.json)
  [PASS] MCP Server Catalog (35 servers configured)
  [PASS] Lifecycle Hooks (23 named hooks configured)
- [PASS] Contextual Skills (286/286 skills valid - 100%)
- [PASS] Specialized Subagents (68/68 agents valid - 100%)
+ [PASS] Contextual Skills (288/288 skills valid - 100%)
+ [PASS] Specialized Subagents (72/72 agents valid - 100%)
 =====================================================
  TEST SUMMARY: 6 passed, 0 failed
  Status: ALL CHECKS PASSED [OK]

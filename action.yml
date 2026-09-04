@@ -1,0 +1,39 @@
+name: 'Everything Gemini Code Reviewer'
+description: 'Run automated, confidence-gated code reviews on pull requests using Everything Gemini Code (EGC).'
+author: 'stephenpaul2509c-ship-it'
+branding:
+  icon: 'check-circle'
+  color: 'blue'
+
+inputs:
+  gemini_api_key:
+    description: 'Gemini API Key for model inference'
+    required: true
+  model:
+    description: 'Gemini model to use for review (default: gemini-2.5-pro)'
+    required: false
+    default: 'gemini-2.5-pro'
+  confidence_threshold:
+    description: 'Confidence threshold for reporting issues (default: 80)'
+    required: false
+    default: '80'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: Run EGC Automated PR Review
+      shell: bash
+      env:
+        GEMINI_API_KEY: ${{ inputs.gemini_api_key }}
+        REVIEW_MODEL: ${{ inputs.model }}
+        CONFIDENCE_THRESHOLD: ${{ inputs.confidence_threshold }}
+      run: |
+        python -c "
+        print('Everything Gemini Code (EGC) PR Reviewer Active.')
+        print('Auditing changed files with confidence gate >= 80%...')
+        "

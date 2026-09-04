@@ -1,0 +1,26 @@
+name: 'EGC Automated PR Review'
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  egc-review:
+    name: 'Everything Gemini Code Review'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run EGC Code Reviewer
+        uses: ./
+        with:
+          gemini_api_key: ${{ secrets.GEMINI_API_KEY }}
+          model: 'gemini-2.5-pro'
+          confidence_threshold: '80'
