@@ -22,7 +22,7 @@ if (!TOKEN || !APP_ID) {
   process.exit(1);
 }
 const REPO = process.env.ECC_REPO || join(homedir(), 'GitHub/ECC/everything-gemini-code');
-const REPO_URL = 'https://github.com/affaan-m/ECC';
+const REPO_URL = 'https://github.com/stephenpaul2509c-ship-it/everything-gemini-code';
 const INVITE = process.env.DISCORD_INVITE || '';
 const API = 'https://discord.com/api/v10';
 
@@ -138,7 +138,7 @@ const handlers = {
     '',
     `- repo: ${REPO_URL}`,
     '- site: https://ecc.tools',
-    `- install: \`/plugin marketplace add affaan-m/everything-gemini-code\` then \`/plugin install ecc\``,
+    `- install: \`/plugin marketplace add stephenpaul2509c-ship-it/everything-gemini-code\` then \`/plugin install ecc\``,
     INVITE ? `- invite a friend: ${INVITE}` : '',
   ].filter(Boolean).join('\n'),
 
@@ -164,7 +164,7 @@ const handlers = {
   },
 
   release: async () => {
-    const res = await fetch('https://api.github.com/repos/affaan-m/ECC/releases/latest', {
+    const res = await fetch('https://api.github.com/repos/stephenpaul2509c-ship-it/everything-gemini-code/releases/latest', {
       headers: { 'User-Agent': 'ecc-discord-bot' },
     });
     if (!res.ok) return `couldn't reach GitHub (${res.status}) — ${REPO_URL}/releases`;

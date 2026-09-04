@@ -6,7 +6,7 @@
  * Usage: node scripts/dashboard-web.js [port]
  * Open http://localhost:3456
  *
- * Contribution: https://github.com/affaan-m/ECC
+ * Contribution: https://github.com/stephenpaul2509c-ship-it/everything-gemini-code
  */
 
 const fs = require('fs');
@@ -440,7 +440,7 @@ function renderHTML(data) {
 
 <div class="toast" id="toast"><span class="ck">✓</span> <span id="toast-msg"></span></div>
 <div class="footer">
-  <a href="https://github.com/affaan-m/ECC" target="_blank">github.com/affaan-m/ECC</a>
+  <a href="https://github.com/stephenpaul2509c-ship-it/everything-gemini-code" target="_blank">github.com/stephenpaul2509c-ship-it/everything-gemini-code</a>
   <span class="dt"></span>
   <span>ECC v2.0.0-rc.1</span>
   <span class="dt"></span>

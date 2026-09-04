@@ -3,9 +3,9 @@
 const { version: ECC_VERSION } = require('../../package.json');
 
 const COMMUNITY_LINKS = Object.freeze({
-  github: 'https://github.com/affaan-m/ECC',
+  github: 'https://github.com/stephenpaul2509c-ship-it/everything-gemini-code',
   discord: 'https://discord.gg/36yGMHGFbR',
-  documentation: 'https://github.com/affaan-m/ECC#readme',
+  documentation: 'https://github.com/stephenpaul2509c-ship-it/everything-gemini-code#readme',
   githubApp: 'https://github.com/apps/ecc-tools',
 });
 

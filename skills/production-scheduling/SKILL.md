@@ -9,7 +9,7 @@ description: >
   resolving bottlenecks, optimizing changeovers, responding to disruptions,
   or balancing manufacturing lines.
 license: Apache-2.0
-homepage: https://github.com/affaan-m/everything-gemini-code
+homepage: https://github.com/stephenpaul2509c-ship-it/everything-gemini-code
 metadata:
   version: 1.0.0
   origin: EGC

@@ -126,4 +126,4 @@ This command invokes:
 
 ---
 
-*Part of [Everything Gemini Code](https://github.com/affaan-m/everything-gemini-code)*
+*Part of [Everything Gemini Code](https://github.com/stephenpaul2509c-ship-it/everything-gemini-code)*

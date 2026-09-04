@@ -826,7 +826,7 @@ function buildRequirements(rootDir, platformReport) {
       includesAll(namingMatrix, ['Gemini plugin', 'Codex plugin', 'npm package', 'Publication Paths'])
         && includesAll(releasePublicationChecklist, [
           'Ship `v2.0.0-rc.1` as **ECC**',
-          'affaan-m/ECC',
+          'stephenpaul2509c-ship-it/everything-gemini-code',
           'ecc-universal',
           'claude plugin tag .gemini-plugin --dry-run',
           'codex plugin marketplace add',

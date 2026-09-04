@@ -4,7 +4,7 @@
  * Cross-platform (Windows, macOS, Linux) project type detection
  * by inspecting files in the working directory.
  *
- * Resolves: https://github.com/affaan-m/everything-gemini-code/issues/293
+ * Resolves: https://github.com/stephenpaul2509c-ship-it/everything-gemini-code/issues/293
  */
 
 const fs = require('fs');

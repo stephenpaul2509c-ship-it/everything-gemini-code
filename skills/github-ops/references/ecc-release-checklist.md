@@ -1,6 +1,6 @@
 # EGC Signed Patch Release Checklist
 
-Use this when releasing `affaan-m/EGC`, especially for `EGC-031` or any follow-up
+Use this when releasing `stephenpaul2509c-ship-it/everything-gemini-code`, especially for `EGC-031` or any follow-up
 where the Git tag identity, npm provenance, GitHub Release, and announcement
 evidence all need to align.
 
@@ -41,9 +41,9 @@ Refresh those facts before mutating:
 ```bash
 git fetch origin main --tags
 git rev-parse origin/main
-gh run view 33429642769 --repo affaan-m/EGC --json status,conclusion,url
-gh run view 33429641766 --repo affaan-m/EGC --json status,conclusion,url
-gh release view v2.2.0 --repo affaan-m/EGC --json tagName,targetCommitish,publishedAt,url
+gh run view 33429642769 --repo stephenpaul2509c-ship-it/everything-gemini-code --json status,conclusion,url
+gh run view 33429641766 --repo stephenpaul2509c-ship-it/everything-gemini-code --json status,conclusion,url
+gh release view v2.2.0 --repo stephenpaul2509c-ship-it/everything-gemini-code --json tagName,targetCommitish,publishedAt,url
 git ls-remote --tags origin 'refs/tags/v2.2.0*'
 git tag -v v2.2.0
 npm view ecc-universal dist-tags --json
@@ -59,8 +59,8 @@ npm view ecc-universal dist-tags --json
 - Record the exact `main` SHA you are about to build from.
 
 ```bash
-gh pr list --repo affaan-m/EGC --state open --limit 20
-gh run list --repo affaan-m/EGC --branch main --limit 10
+gh pr list --repo stephenpaul2509c-ship-it/everything-gemini-code --state open --limit 20
+gh run list --repo stephenpaul2509c-ship-it/everything-gemini-code --branch main --limit 10
 git fetch origin main --tags
 git switch main
 git pull --ff-only origin main
@@ -82,7 +82,7 @@ Expected next version is `2.2.1` unless it already exists.
 ```bash
 VERSION=2.2.1
 git ls-remote --tags origin "refs/tags/v${VERSION}*"
-gh release view "v${VERSION}" --repo affaan-m/EGC
+gh release view "v${VERSION}" --repo stephenpaul2509c-ship-it/everything-gemini-code
 npm view "ecc-universal@${VERSION}" version
 ```
 
@@ -123,8 +123,8 @@ After the prep PR merges, the new `main` commit becomes the only commit you may
 tag.
 
 ```bash
-gh run list --repo affaan-m/EGC --branch main --limit 10
-gh run view RUN_ID --repo affaan-m/EGC --json status,conclusion,url
+gh run list --repo stephenpaul2509c-ship-it/everything-gemini-code --branch main --limit 10
+gh run view RUN_ID --repo stephenpaul2509c-ship-it/everything-gemini-code --json status,conclusion,url
 git fetch origin main --tags
 git switch main
 git pull --ff-only origin main
@@ -177,9 +177,9 @@ After the workflow succeeds:
 VERSION=2.2.1
 npm view ecc-universal dist-tags --json
 npm view "ecc-universal@${VERSION}" name version dist.integrity --json
-gh release view "v${VERSION}" --repo affaan-m/EGC \
+gh release view "v${VERSION}" --repo stephenpaul2509c-ship-it/everything-gemini-code \
   --json tagName,name,isDraft,isPrerelease,publishedAt,url
-gh api repos/affaan-m/EGC/releases/latest --jq .tag_name
+gh api repos/stephenpaul2509c-ship-it/everything-gemini-code/releases/latest --jq .tag_name
 npx --yes "ecc-universal@${VERSION}" setup --help
 npx --yes ecc-universal@latest setup --help
 ```
@@ -189,7 +189,7 @@ required by the checked-in runbook, and verify the native Gemini marketplace
 path remains installable:
 
 ```text
-/plugin marketplace add https://github.com/affaan-m/EGC
+/plugin marketplace add https://github.com/stephenpaul2509c-ship-it/everything-gemini-code
 /plugin install ecc@ecc
 ```
 

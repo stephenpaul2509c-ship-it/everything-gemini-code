@@ -149,7 +149,7 @@ claim those profiles map to Codex.
 If the EGC marketplace is missing, add it. Otherwise refresh its snapshot:
 
 ```bash
-codex plugin marketplace add affaan-m/EGC
+codex plugin marketplace add stephenpaul2509c-ship-it/everything-gemini-code
 codex plugin marketplace upgrade ecc --json
 ```
 

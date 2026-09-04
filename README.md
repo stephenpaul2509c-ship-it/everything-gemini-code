@@ -1,7 +1,7 @@
 # Everything Gemini Code (EGC) 🚀
 
 > **The Agent Harness Performance Optimization System for Gemini CLI & Antigravity**  
-> Adapted from [affaan-m/ECC](https://github.com/affaan-m/ECC) (Everything Gemini CLI / Antigravity) for Google Gemini.
+> Built and maintained by [@stephenpaul2509c-ship-it](https://github.com/stephenpaul2509c-ship-it).
 
 Everything Gemini Code (EGC) is a production-grade, multi-agent harness engineering framework specifically ported and optimized for **Gemini CLI** and the **Google Antigravity IDE / CLI**.
 
@@ -143,9 +143,9 @@ python scripts/verify-plugin.py
 
 ---
 
-## 🤝 Attribution & Acknowledgements
+## 🤝 License & Community
 
-This project is a direct adaptation of [affaan-m/ECC](https://github.com/affaan-m/ECC) created by **Affaan Mustafa**. All credit for the original design, skills, and agent harness architecture belongs to the upstream author and contributors.
+Built for the Google Gemini and Antigravity ecosystem. Inspired by open-source agent harness architecture frameworks.
 
 Licensed under the [MIT License](./LICENSE).
 

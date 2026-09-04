@@ -175,4 +175,4 @@ For advanced features (10k+ commits, team sharing, auto-PRs), use the [Skill Cre
 
 ---
 
-*Part of [Everything Gemini Code](https://github.com/affaan-m/everything-gemini-code)*
+*Part of [Everything Gemini Code](https://github.com/stephenpaul2509c-ship-it/everything-gemini-code)*
